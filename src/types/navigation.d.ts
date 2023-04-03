@@ -7,4 +7,5 @@ export interface IRoute {
   icon: ReactComponentElement | string;
   secondary?: boolean;
   path: string;
+  children?: Route[];
 }

@@ -4,7 +4,8 @@ import {
   MdPerson,
   MdHome,
   MdLock,
-  MdOutlineShoppingCart
+  MdOutlineShoppingCart,
+  MdLocalShipping
 } from 'react-icons/md'
 
 // Admin Imports
@@ -20,26 +21,36 @@ import { IRoute } from 'types/navigation'
 
 const routes: IRoute[] = [
   {
-    name: 'Main Dashboard',
+    name: 'Dashboard',
     layout: '/admin',
     path: '/default',
     icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
     component: MainDashboard
   },
   {
-    name: 'NFT Marketplace',
+    name: 'My fleet',
     layout: '/admin',
     path: '/nft-marketplace',
     icon: (
       <Icon
-        as={MdOutlineShoppingCart}
+        as={MdLocalShipping}
         width='20px'
         height='20px'
         color='inherit'
       />
     ),
     component: NFTMarketplace,
-    secondary: true
+    children: [
+     { 
+      name: 'Trucks',
+      path: '/fleet/truck',
+    },
+    { 
+      name: 'Drivers',
+      path: '/fleet/drivers',
+    },
+    ]
+    // secondary: true
   },
   {
     name: 'Data Tables',

@@ -5,12 +5,13 @@ import { Box, Flex, HStack, Text, useColorModeValue } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { IRoute } from 'types/navigation'
+import { ChevronDownIcon } from "@chakra-ui/icons";
 
 interface SidebarLinksProps {
   routes: IRoute[]
 }
 
-export function SidebarLinks (props: SidebarLinksProps) {
+export function SidebarLinks(props: SidebarLinksProps) {
   const { routes } = props
 
   //   Chakra color mode
@@ -33,6 +34,7 @@ export function SidebarLinks (props: SidebarLinksProps) {
   // this function creates the links from the secondary accordions (for example auth -> sign-in -> default)
   const createLinks = (routes: IRoute[]) => {
     return routes.map((route, index: number) => {
+      const hasChildren = route.children && route.children.length > 0;
       if (
         route.layout === '/admin' ||
         route.layout === '/auth' ||
@@ -76,6 +78,11 @@ export function SidebarLinks (props: SidebarLinksProps) {
                       >
                         {route.name}
                       </Text>
+                      {hasChildren && (
+                        <Box ml="4">
+                          <ChevronDownIcon />
+                        </Box>
+                      )}
                     </Flex>
                     <Box
                       h='36px'
@@ -113,6 +120,13 @@ export function SidebarLinks (props: SidebarLinksProps) {
                     >
                       {route.name}
                     </Text>
+                    {hasChildren && (
+                        <Box ml="4">
+                          <ChevronDownIcon 
+                          />
+                        </Box>
+                      )}
+
                     <Box h='36px' w='4px' bg='brand.400' borderRadius='5px' />
                   </HStack>
                 </Box>

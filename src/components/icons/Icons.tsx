@@ -477,6 +477,20 @@ export const HorizonLogo = createIcon({
   )
 })
 
+export const ComecariLogo = createIcon({
+  displayName: 'comecariLogo',
+  viewBox: '0 0 179 20', // Replace with appropriate viewBox dimensions
+  path: (
+    <g width='179' height='20' fill='none' xmlns='http://www.w3.org/2000/svg'>
+      <path
+        d='' // Replace with the Comecari logo's path data
+        fill='currentColor'
+      />
+    </g>
+  )
+});
+
+
 export const SupportIcon = createIcon({
   // Doesn't display the full icon without w and h being specified
   displayName: 'BuildIcon',

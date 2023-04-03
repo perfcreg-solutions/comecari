@@ -25,7 +25,7 @@ export default function AdminLayout (props: DashboardLayoutProps) {
   const [fixed] = useState(false)
   const [toggleSidebar, setToggleSidebar] = useState(false)
   // functions for changing the states from components
-  const { onOpen } = useDisclosure()
+  const { onOpen , onClose } = useDisclosure()
 
   useEffect(() => {
     window.document.documentElement.dir = 'ltr'
@@ -39,7 +39,7 @@ export default function AdminLayout (props: DashboardLayoutProps) {
           setToggleSidebar
         }}
       >
-        <Sidebar routes={routes} display='none' {...rest} />
+        <Sidebar routes={routes} />
         <Box
           float='right'
           minHeight='100vh'
