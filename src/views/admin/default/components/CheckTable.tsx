@@ -70,7 +70,7 @@ export default function CheckTable (props: TableProps) {
           fontWeight='700'
           lineHeight='100%'
         >
-          Check Table
+          Shipment History
         </Text>
         <Menu />
       </Flex>

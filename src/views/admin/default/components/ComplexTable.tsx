@@ -27,7 +27,7 @@ import Menu from 'components/menu/MainMenu'
 import { MdCheckCircle, MdCancel, MdOutlineError } from 'react-icons/md'
 import { TableProps } from '../variables/columnsData'
 export default function ColumnsTable (props: TableProps) {
-  const { columnsData, tableData } = props
+  const { columnsData, tableData, tableTitle } = props
 
   const columns = useMemo(() => columnsData, [columnsData])
   const data = useMemo(() => tableData, [tableData])
@@ -68,7 +68,7 @@ export default function ColumnsTable (props: TableProps) {
           fontWeight='700'
           lineHeight='100%'
         >
-          Complex Table
+          {tableTitle}
         </Text>
         <Menu />
       </Flex>
@@ -140,7 +140,7 @@ export default function ColumnsTable (props: TableProps) {
                         </Text>
                       </Flex>
                     )
-                  } else if (cell.column.Header === 'DATE') {
+                  } else if (cell.column.Header === 'VEHICLE') {
                     data = (
                       <Text color={textColor} fontSize='sm' fontWeight='700'>
                         {cell.value}
