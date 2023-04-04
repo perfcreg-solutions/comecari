@@ -122,8 +122,7 @@ export function SidebarLinks(props: SidebarLinksProps) {
                     </Text>
                     {hasChildren && (
                         <Box ml="4">
-                          <ChevronDownIcon 
-                          />
+                          <ChevronDownIcon />
                         </Box>
                       )}
 

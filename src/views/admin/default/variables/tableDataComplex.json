@@ -2,24 +2,32 @@
   {
     "name":"Mr Lekan",
     "status": "Approved",
+    "vehicle": "Audi Truck",
+    "started": "1 day ago",
     "date": "18 Apr 2022",
     "progress": 75.5  
   },
   {
     "name":"John Doe",
     "status": "Disable",
+    "vehicle": "Mercedes Truck",
+    "started": "24h ago",
     "date": "18 Apr 2022",
     "progress": 25.5  
   },
   {
     "name":"JD",
     "status": "Error",
+    "vehicle": "Audi Truck2",
+    "started": "22h ago",
     "date": "20 May 2021",
     "progress": 90  
   },
   {
     "name":"Peter Abe",
     "status": "Approved",
+    "vehicle": "Benz Truck",
+    "started": "14h ago",
     "date": "12 Jul 2021",
     "progress": 50.5  
   }
