@@ -53,5 +53,7 @@ export type TableData = Column<{
 export type TableProps = {
   columnsData: ColumnData;
   tableData: TableData[];
-  tableTitle: string | null
+  tableTitle: string | null;
+  buttonText: string | null;
+  buttonLink: string | null;
 };

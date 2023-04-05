@@ -1,32 +1,36 @@
 [
   {
     "name":"Mr Lekan",
-    "status": "Approved",
+    "status": "In Transit",
     "vehicle": "Audi Truck",
+    "vehicle_id": "Veh100001",
     "started": "1 day ago",
     "date": "18 Apr 2022",
     "progress": 75.5  
   },
   {
     "name":"John Doe",
-    "status": "Disable",
+    "status": "Cancelled",
     "vehicle": "Mercedes Truck",
+    "vehicle_id": "Veh100002",
     "started": "24h ago",
     "date": "18 Apr 2022",
     "progress": 25.5  
   },
   {
     "name":"JD",
-    "status": "Error",
+    "status": "Pending",
     "vehicle": "Audi Truck2",
+    "vehicle_id": "Veh100003",
     "started": "22h ago",
     "date": "20 May 2021",
     "progress": 90  
   },
   {
     "name":"Peter Abe",
-    "status": "Approved",
+    "status": "In Transit",
     "vehicle": "Benz Truck",
+    "vehicle_id": "Veh100004",
     "started": "14h ago",
     "date": "12 Jul 2021",
     "progress": 50.5  

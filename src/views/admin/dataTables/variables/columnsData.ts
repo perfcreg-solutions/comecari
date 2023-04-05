@@ -72,6 +72,10 @@ export const columnsDataComplex: Columns = [
     accessor: "vehicle",
   },
   {
+    Header: "VEHICLE ID",
+    accessor: "vehicle_id",
+  },
+  {
     Header: "STARTED",
     accessor: "started",
   },

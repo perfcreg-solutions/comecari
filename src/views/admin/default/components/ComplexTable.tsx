@@ -3,6 +3,7 @@ import {
   Table,
   Progress,
   Icon,
+  Button,
   IconButton,
   Tbody,
   Td,
@@ -30,6 +31,7 @@ import {
 // Custom components
 import Card from 'components/card/Card'
 import Menu from 'components/menu/MainMenu'
+import NextLink from 'next/link'
 
 // Assets
 import { MdCheckCircle, MdCancel, MdOutlineError } from 'react-icons/md'
@@ -40,7 +42,7 @@ import { TableProps } from '../variables/columnsData'
 // }
 export default function ColumnsTable (props: TableProps) {
   const pageSize = 3
-  const { columnsData, tableData, tableTitle } = props
+  const { columnsData, tableData, tableTitle, buttonText, buttonLink } = props
 
   const columns = useMemo(() => columnsData, [columnsData])
   const data = useMemo(() => tableData, [tableData])
@@ -105,7 +107,12 @@ export default function ColumnsTable (props: TableProps) {
         >
           {tableTitle}
         </Text>
-        <Menu />
+
+        <NextLink href={buttonLink}>
+          <Button colorScheme='blue' variant="solid">{buttonText}</Button>
+        </NextLink>
+        
+        {/* <Menu /> */}
       </Flex>
       <Table {...getTableProps()} variant='simple' color='gray.500' mb='24px'>
         <Thead>
@@ -152,20 +159,20 @@ export default function ColumnsTable (props: TableProps) {
                           h='24px'
                           me='5px'
                           color={
-                            cell.value === 'Approved'
+                            cell.value === 'In Transit'
                               ? 'green.500'
-                              : cell.value === 'Disable'
+                              : cell.value === 'Cancelled'
                               ? 'red.500'
-                              : cell.value === 'Error'
+                              : cell.value === 'Pending'
                               ? 'orange.500'
                               : null
                           }
                           as={
-                            cell.value === 'Approved'
+                            cell.value === 'In Transit'
                               ? MdCheckCircle
-                              : cell.value === 'Disable'
+                              : cell.value === 'Cancelled'
                               ? MdCancel
-                              : cell.value === 'Error'
+                              : cell.value === 'Pending'
                               ? MdOutlineError
                               : null
                           }
@@ -194,6 +201,12 @@ export default function ColumnsTable (props: TableProps) {
                       </Flex>
                     )
                   } else if (cell.column.Header === 'STARTED') {
+                    data = (
+                      <Text color={textColor} fontSize='sm' fontWeight='700'>
+                        {cell.value}
+                      </Text>
+                    )
+                  } else if (cell.column.Header === 'VEHICLE ID') {
                     data = (
                       <Text color={textColor} fontSize='sm' fontWeight='700'>
                         {cell.value}
