@@ -3,31 +3,46 @@ import {
   Table,
   Progress,
   Icon,
+  Button,
+  IconButton,
   Tbody,
   Td,
   Text,
   Th,
+  Tooltip,
   Thead,
   Tr,
   useColorModeValue
 } from '@chakra-ui/react'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import {
   useGlobalFilter,
   usePagination,
   useSortBy,
   useTable
 } from 'react-table'
+import {
+  ArrowRightIcon,
+  ArrowLeftIcon,
+  ChevronRightIcon,
+  ChevronLeftIcon
+} from "@chakra-ui/icons";
 
 // Custom components
 import Card from 'components/card/Card'
 import Menu from 'components/menu/MainMenu'
+import NextLink from 'next/link'
 
 // Assets
 import { MdCheckCircle, MdCancel, MdOutlineError } from 'react-icons/md'
 import { TableProps } from '../variables/columnsData'
+
+// interface TableProps {
+//   pageSize: 3
+// }
 export default function ColumnsTable (props: TableProps) {
-  const { columnsData, tableData, tableTitle } = props
+  const pageSize = 3
+  const { columnsData, tableData, tableTitle, buttonText, buttonLink } = props
 
   const columns = useMemo(() => columnsData, [columnsData])
   const data = useMemo(() => tableData, [tableData])
@@ -54,6 +69,28 @@ export default function ColumnsTable (props: TableProps) {
 
   const textColor = useColorModeValue('secondaryGray.900', 'white')
   const borderColor = useColorModeValue('gray.200', 'whiteAlpha.100')
+
+  const [currentPage, setCurrentPage] = useState(0)
+
+  // Calculates the total number of pages
+  const totalPages = Math.ceil(data.length / pageSize)
+
+  // Get the current page of data
+  const currentData = data.slice(
+    currentPage * pageSize,
+    (currentPage + 1) * pageSize
+  )
+
+  // Go to the next page
+  const nextPage = () => {
+    setCurrentPage(currentPage + 1)
+  }
+
+  // Go to the previous page
+  const prevPage = () => {
+    setCurrentPage(currentPage - 1)
+  }
+
   return (
     <Card
       flexDirection='column'
@@ -70,7 +107,16 @@ export default function ColumnsTable (props: TableProps) {
         >
           {tableTitle}
         </Text>
-        <Menu />
+
+       {buttonLink !== null && 
+       (
+        <NextLink href={buttonLink}>
+          <Button colorScheme='blue' variant="solid">{buttonText}</Button>
+        </NextLink>
+        )
+        }
+        
+        {/* <Menu /> */}
       </Flex>
       <Table {...getTableProps()} variant='simple' color='gray.500' mb='24px'>
         <Thead>
@@ -117,20 +163,20 @@ export default function ColumnsTable (props: TableProps) {
                           h='24px'
                           me='5px'
                           color={
-                            cell.value === 'Approved'
+                            cell.value === 'In Transit'
                               ? 'green.500'
-                              : cell.value === 'Disable'
+                              : cell.value === 'Cancelled'
                               ? 'red.500'
-                              : cell.value === 'Error'
+                              : cell.value === 'Pending'
                               ? 'orange.500'
                               : null
                           }
                           as={
-                            cell.value === 'Approved'
+                            cell.value === 'In Transit'
                               ? MdCheckCircle
-                              : cell.value === 'Disable'
+                              : cell.value === 'Cancelled'
                               ? MdCancel
-                              : cell.value === 'Error'
+                              : cell.value === 'Pending'
                               ? MdOutlineError
                               : null
                           }
@@ -158,6 +204,18 @@ export default function ColumnsTable (props: TableProps) {
                         />
                       </Flex>
                     )
+                  } else if (cell.column.Header === 'STARTED') {
+                    data = (
+                      <Text color={textColor} fontSize='sm' fontWeight='700'>
+                        {cell.value}
+                      </Text>
+                    )
+                  } else if (cell.column.Header === 'VEHICLE ID') {
+                    data = (
+                      <Text color={textColor} fontSize='sm' fontWeight='700'>
+                        {cell.value}
+                      </Text>
+                    )
                   }
                   return (
                     <Td
@@ -178,6 +236,7 @@ export default function ColumnsTable (props: TableProps) {
           })}
         </Tbody>
       </Table>
+      
     </Card>
   )
 }

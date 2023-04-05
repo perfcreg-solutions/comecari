@@ -68,15 +68,23 @@ export const columnsDataComplex: Columns = [
     accessor: "name",
   },
   {
-    Header: "STATUS",
-    accessor: "status",
+    Header: "VEHICLE",
+    accessor: "vehicle",
   },
   {
-    Header: "DATE",
-    accessor: "date",
+    Header: "VEHICLE ID",
+    accessor: "vehicle_id",
+  },
+  {
+    Header: "STARTED",
+    accessor: "started",
   },
   {
     Header: "PROGRESS",
     accessor: "progress",
+  },
+  {
+    Header: "STATUS",
+    accessor: "status",
   },
 ];

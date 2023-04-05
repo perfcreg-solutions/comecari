@@ -26,7 +26,7 @@ export const columnsDataComplex = [
   },
   {
     Header: "VEHICLE",
-    accessor: "date",
+    accessor: "vehicle",
   },
   {
     Header: "STATUS",
@@ -53,5 +53,7 @@ export type TableData = Column<{
 export type TableProps = {
   columnsData: ColumnData;
   tableData: TableData[];
-  tableTitle: string | null
+  tableTitle: string | null;
+  buttonText: string | null;
+  buttonLink: string | null;
 };

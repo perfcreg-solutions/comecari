@@ -29,7 +29,7 @@ import {} from 'components/charts/LineAreaChart'
 import { TableProps } from '../variables/columnsData'
 
 export default function CheckTable (props: TableProps) {
-  const { columnsData, tableData } = props
+  const { columnsData, tableData, tableTitle } = props
 
   const columns = useMemo(() => columnsData, [columnsData])
   const data = useMemo(() => tableData, [tableData])
@@ -70,7 +70,7 @@ export default function CheckTable (props: TableProps) {
           fontWeight='700'
           lineHeight='100%'
         >
-          Shipment History
+          {tableTitle}
         </Text>
         <Menu />
       </Flex>

@@ -29,19 +29,24 @@ export default function DataTables () {
           <DevelopmentTable
             columnsData={columnsDataDevelopment}
             tableData={(tableDataDevelopment as unknown) as TableData[]}
-            tableTitle="edewde"
+            tableTitle="edewde" 
+            buttonText={''} 
+            buttonLink={null}          
           />
           <CheckTable
             columnsData={columnsDataCheck}
             tableData={(tableDataCheck as unknown) as TableData[]}
             tableTitle="edewde"
+            buttonText={''} 
+            buttonLink={null}     
 
           />
           <ColumnsTable
             columnsData={columnsDataColumns}
             tableTitle="edewde"
-            tableData={(tableDataColumns as unknown) as TableData[]}
-          />
+            tableData={(tableDataColumns as unknown) as TableData[]} 
+            buttonText={''} 
+            buttonLink={''}          />
           <ComplexTable
             columnsData={columnsDataComplex}
             tableData={(tableDataComplex as unknown) as TableData[]}

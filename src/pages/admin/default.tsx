@@ -185,7 +185,8 @@ export default function UserReports () {
               columnsData={columnsDataComplex}
               tableData={(tableDataComplex as unknown) as TableData[]}
               tableTitle="Shipment Overview"
-
+              buttonText="To be removed"
+              buttonLink={null}
             />
           </SimpleGrid>
 
@@ -193,7 +194,8 @@ export default function UserReports () {
             <CheckTable
               columnsData={columnsDataCheck}
               tableData={(tableDataCheck as unknown) as TableData[]}
-              tableTitle="edewde"
+              // tableTitle="edewde"
+              tableTitle="Shipment History"
             />
 
             {/* <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px'>

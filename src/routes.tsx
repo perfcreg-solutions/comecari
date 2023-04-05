@@ -16,6 +16,8 @@ import { GiBarracksTent } from 'react-icons/gi'
 // Admin Imports
 import MainDashboard from 'pages/admin/default'
 import NFTMarketplace from 'pages/admin/nft-marketplace'
+import Jobs from 'pages/admin/jobs/index'
+import Postjob from 'pages/admin/jobs/post'
 import Profile from 'pages/admin/profile'
 import DataTables from 'pages/admin/data-tables'
 import RTL from 'pages/rtl/rtl-default'
@@ -62,8 +64,15 @@ const routes: IRoute[] = [
     layout: '/admin',
     path: '/jobs',
     icon: <Icon as={RiBriefcaseFill} width='20px' height='20px' color='inherit' />,
-    component: MainDashboard
+    component: Jobs
   },
+  // {
+  //   name: 'Post Jobs',
+  //   layout: '/admin',
+  //   path: '/postjob',
+  //   icon: <Icon as={RiBriefcaseFill} width='20px' height='20px' color='inherit' />,
+  //   component: Postjob
+  // },
   {
     name: 'Bids',
     layout: '/admin',

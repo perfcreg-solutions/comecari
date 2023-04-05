@@ -140,6 +140,7 @@ export function SidebarLinks(props: SidebarLinksProps) {
                         <Box ml="4">
                           <ChevronDownIcon 
                           onClick={()=> console.log('happy')}/>
+                          <ChevronDownIcon />
                         </Box>
                       )}
                       {renderChildren()}
