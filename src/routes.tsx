@@ -17,6 +17,8 @@ import { GiBarracksTent } from 'react-icons/gi'
 import MainDashboard from 'pages/admin/default'
 import NFTMarketplace from 'pages/admin/nft-marketplace'
 import Jobs from 'pages/admin/jobs'
+import Bids from 'pages/admin/bid'
+import Marketplace from 'pages/admin/marketplace'
 import Postjob from 'pages/admin/postjob'
 import Profile from 'pages/admin/profile'
 import DataTables from 'pages/admin/data-tables'
@@ -78,14 +80,14 @@ const routes: IRoute[] = [
     layout: '/admin',
     path: '/bids',
     icon: <Icon as={MdMoney} width='20px' height='20px' color='inherit' />,
-    component: MainDashboard
+    component: Bids
   },
   {
     name: 'Marketplace',
     layout: '/admin',
     path: '/marketplace',
     icon: <Icon as={GiBarracksTent} width='20px' height='20px' color='inherit' />,
-    component: MainDashboard
+    component: Marketplace
   },
   {
     name: 'Invoice',

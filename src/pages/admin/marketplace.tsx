@@ -6,13 +6,6 @@ import {
     Icon,
     Select,
     SimpleGrid,
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,
     useColorModeValue
 } from '@chakra-ui/react'
 // Assets
@@ -64,49 +57,21 @@ import Avatar2 from 'img/avatars/avatar2.png'
 import Avatar3 from 'img/avatars/avatar3.png'
 import Avatar4 from 'img/avatars/avatar4.png'
 
-export default function Bids() {
-    const { isOpen, onOpen, onClose } = useDisclosure()
+export default function Marketplace() {
+
     return (
         <AdminLayout>
             <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
                 <>
-                    <SimpleGrid columns={{ base: 1, md: 3, xl: 4 }} gap='20px' mb='20px'>
+                    <SimpleGrid columns={{ base: 1, md: 3, xl: 3 }} gap='20px' mb='20px'>
                         <NFT
                             name='Lagos to Abuja Cargo'
                             author='By Mr Joe'
-                            // bidders={[
-                            //     Avatar1,
-                            //     Avatar2,
-                            //     Avatar3,
-                            //     Avatar4,
-                            //     Avatar1,
-                            //     Avatar1,
-                            //     Avatar1,
-                            //     Avatar1
-                            // ]}
                             image={Nft1}
                             currentbid='300k'
                             download='#'
                         />
                     </SimpleGrid>
-
-                    <Modal isOpen={isOpen} onClose={onClose}>
-                        <ModalOverlay />
-                        <ModalContent>
-                            <ModalHeader>Modal Title</ModalHeader>
-                            <ModalCloseButton />
-                            <ModalBody>
-                                <Lorem count={2} />
-                            </ModalBody>
-
-                            <ModalFooter>
-                                <Button colorScheme='blue' mr={3} onClick={onClose}>
-                                    Close
-                                </Button>
-                                <Button variant='ghost'>Secondary Action</Button>
-                            </ModalFooter>
-                        </ModalContent>
-                    </Modal>
                 </>
             </Box>
         </AdminLayout>

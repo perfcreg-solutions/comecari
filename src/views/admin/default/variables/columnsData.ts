@@ -37,6 +37,24 @@ export const columnsDataComplex = [
     accessor: "progress",
   },
 ];
+export const ShipmentOverviewDataComplex = [
+  {
+    Header: "NAME",
+    accessor: "name",
+  },
+  {
+    Header: "VEHICLE",
+    accessor: "vehicle",
+  },
+  {
+    Header: "STATUS",
+    accessor: "status",
+  },
+  {
+    Header: "PROGRESS",
+    accessor: "progress",
+  },
+];
 
 export type ColumnData = Column[];
 
