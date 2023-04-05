@@ -58,6 +58,7 @@ export default function NFT(props: {
 	const { isOpen, onOpen, onClose } = useDisclosure()
 	const [overlay, setOverlay] = useState(<OverlayOne />)
 
+	
 
 
 	return (
@@ -173,6 +174,7 @@ export default function NFT(props: {
 									xl: '10px',
 									'2xl': '0px'
 								}}>
+								
 								<Button
 									variant='darkBrand'
 									color='white'
@@ -182,7 +184,7 @@ export default function NFT(props: {
 									px='24px'
 									py='5px'
 									onClick={() => {
-										setOverlay(<OverlayOne />)
+										// setOverlay(<OverlayOne />)
 										onOpen()
 									}}>
 									Read More
@@ -193,8 +195,8 @@ export default function NFT(props: {
 				</Flex>
 			</Card>
 
-			<Modal isCentered isOpen={isOpen} onClose={onClose}>
-				{overlay}
+			<Modal isCentered isOpen={isOpen} size="full" onClose={onClose}>
+				{/* {overlay} */}
 				<ModalContent>
 					<ModalHeader>Lagos to Abuja</ModalHeader>
 					<ModalCloseButton />
@@ -231,7 +233,7 @@ export default function NFT(props: {
 						<Button colorScheme='green' mx={2} variant='solid'>
 							Accept
 						</Button>
-						<Button colorScheme='blue' mr={3} onClick={onClose}>
+						<Button colorScheme='blue' mr={3}>
 							Place Bid
 						</Button>
 					</ModalFooter>

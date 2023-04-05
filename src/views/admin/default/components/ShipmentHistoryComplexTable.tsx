@@ -42,7 +42,7 @@ import { TableProps } from '../variables/columnsData'
 // }
 export default function ColumnsTable(props: TableProps) {
     const pageSize = 3
-    const { columnsData, tableData, tableTitle, buttonText, buttonLink } = props
+    const { columnsData, tableData, tableTitle } = props
 
     const columns = useMemo(() => columnsData, [columnsData])
     const data = useMemo(() => tableData, [tableData])
@@ -108,10 +108,6 @@ export default function ColumnsTable(props: TableProps) {
                     {tableTitle}
                 </Text>
 
-                <NextLink href={buttonLink}>
-                    <Button colorScheme='blue' variant="solid">{buttonText}</Button>
-                </NextLink>
-
                 {/* <Menu /> */}
             </Flex>
             <Table {...getTableProps()} variant='simple' color='gray.500' mb='24px'>
@@ -151,36 +147,11 @@ export default function ColumnsTable(props: TableProps) {
                                                 {cell.value}
                                             </Text>
                                         )
-                                    } else if (cell.column.Header === 'STATUS') {
+                                    } else if (cell.column.Header === 'PICKUP') {
                                         data = (
-                                            <Flex align='center'>
-                                                <Icon
-                                                    w='24px'
-                                                    h='24px'
-                                                    me='5px'
-                                                    color={
-                                                        cell.value === 'In Transit'
-                                                            ? 'green.500'
-                                                            : cell.value === 'Cancelled'
-                                                                ? 'red.500'
-                                                                : cell.value === 'Pending'
-                                                                    ? 'orange.500'
-                                                                    : null
-                                                    }
-                                                    as={
-                                                        cell.value === 'In Transit'
-                                                            ? MdCheckCircle
-                                                            : cell.value === 'Cancelled'
-                                                                ? MdCancel
-                                                                : cell.value === 'Pending'
-                                                                    ? MdOutlineError
-                                                                    : null
-                                                    }
-                                                />
-                                                <Text color={textColor} fontSize='sm' fontWeight='700'>
-                                                    {cell.value}
-                                                </Text>
-                                            </Flex>
+                                            <Text color={textColor} fontSize='sm' fontWeight='700'>
+                                                {cell.value}
+                                            </Text>
                                         )
                                     } else if (cell.column.Header === 'VEHICLE') {
                                         data = (
@@ -188,17 +159,11 @@ export default function ColumnsTable(props: TableProps) {
                                                 {cell.value}
                                             </Text>
                                         )
-                                    } else if (cell.column.Header === 'PROGRESS') {
+                                    } else if (cell.column.Header === 'DESTINATION') {
                                         data = (
-                                            <Flex align='center'>
-                                                <Progress
-                                                    variant='table'
-                                                    colorScheme='brandScheme'
-                                                    h='8px'
-                                                    w='108px'
-                                                    value={cell.value}
-                                                />
-                                            </Flex>
+                                            <Text color={textColor} fontSize='sm' fontWeight='700'>
+                                                {cell.value}
+                                            </Text>
                                         )
                                     } else if (cell.column.Header === 'STARTED') {
                                         data = (
@@ -207,6 +172,12 @@ export default function ColumnsTable(props: TableProps) {
                                             </Text>
                                         )
                                     } else if (cell.column.Header === 'VEHICLE ID') {
+                                        data = (
+                                            <Text color={textColor} fontSize='sm' fontWeight='700'>
+                                                {cell.value}
+                                            </Text>
+                                        )
+                                    } else if (cell.column.Header === 'PAYMENT') {
                                         data = (
                                             <Text color={textColor} fontSize='sm' fontWeight='700'>
                                                 {cell.value}

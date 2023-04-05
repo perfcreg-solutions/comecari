@@ -8,7 +8,8 @@
     "date": "18 Apr 2022",
     "progress": 75.5,
     "pickup": "Ikeja, Lagos",
-    "destination": "Abuja"
+    "destination": "Abuja",
+    "payment": "$240"
   },
   {
     "name":"John Doe",
@@ -19,7 +20,8 @@
     "date": "18 Apr 2022",
     "progress": 25.5  ,
     "pickup": "Ikeja, Lagos",
-    "destination": "Abuja"
+    "destination": "Abuja",
+    "payment": "$400"
   },
   {
     "name":"JD",
@@ -30,7 +32,8 @@
     "date": "20 May 2021",
     "progress": 90,
     "pickup": "Ikeja, Lagos",
-    "destination": "Abuja"
+    "destination": "Abuja",
+    "payment": "$240"
   },
   {
     "name":"Peter Abe",
@@ -41,6 +44,7 @@
     "date": "12 Jul 2021",
     "progress": 50.5,
     "pickup": "Ikeja, Lagos",
-    "destination": "Abuja"
+    "destination": "Abuja",
+    "payment": "$340"
   }
 ]

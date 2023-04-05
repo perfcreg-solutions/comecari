@@ -32,10 +32,12 @@ import WeeklyRevenue from 'views/admin/default/components/WeeklyRevenue'
 import {
   columnsDataCheck,
   ShipmentOverviewDataComplex,
+  ShipmentHistoryDataComplex,
   TableData
 } from 'views/admin/default/variables/columnsData'
 import tableDataCheck from 'views/admin/default/variables/tableDataCheck.json'
-import tableDataComplex from 'views/admin/default/variables/tableDataComplex.json'
+// import tableDataComplex from 'views/admin/default/variables/tableDataComplex.json'
+import tableShipmentData from 'views/admin/default/variables/tableShipmentData.json'
 import { isWindowAvailable } from 'utils/navigation'
 import AdminLayout from 'layouts/admin'
 import { Image } from 'components/image/Image'
@@ -184,7 +186,7 @@ export default function UserReports () {
             {/* <TotalSpent /> */}
             <ShipmentOverviewComplexTable
               columnsData={ShipmentOverviewDataComplex}
-              tableData={(tableDataComplex as unknown) as TableData[]}
+              tableData={(tableShipmentData as unknown) as TableData[]}
               tableTitle="Shipment Overview"
               buttonText={null}
               buttonLink="/admin/postjob"
@@ -193,11 +195,10 @@ export default function UserReports () {
 
           <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap='20px' mb='20px'>
             <ShipmentHistoryComplexTable
-              columnsData={ShipmentOverviewDataComplex}
-              tableData={(tableDataComplex as unknown) as TableData[]}
+              columnsData={ShipmentHistoryDataComplex}
+              tableData={(tableShipmentData as unknown) as TableData[]}
               tableTitle="Shipment History"
-              buttonText="View History"
-              buttonLink="/shipment/history"
+              
             />
 
             {/* <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px'>

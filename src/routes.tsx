@@ -19,7 +19,6 @@ import NFTMarketplace from 'pages/admin/nft-marketplace'
 import Jobs from 'pages/admin/jobs'
 import Bids from 'pages/admin/bid'
 import Marketplace from 'pages/admin/marketplace'
-import Postjob from 'pages/admin/postjob'
 import Profile from 'pages/admin/profile'
 import DataTables from 'pages/admin/data-tables'
 import RTL from 'pages/rtl/rtl-default'
@@ -68,13 +67,6 @@ const routes: IRoute[] = [
     icon: <Icon as={RiBriefcaseFill} width='20px' height='20px' color='inherit' />,
     component: Jobs
   },
-  // {
-  //   name: 'Post Jobs',
-  //   layout: '/admin',
-  //   path: '/postjob',
-  //   icon: <Icon as={RiBriefcaseFill} width='20px' height='20px' color='inherit' />,
-  //   component: Postjob
-  // },
   {
     name: 'Bids',
     layout: '/admin',
