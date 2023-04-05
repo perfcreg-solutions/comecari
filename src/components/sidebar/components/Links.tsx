@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 // chakra imports
-import { Box, Flex, HStack, Text, useColorModeValue } from '@chakra-ui/react'
+import { Box, Collapse, Flex, HStack, MenuItem, MenuList, Text, useColorModeValue } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { IRoute } from 'types/navigation'
@@ -13,6 +13,7 @@ interface SidebarLinksProps {
 
 export function SidebarLinks(props: SidebarLinksProps) {
   const { routes } = props
+  
 
   //   Chakra color mode
   const router = useRouter()
@@ -35,6 +36,20 @@ export function SidebarLinks(props: SidebarLinksProps) {
   const createLinks = (routes: IRoute[]) => {
     return routes.map((route, index: number) => {
       const hasChildren = route.children && route.children.length > 0;
+
+      const renderChildren = () => {
+        if (!hasChildren) return null;
+        return (
+            <MenuList>
+              {route.children.map((child, index) => (
+                <Link key={index} href={child.layout + child.path}>
+                  <MenuItem as="a">{child.name}</MenuItem>
+                </Link>
+              ))}
+            </MenuList>
+        );
+      };
+
       if (
         route.layout === '/admin' ||
         route.layout === '/auth' ||
@@ -84,6 +99,7 @@ export function SidebarLinks(props: SidebarLinksProps) {
                         </Box>
                       )}
                     </Flex>
+                   
                     <Box
                       h='36px'
                       w='4px'
@@ -123,9 +139,10 @@ export function SidebarLinks(props: SidebarLinksProps) {
                     {hasChildren && (
                         <Box ml="4">
                           <ChevronDownIcon 
-                          />
+                          onClick={()=> console.log('happy')}/>
                         </Box>
                       )}
+                      {renderChildren()}
 
                     <Box h='36px' w='4px' bg='brand.400' borderRadius='5px' />
                   </HStack>

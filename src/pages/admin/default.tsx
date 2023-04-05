@@ -193,6 +193,7 @@ export default function UserReports () {
             <CheckTable
               columnsData={columnsDataCheck}
               tableData={(tableDataCheck as unknown) as TableData[]}
+              tableTitle="edewde"
             />
 
             {/* <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px'>

@@ -29,18 +29,24 @@ export default function DataTables () {
           <DevelopmentTable
             columnsData={columnsDataDevelopment}
             tableData={(tableDataDevelopment as unknown) as TableData[]}
+            tableTitle="edewde"
           />
           <CheckTable
             columnsData={columnsDataCheck}
             tableData={(tableDataCheck as unknown) as TableData[]}
+            tableTitle="edewde"
+
           />
           <ColumnsTable
             columnsData={columnsDataColumns}
+            tableTitle="edewde"
             tableData={(tableDataColumns as unknown) as TableData[]}
           />
           <ComplexTable
             columnsData={columnsDataComplex}
             tableData={(tableDataComplex as unknown) as TableData[]}
+            tableTitle="edewde"
+
           />
         </SimpleGrid>
       </Box>
