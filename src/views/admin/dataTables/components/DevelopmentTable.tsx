@@ -25,7 +25,7 @@ import {
 import { TableProps } from 'views/admin/default/variables/columnsData'
 
 export default function DevelopmentTable (props: TableProps) {
-  const { columnsData, tableData } = props
+  const { columnsData, tableData, tableTitle } = props
 
   const columns = useMemo(() => columnsData, [columnsData])
   const data = useMemo(() => tableData, [tableData])
@@ -77,7 +77,7 @@ export default function DevelopmentTable (props: TableProps) {
           fontWeight='700'
           lineHeight='100%'
         >
-          Development Table
+          {tableTitle}
         </Text>
         <Menu />
       </Flex>
@@ -118,6 +118,32 @@ export default function DevelopmentTable (props: TableProps) {
                         {cell.value}
                       </Text>
                     )
+                  } else if (cell.column.Header === 'DATE') {
+                    data = (
+                      <Text color={textColor} fontSize='sm' fontWeight='700'>
+                        {cell.value}
+                      </Text>
+                    )
+                  } else if (cell.column.Header === 'PROGRESS') {
+                    data = (
+                      <Flex align='center'>
+                        <Text
+                          me='10px'
+                          color={textColor}
+                          fontSize='sm'
+                          fontWeight='700'
+                        >
+                          {cell.value}%
+                        </Text>
+                        <Progress
+                          variant='table'
+                          colorScheme='brandScheme'
+                          h='8px'
+                          w='63px'
+                          value={cell.value}
+                        />
+                      </Flex>
+                    )
                   } else if (cell.column.Header === 'TECH') {
                     data = (
                       <Flex align='center'>
@@ -153,32 +179,6 @@ export default function DevelopmentTable (props: TableProps) {
                             )
                           }
                         })}
-                      </Flex>
-                    )
-                  } else if (cell.column.Header === 'DATE') {
-                    data = (
-                      <Text color={textColor} fontSize='sm' fontWeight='700'>
-                        {cell.value}
-                      </Text>
-                    )
-                  } else if (cell.column.Header === 'PROGRESS') {
-                    data = (
-                      <Flex align='center'>
-                        <Text
-                          me='10px'
-                          color={textColor}
-                          fontSize='sm'
-                          fontWeight='700'
-                        >
-                          {cell.value}%
-                        </Text>
-                        <Progress
-                          variant='table'
-                          colorScheme='brandScheme'
-                          h='8px'
-                          w='63px'
-                          value={cell.value}
-                        />
                       </Flex>
                     )
                   }

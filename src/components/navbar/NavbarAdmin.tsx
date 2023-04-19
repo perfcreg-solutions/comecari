@@ -130,7 +130,7 @@ export default function AdminNavbar (props: {
           <Link
             color={mainText}
             href='#'
-            bg='inherit'
+            bg='inherit
             borderRadius='inherit'
             fontWeight='bold'
             fontSize='34px'

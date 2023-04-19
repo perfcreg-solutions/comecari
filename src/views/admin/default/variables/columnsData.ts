@@ -26,7 +26,25 @@ export const columnsDataComplex = [
   },
   {
     Header: "VEHICLE",
-    accessor: "date",
+    accessor: "vehicle",
+  },
+  {
+    Header: "STATUS",
+    accessor: "status",
+  },
+  {
+    Header: "PROGRESS",
+    accessor: "progress",
+  },
+];
+export const ShipmentOverviewDataComplex = [
+  {
+    Header: "NAME",
+    accessor: "name",
+  },
+  {
+    Header: "VEHICLE",
+    accessor: "vehicle",
   },
   {
     Header: "STATUS",
@@ -53,5 +71,7 @@ export type TableData = Column<{
 export type TableProps = {
   columnsData: ColumnData;
   tableData: TableData[];
-  tableTitle: string | null
+  tableTitle: string | null;
+  buttonText: string | null;
+  buttonLink: string | null;
 };
