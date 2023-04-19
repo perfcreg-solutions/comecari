@@ -111,6 +111,7 @@ export default function NftMarketplace () {
                   </NextLink>
                 </Flex>
               </Flex>
+              
               <SimpleGrid columns={{ base: 1, md: 3 }} gap='20px'>
                 <NFT
                   name='Abstract Colors'
