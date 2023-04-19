@@ -125,7 +125,7 @@ export default function RTLDashboard() {
 					<WeeklyRevenue />
 				</SimpleGrid>
 				<SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap='20px' mb='20px'>
-					<CheckTable columnsData={columnsDataCheck} tableData={(tableDataCheck as unknown) as TableData[]} />
+					<CheckTable columnsData={columnsDataCheck} tableData={(tableDataCheck as unknown) as TableData[]} tableTitle='' />
 					<SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px'>
 						<DailyTraffic />
 						<PieCard />
@@ -135,6 +135,9 @@ export default function RTLDashboard() {
 					<ComplexTable
 						columnsData={columnsDataComplex}
 						tableData={(tableDataComplex as unknown) as TableData[]}
+						tableTitle=''
+						buttonText=''
+						buttonLink=''
 					/>
 					<SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px'>
 						<Tasks />

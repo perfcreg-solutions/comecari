@@ -35,12 +35,12 @@ import NextLink from 'next/link'
 
 // Assets
 import { MdCheckCircle, MdCancel, MdOutlineError } from 'react-icons/md'
-import { TableProps } from '../variables/columnsData'
+import { ComplexTableProps } from '../variables/columnsData'
 
 // interface TableProps {
 //   pageSize: 3
 // }
-export default function ColumnsTable (props: TableProps) {
+export default function ColumnsTable (props: ComplexTableProps) {
   const pageSize = 3
   const { columnsData, tableData, tableTitle, buttonText, buttonLink } = props
 

@@ -22,7 +22,8 @@ import {
   MdFireTruck
 } from 'react-icons/md'
 import CheckTable from 'views/admin/default/components/CheckTable'
-import ComplexTable from 'views/admin/default/components/ComplexTable'
+import ShipmentOverviewComplexTable from 'views/admin/default/components/ShipmentOverviewComplexTable'
+import ShipmentHistoryComplexTable from 'views/admin/default/components/ShipmentHistoryComplexTable'
 import DailyTraffic from 'views/admin/default/components/DailyTraffic'
 import PieCard from 'views/admin/default/components/PieCard'
 import Tasks from 'views/admin/default/components/Tasks'
@@ -30,17 +31,20 @@ import TotalSpent from 'views/admin/default/components/TotalSpent'
 import WeeklyRevenue from 'views/admin/default/components/WeeklyRevenue'
 import {
   columnsDataCheck,
-  columnsDataComplex,
-  TableData
+  ShipmentOverviewDataComplex,
+  ShipmentHistoryDataComplex,
+  TableData,
+  shipmentData
 } from 'views/admin/default/variables/columnsData'
 import tableDataCheck from 'views/admin/default/variables/tableDataCheck.json'
-import tableDataComplex from 'views/admin/default/variables/tableDataComplex.json'
+// import tableDataComplex from 'views/admin/default/variables/tableDataComplex.json'
+import tableShipmentData from 'views/admin/default/variables/tableShipmentData.json'
 import { isWindowAvailable } from 'utils/navigation'
 import AdminLayout from 'layouts/admin'
 import { Image } from 'components/image/Image'
 import Usa from 'img/dashboards/usa.png'
 
-export default function UserReports () {
+export default function UserReports() {
   // Chakra Color Mode
 
   const brandColor = useColorModeValue('brand.500', 'white')
@@ -181,21 +185,19 @@ export default function UserReports () {
           <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px' mb='20px'>
             <WeeklyRevenue />
             {/* <TotalSpent /> */}
-            <ComplexTable
-              columnsData={columnsDataComplex}
-              tableData={(tableDataComplex as unknown) as TableData[]}
+            <ShipmentOverviewComplexTable
+              columnsData={ShipmentOverviewDataComplex}
+              tableData={(tableShipmentData as unknown) as shipmentData[]}
               tableTitle="Shipment Overview"
-              buttonText="To be removed"
-              buttonLink={null}
             />
           </SimpleGrid>
 
           <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap='20px' mb='20px'>
-            <CheckTable
-              columnsData={columnsDataCheck}
-              tableData={(tableDataCheck as unknown) as TableData[]}
-              // tableTitle="edewde"
+            <ShipmentHistoryComplexTable
+              columnsData={ShipmentHistoryDataComplex}
+              tableData={(tableShipmentData as unknown) as TableData[]}
               tableTitle="Shipment History"
+
             />
 
             {/* <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px'>
@@ -214,7 +216,7 @@ export default function UserReports () {
               <MiniCalendar h='100%' minW='100%' selectRange={false} />
             </SimpleGrid>
           </SimpleGrid> */}
-          
+
         </>
       </Box>
     </AdminLayout>

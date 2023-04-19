@@ -6,7 +6,9 @@
     "vehicle_id": "Veh100001",
     "started": "1 day ago",
     "date": "18 Apr 2022",
-    "progress": 75.5  
+    "progress": 75.5,
+    "pickup": "Ikeja, Lagos",
+    "destination": "Abuja"
   },
   {
     "name":"John Doe",
@@ -15,7 +17,9 @@
     "vehicle_id": "Veh100002",
     "started": "24h ago",
     "date": "18 Apr 2022",
-    "progress": 25.5  
+    "progress": 25.5  ,
+    "pickup": "Ikeja, Lagos",
+    "destination": "Abuja"
   },
   {
     "name":"JD",
@@ -24,7 +28,9 @@
     "vehicle_id": "Veh100003",
     "started": "22h ago",
     "date": "20 May 2021",
-    "progress": 90  
+    "progress": 90,
+    "pickup": "Ikeja, Lagos",
+    "destination": "Abuja"
   },
   {
     "name":"Peter Abe",
@@ -33,6 +39,8 @@
     "vehicle_id": "Veh100004",
     "started": "14h ago",
     "date": "12 Jul 2021",
-    "progress": 50.5  
+    "progress": 50.5,
+    "pickup": "Ikeja, Lagos",
+    "destination": "Abuja"
   }
 ]
