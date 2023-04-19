@@ -55,6 +55,32 @@ export const ShipmentOverviewDataComplex = [
     accessor: "progress",
   },
 ];
+export const ShipmentHistoryDataComplex = [
+  {
+    Header: "NAME",
+    accessor: "name",
+  },
+  {
+    Header: "VEHICLE",
+    accessor: "vehicle",
+  },
+  {
+    Header: "VEHICLE ID",
+    accessor: "vehicle_id",
+  },
+  {
+    Header: "PICKUP",
+    accessor: "pickup",
+  },
+  {
+    Header: "DESTINATION",
+    accessor: "destination",
+  },
+  {
+    Header: "PAYMENT",
+    accessor: "payment",
+  },
+];
 
 export type ColumnData = Column[];
 
@@ -72,6 +98,22 @@ export type TableProps = {
   columnsData: ColumnData;
   tableData: TableData[];
   tableTitle: string | null;
-  buttonText: string | null;
-  buttonLink: string | null;
 };
+
+export type shipmentData = {
+  name: string;
+  vehicle_id: string;
+  started: Date;
+  vehicle: string;
+  driver: string;
+  pickup: string;
+  package: string;
+  date: Date;
+  status: string;
+}
+
+export type shipmentProps = {
+  columnsData : ColumnData;
+  tableData: shipmentData[]
+  tableTitle: string | null
+}

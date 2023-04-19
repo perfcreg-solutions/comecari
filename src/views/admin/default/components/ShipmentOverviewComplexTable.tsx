@@ -35,14 +35,14 @@ import NextLink from 'next/link'
 
 // Assets
 import { MdCheckCircle, MdCancel, MdOutlineError } from 'react-icons/md'
-import { TableProps } from '../variables/columnsData'
+import { shipmentProps } from '../variables/columnsData'
 
 // interface TableProps {
 //   pageSize: 3
 // }
-export default function ColumnsTable(props: TableProps) {
+export default function ColumnsTable(props: shipmentProps) {
     const pageSize = 3
-    const { columnsData, tableData, tableTitle, buttonText, buttonLink } = props
+    const { columnsData, tableData, tableTitle } = props
 
     const columns = useMemo(() => columnsData, [columnsData])
     const data = useMemo(() => tableData, [tableData])

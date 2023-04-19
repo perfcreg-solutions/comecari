@@ -14,7 +14,7 @@ import { useState, useEffect } from 'react'
 import AdminNavbarLinks from 'components/navbar/NavbarLinksAdmin'
 import { isWindowAvailable } from 'utils/navigation'
 
-export default function AdminNavbar (props: {
+export default function AdminNavbar(props: {
   secondary: boolean
   message: string | boolean
   brandText: string
@@ -112,6 +112,7 @@ export default function AdminNavbar (props: {
         alignItems={{ xl: 'center' }}
         mb={gap}
       >
+
         <Box mb={{ sm: '8px', md: '0px' }}>
           <Breadcrumb>
             <BreadcrumbItem color={secondaryText} fontSize='sm' mb='5px'>
@@ -127,10 +128,12 @@ export default function AdminNavbar (props: {
             </BreadcrumbItem>
           </Breadcrumb>
           {/* Here we create navbar brand, based on route name */}
+
+
           <Link
             color={mainText}
             href='#'
-            bg='inherit
+            bg='inherit'
             borderRadius='inherit'
             fontWeight='bold'
             fontSize='34px'
@@ -142,11 +145,12 @@ export default function AdminNavbar (props: {
             }}
             _focus={{
               boxShadow: 'none'
-            }}
-          >
+            }}>
             {brandText}
           </Link>
-        </Box>
+        </Box >
+
+
         <Box ms='auto' w={{ sm: '100%', md: 'unset' }}>
           <AdminNavbarLinks
             onOpen={props.onOpen}
@@ -154,7 +158,8 @@ export default function AdminNavbar (props: {
             fixed={props.fixed}
           />
         </Box>
-      </Flex> 
-    </Box>
+
+      </Flex >
+    </Box >
   )
 }
