@@ -1,19 +1,19 @@
 /* eslint-disable */
 
 // chakra imports
-import { Box, Collapse, Flex, HStack, MenuItem, MenuList, Text, useColorModeValue } from '@chakra-ui/react'
+import { Icon, Box, Flex, HStack, VStack, Text, useColorModeValue } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { IRoute } from 'types/navigation'
-import { ChevronDownIcon } from "@chakra-ui/icons";
-
+import { ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
+import { useState } from 'react';
 interface SidebarLinksProps {
   routes: IRoute[]
 }
 
 export function SidebarLinks(props: SidebarLinksProps) {
   const { routes } = props
-  
+
 
   //   Chakra color mode
   const router = useRouter()
@@ -32,23 +32,56 @@ export function SidebarLinks(props: SidebarLinksProps) {
     return router.pathname.includes(routeName)
   }
 
+  const [isOpen, setIsOpen] = useState(false);
+  // const hasChildren = !!children;
+
+  const toggleChildren = () => {
+    setIsOpen(!isOpen);
+  };
+
   // this function creates the links from the secondary accordions (for example auth -> sign-in -> default)
   const createLinks = (routes: IRoute[]) => {
     return routes.map((route, index: number) => {
-      const hasChildren = route.children && route.children.length > 0;
+      const hasChildren = route.children;
 
       const renderChildren = () => {
-        if (!hasChildren) return null;
         return (
-            <MenuList>
-              {route.children.map((child, index) => (
-                <Link key={index} href={child.layout + child.path}>
-                  <MenuItem as="a">{child.name}</MenuItem>
-                </Link>
-              ))}
-            </MenuList>
-        );
+          <>
+            {isOpen &&
+              <VStack mt={2}spacing={1}>
+                {hasChildren.map((childRoute, childIndex) => (
+                      <Link key={childIndex} href={childRoute.layout + childRoute.path}>
+                        <Text
+                          me='auto'
+                          color={
+                            activeRoute(route.path.toLowerCase())
+                              ? activeColor
+                              : inactiveColor
+                          }
+                          fontWeight={
+                            activeRoute(route.path.toLowerCase())
+                              ? 'bold'
+                              : 'normal'
+                          }
+                        >
+                          {childRoute.name}
+                        </Text>
+                      </Link>
+                ))}
+              </VStack>
+            }
+          </>
+        )
+      }
+
+
+      const handleClick = (e: React.MouseEvent) => {
+        if (hasChildren) {
+          e.preventDefault();
+          toggleChildren();
+        }
       };
+
 
       if (
         route.layout === '/admin' ||
@@ -57,7 +90,7 @@ export function SidebarLinks(props: SidebarLinksProps) {
       ) {
         return (
           <Link key={index} href={route.layout + route.path}>
-            <a>
+            <a onClick={handleClick}>
               {route.icon ? (
                 <Box>
                   <HStack
@@ -93,13 +126,11 @@ export function SidebarLinks(props: SidebarLinksProps) {
                       >
                         {route.name}
                       </Text>
-                      {hasChildren && (
-                        <Box ml="4">
-                          <ChevronDownIcon />
-                        </Box>
-                      )}
+                      {hasChildren && isOpen && renderChildren()}
+
                     </Flex>
-                   
+
+
                     <Box
                       h='36px'
                       w='4px'
@@ -111,6 +142,7 @@ export function SidebarLinks(props: SidebarLinksProps) {
                       borderRadius='5px'
                     />
                   </HStack>
+
                 </Box>
               ) : (
                 <Box>
@@ -136,15 +168,13 @@ export function SidebarLinks(props: SidebarLinksProps) {
                     >
                       {route.name}
                     </Text>
-                    {hasChildren && (
-                        <Box ml="4">
-                          <ChevronDownIcon />
-                        </Box>
-                      )}
-                      {renderChildren()}
+                    {hasChildren && isOpen && renderChildren()}
+
 
                     <Box h='36px' w='4px' bg='brand.400' borderRadius='5px' />
                   </HStack>
+
+
                 </Box>
               )}
             </a>
@@ -153,7 +183,7 @@ export function SidebarLinks(props: SidebarLinksProps) {
       }
     })
   }
-  //  BRAND
+
   return <>{createLinks(routes)}</>
 }
 
