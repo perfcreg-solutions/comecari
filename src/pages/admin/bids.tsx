@@ -1,8 +1,6 @@
 import {
     Box,
-    SimpleGrid,
-    useColorModeValue
-} from '@chakra-ui/react'
+    SimpleGrid} from '@chakra-ui/react'
 import tableJobsData from 'views/admin/job/variables/tableJobsData.json'
 import { TableData } from 'views/admin/job/variables/columnsData'
 
