@@ -51,7 +51,7 @@ export default function UserReports() {
   const boxBg = useColorModeValue('secondaryGray.300', 'whiteAlpha.100')
 
   return (
-    <AdminLayout>
+    <AdminLayout brandtext={"Dashboard"}>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
         <>
           <SimpleGrid

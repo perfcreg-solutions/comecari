@@ -13,6 +13,7 @@ import {
 import { useState, useEffect } from 'react'
 import AdminNavbarLinks from 'components/navbar/NavbarLinksAdmin'
 import { isWindowAvailable } from 'utils/navigation'
+import { useRouter } from 'next/router';
 
 export default function AdminNavbar(props: {
   secondary: boolean
@@ -59,6 +60,29 @@ export default function AdminNavbar(props: {
       setScrolled(false)
     }
   }
+
+
+  // Inside your component
+  const router = useRouter();
+  const pathSegments = router.asPath.split('/').filter((segment) => segment);
+
+  const renderBreadcrumbs = () => {
+    const breadcrumbs = pathSegments.map((segment, index) => {
+      const pathToSegment = '/' + pathSegments.slice(0, index + 1).join('/');
+
+      return (
+        <BreadcrumbItem key={index} color={secondaryText} fontSize='sm' mb='5px'>
+          <Link href={pathToSegment}>
+            <BreadcrumbLink href={pathToSegment} color={secondaryText}>
+              {segment} 
+            </BreadcrumbLink>
+          </Link>
+        </BreadcrumbItem>
+      );
+    });
+
+    return breadcrumbs;
+  };
 
   return (
     <Box
@@ -114,7 +138,7 @@ export default function AdminNavbar(props: {
       >
 
         <Box mb={{ sm: '8px', md: '0px' }}>
-          <Breadcrumb>
+          {/* <Breadcrumb>
             <BreadcrumbItem color={secondaryText} fontSize='sm' mb='5px'>
               <BreadcrumbLink href='#' color={secondaryText}>
                 Pages
@@ -127,7 +151,11 @@ export default function AdminNavbar(props: {
               </BreadcrumbLink>
             </BreadcrumbItem>
           </Breadcrumb>
-          {/* Here we create navbar brand, based on route name */}
+          Here we create navbar brand, based on route name */}
+
+          <Breadcrumb>
+            {renderBreadcrumbs()}
+          </Breadcrumb>
 
 
           <Link

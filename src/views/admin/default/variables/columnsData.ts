@@ -1,5 +1,6 @@
 import { Column } from "react-table";
 import tableDataCheck from "./tableDataCheck.json";
+import { ReactComponentElement } from "react";
 
 export const columnsDataCheck = [
   {
@@ -93,11 +94,13 @@ export type TableData = Column<{
   rating?: number;
 }>;
 
+
+
+
 export type TableProps = {
   columnsData: ColumnData;
   tableData: TableData[];
   tableTitle: string | null;
-
 };
 
 export type ComplexTableProps = {

@@ -88,3 +88,4 @@ export const columnsDataComplex: Columns = [
     accessor: "status",
   },
 ];
+

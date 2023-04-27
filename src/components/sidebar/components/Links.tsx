@@ -48,25 +48,25 @@ export function SidebarLinks(props: SidebarLinksProps) {
         return (
           <>
             {isOpen &&
-              <VStack mt={2}spacing={1}>
+              <VStack mt={2} spacing={1}>
                 {hasChildren.map((childRoute, childIndex) => (
-                      <Link key={childIndex} href={childRoute.layout + childRoute.path}>
-                        <Text
-                          me='auto'
-                          color={
-                            activeRoute(route.path.toLowerCase())
-                              ? activeColor
-                              : inactiveColor
-                          }
-                          fontWeight={
-                            activeRoute(route.path.toLowerCase())
-                              ? 'bold'
-                              : 'normal'
-                          }
-                        >
-                          {childRoute.name}
-                        </Text>
-                      </Link>
+                  <Link key={childIndex} href={childRoute.layout + childRoute.path}>
+                    <Text
+                      me='auto'
+                      color={
+                        activeRoute(route.path.toLowerCase())
+                          ? activeColor
+                          : inactiveColor
+                      }
+                      fontWeight={
+                        activeRoute(route.path.toLowerCase())
+                          ? 'bold'
+                          : 'normal'
+                      }
+                    >
+                      {childRoute.name}
+                    </Text>
+                  </Link>
                 ))}
               </VStack>
             }
@@ -126,6 +126,12 @@ export function SidebarLinks(props: SidebarLinksProps) {
                       >
                         {route.name}
                       </Text>
+
+                      {hasChildren &&
+
+                        <Icon as={isOpen ? ChevronUpIcon : ChevronDownIcon} />
+                      }
+
                       {hasChildren && isOpen && renderChildren()}
 
                     </Flex>

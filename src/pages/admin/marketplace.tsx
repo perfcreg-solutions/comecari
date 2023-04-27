@@ -1,9 +1,6 @@
 import {
-    Avatar,
     Box,
     Button,
-    Text,
-    Flex,
     Icon,
     Input,
     Select,
@@ -15,23 +12,16 @@ import {
     ModalFooter,
     ModalBody,
     ModalCloseButton,
-    useColorModeValue,
     FormControl,
     FormLabel,
-    FormErrorMessage,
-    FormHelperText,
     useDisclosure
 } from '@chakra-ui/react'
 // Assets
 // Custom components
 import AdminLayout from 'layouts/admin'
 import { CgLoadbarSound } from 'react-icons/cg'
-import { Image } from 'components/image/Image'
-import Usa from 'img/dashboards/usa.png'
 
-import NFT from 'components/card/NFT'
 import MarketplaceCard from 'components/card/MarketplaceCard'
-import Card from 'components/card/Card'
 
 import Truck from 'img/trucks/van01.png'
 import Truck2 from 'img/trucks/van02.png'
@@ -56,7 +46,7 @@ export default function Marketplace() {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     return (
-        <AdminLayout>
+        <AdminLayout brandtext="Marketplace">
             <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
                 <>
                     <Button colorScheme='blue' mb="15px"

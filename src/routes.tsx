@@ -22,6 +22,8 @@ import Marketplace from 'pages/admin/marketplace'
 import Profile from 'pages/admin/profile'
 import DataTables from 'pages/admin/data-tables'
 import RTL from 'pages/rtl/rtl-default'
+import Drivers from 'pages/admin/fleets/drivers'
+import Trucks from 'pages/admin/fleets/trucks'
 
 // Auth Imports
 import SignInCentered from 'pages/auth/sign-in'
@@ -38,7 +40,7 @@ const routes: IRoute[] = [
   {
     name: 'My fleet',
     layout: '/admin',
-    path: '/nft-marketplace',
+    path: '/fleets',
     icon: (
       <Icon
         as={MdLocalShipping}
@@ -49,13 +51,18 @@ const routes: IRoute[] = [
     ),
     component: NFTMarketplace,
     children: [
-     { 
+     {
+      layout: '/admin',
       name: 'Trucks',
-      path: '/fleet/truck',
+      path: '/fleets/trucks',
+      component: Trucks
     },
     { 
+      layout: '/admin',
       name: 'Drivers',
-      path: '/fleet/drivers',
+      path: '/fleets/drivers',
+      component: Drivers
+
     },
     ]
     // secondary: true

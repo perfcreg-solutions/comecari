@@ -15,12 +15,12 @@ import {
 } from 'utils/navigation'
 
 interface DashboardLayoutProps extends PropsWithChildren {
-  [x: string]: any
+  [x: string]: any,
 }
 
 // Custom Chakra theme
 export default function AdminLayout (props: DashboardLayoutProps) {
-  const { children, ...rest } = props
+  const { children, brandtext, ...rest } = props
   // states and functions
   const [fixed] = useState(false)
   const [toggleSidebar, setToggleSidebar] = useState(false)
@@ -58,8 +58,8 @@ export default function AdminLayout (props: DashboardLayoutProps) {
             <Box>
               <Navbar
                 onOpen={onOpen}
-                logoText={'Horizon UI Dashboard PRO'}
-                brandText={getActiveRoute(routes)}
+                logoText={'Comecari Admin'}
+                brandText={brandtext}
                 secondary={getActiveNavbar(routes)}
                 message={getActiveNavbarText(routes)}
                 fixed={fixed}
