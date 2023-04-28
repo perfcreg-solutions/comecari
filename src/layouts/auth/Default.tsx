@@ -1,7 +1,8 @@
 // Chakra imports
-import { Box, Flex, Icon, useColorModeValue, Text } from '@chakra-ui/react';
+import { Box, Flex, Icon, useColorModeValue, Text, Image } from '@chakra-ui/react';
 import Footer from 'components/footer/FooterAuth';
 import FixedPlugin from 'components/fixedPlugin/FixedPlugin';
+import Logo from 'img/logo/comecari-white.png'
 // Assets
 import { FaChevronLeft } from 'react-icons/fa';
 import Link from 'next/link';
@@ -28,7 +29,7 @@ function AuthIllustration(props: { children: ReactNode; illustrationBackground: 
 				ps={{ xl: '70px' }}
 				justifyContent='start'
 				direction='column'>
-				<Link href='/admin'>
+				<Link href='https://comecari.com'>
 					<a
 						style={{
 							width: 'fit-content',
@@ -41,7 +42,7 @@ function AuthIllustration(props: { children: ReactNode; illustrationBackground: 
 							w='fit-content'>
 							<Icon as={FaChevronLeft} me='12px' h='13px' w='8px' color='secondaryGray.600' />
 							<Text ms='0px' fontSize='sm' color='secondaryGray.600'>
-								Back to Simmmple
+								Back to Website
 							</Text>
 						</Flex>
 					</a>
@@ -63,8 +64,11 @@ function AuthIllustration(props: { children: ReactNode; illustrationBackground: 
 						bgSize='cover'
 						bgPosition='50%'
 						position='absolute'
-						borderBottomLeftRadius={{ lg: '120px', xl: '200px' }}
-					/>
+						// borderBottomLeftRadius={{ lg: '120px', xl: '200px' }}
+					>
+
+						<Image src={Logo.src}  w='300px' mb="300px"/>
+					</Flex>
 				</Box>
 				<Footer mb={{ xl: '3vh' }} />
 			</Flex>

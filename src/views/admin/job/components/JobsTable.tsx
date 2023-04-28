@@ -290,7 +290,7 @@ export default function CheckTable(props: JobsDataProps) {
             w={28}
             min={1}
             max={pageOptions.length}
-            onChange={(valueAsString: string, valueAsNumber: number) => {
+            onChange={(_valueAsString: string, valueAsNumber: number) => {
               const page = valueAsNumber ? valueAsNumber - 1 : 0;
               gotoPage(page);
             }}

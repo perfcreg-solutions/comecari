@@ -46,6 +46,7 @@ import Link from 'next/link';
 import { FcGoogle } from 'react-icons/fc';
 import { MdOutlineRemoveRedEye } from 'react-icons/md';
 import { RiEyeCloseLine } from 'react-icons/ri';
+import Background from 'img/auth/banner.png'
 
 export default function SignIn() {
 	// Chakra color mode
@@ -61,7 +62,7 @@ export default function SignIn() {
 	const [ show, setShow ] = React.useState(false);
 	const handleClick = () => setShow(!show);
 	return (
-		<DefaultAuthLayout illustrationBackground={'/img/auth/auth.png'}>
+		<DefaultAuthLayout illustrationBackground={Background.src}>
 			<Flex
 				maxW={{ base: '100%', md: 'max-content' }}
 				w='100%'
@@ -172,9 +173,11 @@ export default function SignIn() {
 								</a>
 							</Link>
 						</Flex>
+						<Link href='/admin'>
 						<Button fontSize='sm' variant='brand' fontWeight='500' w='100%' h='50' mb='24px'>
 							Sign In
 						</Button>
+						</Link>
 					</FormControl>
 					<Flex flexDirection='column' justifyContent='center' alignItems='start' maxW='100%' mt='0px'>
 						<Text color={textColorDetails} fontWeight='400' fontSize='14px'>

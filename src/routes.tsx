@@ -24,6 +24,8 @@ import DataTables from 'pages/admin/data-tables'
 import RTL from 'pages/rtl/rtl-default'
 import Drivers from 'pages/admin/fleets/drivers'
 import Trucks from 'pages/admin/fleets/trucks'
+import Invoice from 'pages/admin/invoice'
+import Report from 'pages/admin/report'
 
 // Auth Imports
 import SignInCentered from 'pages/auth/sign-in'
@@ -100,14 +102,14 @@ const routes: IRoute[] = [
     layout: '/admin',
     path: '/invoice',
     icon: <Icon as={RiExchangeDollarLine} width='20px' height='20px' color='inherit' />,
-    component: MainDashboard
+    component: Invoice
   },
   {
     name: 'Reports',
     layout: '/admin',
     path: '/report',
     icon: <Icon as={MdNoteAlt} width='20px' height='20px' color='inherit' />,
-    component: MainDashboard
+    component: Report
   },
   {
     name: 'Settings',

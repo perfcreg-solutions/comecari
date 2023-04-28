@@ -44,7 +44,7 @@ export default function Conversion(props: { [x: string]: any }) {
 					<Flex align='center'>
 						<Box h='8px' w='8px' bg='brand.500' borderRadius='50%' me='4px' />
 						<Text fontSize='xs' color='secondaryGray.600' fontWeight='700' mb='5px'>
-							Your files
+							Bid Awarded
 						</Text>
 					</Flex>
 					<Text fontSize='lg' color={textColor} fontWeight='700'>
@@ -56,7 +56,7 @@ export default function Conversion(props: { [x: string]: any }) {
 					<Flex align='center'>
 						<Box h='8px' w='8px' bg='#6AD2FF' borderRadius='50%' me='4px' />
 						<Text fontSize='xs' color='secondaryGray.600' fontWeight='700' mb='5px'>
-							System
+							Bid Ignored
 						</Text>
 					</Flex>
 					<Text fontSize='lg' color={textColor} fontWeight='700'>
