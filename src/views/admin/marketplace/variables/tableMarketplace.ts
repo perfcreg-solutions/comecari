@@ -1,32 +1,38 @@
+import Truck from 'img/trucks/van01.png'
+import Truck2 from 'img/trucks/van02.png'
+import Truck3 from 'img/trucks/van03.png'
+import Truck4 from 'img/trucks/van04.png'
+import Truck5 from 'img/trucks/van05.png'
+import Truck6 from 'img/trucks/van06.png'
 export const shipmentData = [
   {
     shipmentID: "123234554",
     pickupLocation: "Ikeja, Lagos",
     pickupDetails: "Pickup by 5pm today",
-    deliveryLocation: "Otta, Ogun State",
+    deliveryLocation: "Oluyole, Ibadan",
     deliveryDetails: "Expected delivery in 3 days",
     ownerName: "Mr Khalid",
-    truck: "Truck1",
+    truck: Truck,
     price: "200K",
   },
   {
     shipmentID: "123222254",
     pickupLocation: "Iyana-Ipaja, Lagos",
     pickupDetails: "Pickup by 5pm today",
-    deliveryLocation: "Otta, Ogun State",
+    deliveryLocation: "Gwagwalada, Abuja",
     deliveryDetails: "Expected delivery in 2 days",
     ownerName: "Mr John",
-    truck: "Truck4",
+    truck: Truck2,
     price: "300K",
   },
   {
     shipmentID: "980234554",
     pickupLocation: "Ojo, Lagos",
     pickupDetails: "Pickup by 5pm today",
-    deliveryLocation: "Otta, Ogun State",
+    deliveryLocation: "Ikewere, Porthacourt",
     deliveryDetails: "Expected delivery in 2 days",
     ownerName: "Mr John",
-    truck: "Truck6",
+    truck: Truck3,
     price: "250K",
   },
   {
@@ -36,7 +42,47 @@ export const shipmentData = [
     deliveryLocation: "Otta, Ogun State",
     deliveryDetails: "Expected delivery in 3 days",
     ownerName: "Mr Matt",
-    truck: "Truck5",
+    truck: Truck5,
+    price: "400K",
+  },
+  {
+    shipmentID: "980234554",
+    pickupLocation: "Ojo, Lagos",
+    pickupDetails: "Pickup by 5pm today",
+    deliveryLocation: "Isale Ake, Abeokuta",
+    deliveryDetails: "Expected delivery in 2 days",
+    ownerName: "Mr John",
+    truck: Truck4,
+    price: "250K",
+  },
+  {
+    shipmentID: "123889754",
+    pickupLocation: "Surulere, Lagos",
+    pickupDetails: "Pickup by 5pm today",
+    deliveryLocation: "Otuoke, Bayelsa",
+    deliveryDetails: "Expected delivery in 3 days",
+    ownerName: "Mr Matt",
+    truck: Truck5,
+    price: "400K",
+  },
+  {
+    shipmentID: "980234554",
+    pickupLocation: "Calabar, Croos-river",
+    pickupDetails: "Pickup by 5pm today",
+    deliveryLocation: "Akungba, Ondo",
+    deliveryDetails: "Expected delivery in 2 days",
+    ownerName: "Mr John",
+    truck: Truck6,
+    price: "250K",
+  },
+  {
+    shipmentID: "123889754",
+    pickupLocation: "Surulere, Lagos",
+    pickupDetails: "Pickup by 5pm today",
+    deliveryLocation: "Otta, Ogun State",
+    deliveryDetails: "Expected delivery in 3 days",
+    ownerName: "Mr Matt",
+    truck: Truck2,
     price: "400K",
   },
 ];

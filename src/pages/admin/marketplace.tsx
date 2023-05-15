@@ -61,7 +61,7 @@ export default function Marketplace() {
                         {shipmentData.length > 0 && shipmentData.map((data, index) => (
                             <MarketplaceCard
                                 key={index}
-                                truck={Truck}
+                                truck={data.truck}
                                 shipmentId={data.shipmentID}
                                 pickupLocation={data.pickupLocation}
                                 pickupDetails={data.pickupDetails}
