@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 // chakra imports
-import { Icon, Box, Flex, HStack, VStack, Text, useColorModeValue } from '@chakra-ui/react'
+import { Icon, Box, Flex, HStack, VStack, Text, useColorModeValue, Collapse } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { IRoute } from 'types/navigation'
@@ -48,11 +48,11 @@ export function SidebarLinks(props: SidebarLinksProps) {
         return (
           <>
             {isOpen &&
-              <VStack mt={2} spacing={1}>
+              <VStack mt={2} spacing={1} borderColor="gray.200" pl={4} alignItems={'center'}>
                 {hasChildren.map((childRoute, childIndex) => (
                   <Link key={childIndex} href={childRoute.layout + childRoute.path}>
                     <Text
-                      me='auto'
+                      // me='auto'
                       color={
                         activeRoute(route.path.toLowerCase())
                           ? activeColor
@@ -89,6 +89,7 @@ export function SidebarLinks(props: SidebarLinksProps) {
         route.layout === '/rtl'
       ) {
         return (
+
           <Link key={index} href={route.layout + route.path}>
             <a onClick={handleClick}>
               {route.icon ? (
@@ -132,7 +133,6 @@ export function SidebarLinks(props: SidebarLinksProps) {
                         <Icon as={isOpen ? ChevronUpIcon : ChevronDownIcon} />
                       }
 
-                      {hasChildren && isOpen && renderChildren()}
 
                     </Flex>
 
@@ -183,6 +183,8 @@ export function SidebarLinks(props: SidebarLinksProps) {
 
                 </Box>
               )}
+              {hasChildren && isOpen && renderChildren()}
+
             </a>
           </Link>
         )

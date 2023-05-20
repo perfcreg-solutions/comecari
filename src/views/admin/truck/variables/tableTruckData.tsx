@@ -1,7 +1,15 @@
-[
+import Truck from 'img/trucks/van01.png'
+import Truck2 from 'img/trucks/van02.png'
+import Truck3 from 'img/trucks/van03.png'
+import Truck4 from 'img/trucks/van04.png'
+import Truck5 from 'img/trucks/van05.png'
+import Truck6 from 'img/trucks/van06.png'
+
+export const TruckData = [
     {
         "id": "T001",
         "type": "Flatbed",
+        truck: Truck,
         "make": "Volvo",
         "model": "FH16",
         "year": 2022,
@@ -28,6 +36,7 @@
     },
     {
         "id": "T002",
+        truck: Truck3,
         "type": "Refrigerated",
         "make": "Mercedes-Benz",
         "model": "Actros",
@@ -51,11 +60,12 @@
         "carrierID": "C002",
         "driverID": "D002",
         "additionalInfo": "Temperature controlled truck",
-        "status": "Delivering"
+        "status": "Unavailable"
     },
     {
         "id": "T003",
         "type": "Flatbed",
+        truck: Truck5,
         "make": "Volvo",
         "model": "FH16",
         "year": 2020,
@@ -77,11 +87,11 @@
         },
         "carrierID": "C003",
         "driverID": "D003",
-        "additionalInfo": "New tires installed",
-        "status": "Delivering"
+        "additionalInfo": "New tires installed"
     },
     {
         "id": "T004",
+        truck: Truck2,
         "type": "Refrigerated",
         "make": "Mercedes-Benz",
         "model": "Actros",
@@ -104,12 +114,12 @@
         },
         "carrierID": "C004",
         "driverID": "D004",
-        "additionalInfo": "Recently serviced",
-        "status": "Delivering"
+        "additionalInfo": "Recently serviced"
     },
     {
         "id": "T005",
         "type": "Flatbed",
+        truck: Truck,
         "make": "Volvo",
         "model": "FH16",
         "year": 2018,
@@ -131,12 +141,12 @@
         },
         "carrierID": "C005",
         "driverID": "D005",
-        "additionalInfo": "Clean and well-maintained",
-        "status": "Idle"
+        "additionalInfo": "Clean and well-maintained"
     },
     {
         "id": "T006",
         "type": "Refrigerated",
+        truck: Truck4,
         "make": "Mercedes-Benz",
         "model": "Actros",
         "year": 2017,
@@ -158,11 +168,11 @@
         },
         "carrierID": "C006",
         "driverID": "D006",
-        "additionalInfo": "Cold chain compliant",
-        "status": "Idle"
+        "additionalInfo": "Cold chain compliant"
     },
     {
         "id": "T007",
+        truck: Truck6,
         "type": "Flatbed",
         "make": "Volvo",
         "model": "FH16",
@@ -185,12 +195,12 @@
         },
         "carrierID": "C007",
         "driverID": "D007",
-        "additionalInfo": "Regularly serviced",
-        "status": "Unavailable"
+        "additionalInfo": "Regularly serviced"
     },
     {
         "id": "T008",
         "type": "Refrigerated",
+        truck: Truck3,
         "make": "Mercedes-Benz",
         "model": "Actros",
         "year": 2015,
@@ -212,7 +222,6 @@
         },
         "carrierID": "C008",
         "driverID": "D008",
-        "additionalInfo": "Ideal for perishables",
-        "status": "Unavailable"
+        "additionalInfo": "Ideal for perishables"
     }
 ]
