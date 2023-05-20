@@ -35,7 +35,8 @@ export default function Drivers() {
                                 hours={data.hours}
                                 delivery={data.delivery}
                                 distance={data.distance}
-                                dateJoined={data.dateJoined} />
+                                dateJoined={data.dateJoined}
+                                rating={data.rating} />
                         ))}
                     </SimpleGrid>
                 </>

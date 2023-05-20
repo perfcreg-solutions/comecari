@@ -12,6 +12,7 @@ export const DriverData = [
         "distance": "300",
         "delivery": "09",
         "hours": "11",
+        "rating": "4.7"
     },
     {
         "id": "DRI002",
@@ -21,6 +22,7 @@ export const DriverData = [
         "distance": "350",
         "delivery": "11",
         "hours": "15",
+        "rating": "4.9"
     },
     {
         "id": "DRI003",
@@ -30,6 +32,7 @@ export const DriverData = [
         "distance": "300",
         "delivery": "09",
         "hours": "11",
+        "rating": "5.0"
     },
     {
         "id": "DRI004",
@@ -39,5 +42,6 @@ export const DriverData = [
         "distance": "200",
         "delivery": "08",
         "hours": "07",
+        "rating": "4.8"
     },
 ]
