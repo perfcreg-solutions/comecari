@@ -296,13 +296,6 @@ export default function Truck(props: {
                             </Box>
 
                             <Box>
-                                {/* <Text color='secondaryGray.700'
-                                    fontSize={{
-                                        base: 'md'
-                                    }}
-                                    fontWeight='500' mb={2}>
-                                    Updates and Details
-                                </Text> */}
 
                                 <Tabs isFitted variant='enclosed'>
                                     <TabList mb='1em'>
@@ -333,7 +326,7 @@ export default function Truck(props: {
                                             <Button
                                                 isLoading
                                                 loadingText='Updating'
-                                                colorScheme='teal'
+                                                colorScheme='blue'
                                             >
                                                 Update
                                             </Button>

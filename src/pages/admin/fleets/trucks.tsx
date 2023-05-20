@@ -118,6 +118,34 @@ export default function Trucks() {
                                     <FormLabel>Plate Number</FormLabel>
                                     <Input type="text" placeholder="BB2345BBG" />
                                 </FormControl>
+
+                                <FormControl>
+                                    <FormLabel>Active Location</FormLabel>
+                                    <Input type="text" placeholder="e.g Ikeja" />
+                                </FormControl>
+
+                                <FormControl>
+                                    <FormLabel>Assign Driver</FormLabel>
+                                    <Select>
+                                        <option value='option1'>John Doe</option>
+                                        <option value='option2'>Matthew doe</option>
+                                        <option value='option3'>Sam Doe</option>
+                                    </Select>
+                                </FormControl>
+
+                                <FormControl>
+                                    <FormLabel>Are you GIT Insured?</FormLabel>
+                                    <Select>
+                                        <option value='option1'>Select option</option>
+                                        <option value='option1'>Yes</option>
+                                        <option value='option2'>No</option>
+                                    </Select>
+                                </FormControl>
+
+                                <FormControl>
+                                    <FormLabel>If yes, upload GIT Insurance proof</FormLabel>
+                                    <Input type="file" />
+                                </FormControl>
                             </SimpleGrid>
                             
 
@@ -138,10 +166,7 @@ export default function Trucks() {
                                     </FormControl>
                                 </SimpleGrid>
 
-                                {/* <Text fontSize={{
-                                        base: 'md'
-                                    }}
-                                    fontWeight='500' mb={2} mt={2} color="teal.400">Dimensions</Text> */}
+                                
                                 <SimpleGrid columns={3} spacing={5} mt={4}>
                                     <FormControl>
                                         <FormLabel>Height</FormLabel>
@@ -159,10 +184,31 @@ export default function Trucks() {
                                     </FormControl>
                                 </SimpleGrid>
 
-                                <FormControl mt={10}>
+                                {/* <FormControl mt={10}>
                                     <FormLabel>Upload photos of Vehicle</FormLabel>
                                     <Input type="file" />
-                                </FormControl>
+                                </FormControl> */}
+                                <SimpleGrid columns={2} spacing={5}>
+                                    <FormControl mt={10}>
+                                        <FormLabel>Upload front view of Vehicle</FormLabel>
+                                        <Input type="file" />
+                                    </FormControl>
+
+                                    <FormControl mt={10}>
+                                        <FormLabel>Back View</FormLabel>
+                                        <Input type="file" />
+                                    </FormControl>
+
+                                    <FormControl>
+                                        <FormLabel>Left View</FormLabel>
+                                        <Input type="file" />
+                                    </FormControl>
+
+                                    <FormControl>
+                                        <FormLabel>Right View</FormLabel>
+                                        <Input type="file" />
+                                    </FormControl>
+                                </SimpleGrid>
                             </Box>
                         </SimpleGrid>
 
@@ -170,7 +216,7 @@ export default function Trucks() {
 
                         <Flex mt={4} justifyContent="flex-end">
                             <Button
-                                colorScheme='teal'
+                                colorScheme='blue'
                             >
                                 Add Truck
                             </Button>
