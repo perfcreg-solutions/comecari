@@ -14,6 +14,7 @@ import {
     ModalBody,
     ModalCloseButton,
     Table,
+    Flex,
     Tbody,
     Text,
     FormControl,
@@ -86,7 +87,7 @@ export default function Trucks() {
                     <ModalCloseButton />
 
                     <ModalBody>
-                        <SimpleGrid columns={2} spacing={10}>
+                        <SimpleGrid columns={2} spacing={10} mb={4}>
                             <SimpleGrid columns={2} spacing={5}>
                                 <FormControl>
                                     <FormLabel>Select Truck type</FormLabel>
@@ -121,10 +122,10 @@ export default function Trucks() {
                             
 
                             <Box>
-                                <Text fontSize={{
+                                {/* <Text fontSize={{
                                         base: 'md'
                                     }}
-                                    fontWeight='500' mb={2} color="teal.400">Capacity</Text>
+                                    fontWeight='500' mb={2} color="teal.400">Capacity</Text> */}
                                 <SimpleGrid columns={2} spacing={5}>
                                     <FormControl>
                                         <FormLabel>Weight</FormLabel>
@@ -137,11 +138,11 @@ export default function Trucks() {
                                     </FormControl>
                                 </SimpleGrid>
 
-                                <Text fontSize={{
+                                {/* <Text fontSize={{
                                         base: 'md'
                                     }}
-                                    fontWeight='500' mb={2} mt={2} color="teal.400">Dimensions</Text>
-                                <SimpleGrid columns={3} spacing={5}>
+                                    fontWeight='500' mb={2} mt={2} color="teal.400">Dimensions</Text> */}
+                                <SimpleGrid columns={3} spacing={5} mt={4}>
                                     <FormControl>
                                         <FormLabel>Height</FormLabel>
                                         <Input type="text" placeholder="250" />
@@ -157,8 +158,23 @@ export default function Trucks() {
                                         <Input type="text" placeholder="450" />
                                     </FormControl>
                                 </SimpleGrid>
+
+                                <FormControl mt={10}>
+                                    <FormLabel>Upload photos of Vehicle</FormLabel>
+                                    <Input type="file" />
+                                </FormControl>
                             </Box>
                         </SimpleGrid>
+
+                        <hr />
+
+                        <Flex mt={4} justifyContent="flex-end">
+                            <Button
+                                colorScheme='teal'
+                            >
+                                Add Truck
+                            </Button>
+                        </Flex>
                     </ModalBody>
                 </ModalContent>
             </Modal>
