@@ -1,5 +1,9 @@
 import {
     Box,
+    Button,
+    Icon,
+    Input,
+    Select,
     SimpleGrid,
     Table,
     Tbody,
@@ -23,6 +27,7 @@ import Truck6 from 'img/trucks/van06.png'
 
 import TrucksCard from 'components/card/TrucksCard'
 import { TruckData } from 'views/admin/truck/variables/tableTruckData'
+import { AddIcon } from '@chakra-ui/icons'
 
 
 export default function Trucks() {
@@ -31,6 +36,16 @@ export default function Trucks() {
         <AdminLayout brandtext="Trucks">
             <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
                 <>
+                    <Button colorScheme='blue' mb="15px"> Add Truck
+                        <Icon
+                            w='15px'
+                            h='15px'
+                            // pl={2}
+                            as={AddIcon}
+                        // color={greenColor}
+                        /></Button>
+
+
                     <SimpleGrid columns={{ base: 1, md: 3, xl: 3 }} gap='20px' mb='20px'>
                         {TruckData.length > 0 && TruckData.map((data, index) => (
                             // const {id, carrierID, driverID, type, regNumber, capacity, licensePlate, dateCreated, dateModified } = data
@@ -46,6 +61,7 @@ export default function Trucks() {
                                 dateModified={data.dateModified}
                                 truck= {data.truck}
                                 status={data.status}
+                                dimensions={data.dimensions}
                             />
                         ))}
                     </SimpleGrid>

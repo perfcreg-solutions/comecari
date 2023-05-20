@@ -17,13 +17,24 @@ import {
     useDisclosure,
     FormControl,
     FormLabel,
-    Spacer
+    Spacer,
+    Stack,
+    HStack,
+    VStack,
+    Tabs, TabList, TabPanels, Tab, TabPanel
 } from '@chakra-ui/react';
 // Custom components
 import Card from 'components/card/Card';
 import IconBox from 'components/icons/IconBox'
 import { Image } from 'components/image/Image';
 import { useState } from 'react'
+import SimpleImageSlider from "react-simple-image-slider";
+
+import Slider1 from 'img/trucks/truck1.jpg'
+import Slider2 from 'img/trucks/truck2.jpg'
+import Slider3 from 'img/trucks/truck3.jpg'
+
+import Headshot from 'img/profile/headshot.jpg'
 
 import Maps from '../../../public/maps.png'
 
@@ -34,15 +45,28 @@ export default function Truck(props: {
     driverID: string;
     type: string;
     regNumber: number;
-    capacity: number;
+    capacity: string;
     licensePlate: string;
     dateCreated: string;
     dateModified: string;
     status: string;
-})
-{
-    const { id, carrierID, driverID, type, regNumber, capacity, licensePlate, dateCreated, dateModified, truck, status, ...rest} = props
+    dimensions: string;
+}) {
+    const { id, carrierID, driverID, type, regNumber, capacity, licensePlate, dateCreated, dateModified, truck, status, dimensions, ...rest } = props
     const { isOpen, onOpen, onClose } = useDisclosure()
+
+    const [imageNum, setImageNum] = useState(1);
+    const sliderImages = [
+        {
+            url: Slider1.src,
+        },
+        {
+            url: Slider2.src,
+        },
+        {
+            url: Slider3.src,
+        }
+    ];
 
     return (
         <Card position="relative">
@@ -70,15 +94,15 @@ export default function Truck(props: {
                     pb="10px"
                 >{type} &#x2022; {capacity.volume} tonnes</Text>
 
-            
-            {status && 
+
+                {status &&
 
                     <Box position="absolute" top="10px" right="10px">
                         <Text bg="#333" py={1} px={2} borderRadius="0.5rem" color="#fff" fontSize={{
                             base: 'sm'
                         }}>{status}</Text>
                     </Box>
-            }
+                }
 
             </Box>
             {/* <hr /> */}
@@ -96,13 +120,229 @@ export default function Truck(props: {
                                     fontSize={{
                                         base: 'md'
                                     }}
-                                    fontWeight='500'>
+                                    fontWeight='500' mb={2}>
                                     Active trip
                                 </Text>
-                                <Image src={Maps.src} w="500px" h="300px" />
+                                <Image src={Maps.src} w="100%" h="400px" />
+                            </Box>
+
+                            <Box>
+                                <Text color='secondaryGray.700'
+                                    fontSize={{
+                                        base: 'md'
+                                    }}
+                                    fontWeight='500' mb={2}>
+                                    Truck Details
+                                </Text>
+
+                                <Box mb={3}>
+                                    <SimpleImageSlider
+
+                                        width={530}
+                                        height={300}
+                                        images={sliderImages}
+                                        showBullets={false}
+                                        showNavs={true}
+                                        autoPlay={true}
+                                        onStartSlide={(index, length) => {
+                                            setImageNum(index);
+                                        }}
+                                        autoPlayDelay={3}
+                                    />
+                                </Box>
+
+
+                                <SimpleGrid columns={5} spacing={5}>
+                                    <Box py={5} textAlign="center" bg='gray.200' borderRadius="0.25rem">
+                                        <Text fontWeight='500'
+                                            fontSize={{
+                                                base: 'lg'
+                                            }}>{capacity.weight}</Text>
+                                        <Text fontSize={{
+                                            base: 'sm'
+                                        }} color="gray.500">Weight</Text>
+                                    </Box>
+
+                                    <Box py={5} textAlign="center" bg='gray.200' borderRadius="0.25rem">
+                                        <Text fontWeight='500'
+                                            fontSize={{
+                                                base: 'lg'
+                                            }}>{capacity.volume}</Text>
+                                        <Text fontSize={{
+                                            base: 'sm'
+                                        }} color="gray.500">Volume</Text>
+                                    </Box>
+
+                                    <Box py={5} px={3} textAlign="center" bg='gray.200' borderRadius="0.25rem">
+                                        <Text fontWeight='500'
+                                            fontSize={{
+                                                base: 'lg'
+                                            }}>{dimensions.length} ft</Text>
+                                        <Text fontSize={{
+                                            base: 'sm'
+                                        }} color="gray.500">Length</Text>
+                                    </Box>
+
+                                    <Box py={5} px={3} textAlign="center" bg='gray.200' borderRadius="0.25rem">
+                                        <Text fontWeight='500'
+                                            fontSize={{
+                                                base: 'lg'
+                                            }}>{dimensions.width} ft</Text>
+                                        <Text fontSize={{
+                                            base: 'sm'
+                                        }} color="gray.500">Width</Text>
+                                    </Box>
+
+                                    <Box py={5} px={3} textAlign="center" bg='gray.200' borderRadius="0.25rem">
+                                        <Text fontWeight='500'
+                                            fontSize={{
+                                                base: 'lg'
+                                            }}>{dimensions.height} ft</Text>
+                                        <Text fontSize={{
+                                            base: 'sm'
+                                        }} color="gray.500">Height</Text>
+                                    </Box>
+                                </SimpleGrid>
+
+
+                            </Box>
+
+                            <Box>
+                                <Text color='secondaryGray.700'
+                                    fontSize={{
+                                        base: 'md'
+                                    }}
+                                    fontWeight='500' mb={2}>
+                                    Recent Trips
+                                </Text>
+
+                                <VStack
+                                    spacing={4}
+                                    align='stretch'
+                                >
+                                    <Box>
+                                        <Flex justifyContent="space-between" alignItems="center" bg="gray.200" py={2} px={3} borderRadius="0.25rem">
+                                            <Text fontWeight='700'>1. Lagos to Port Harcourt</Text>
+
+                                            <Box>
+                                                <Text fontSize={{
+                                                    base: 'sm'
+                                                }} fontWeight="500">Collection: 15 Jan, 2023</Text>
+                                                <Text fontSize={{
+                                                    base: 'sm'
+                                                }} fontWeight="500">Delivery: 17 Jan, 2023</Text>
+                                            </Box>
+                                        </Flex>
+                                    </Box>
+                                    <Box>
+                                        <Flex justifyContent="space-between" alignItems="center" bg="gray.200" py={2} px={3} borderRadius="0.25rem">
+                                            <Text fontWeight='700'>2. Sokoto to Lagos</Text>
+
+                                            <Box>
+                                                <Text fontSize={{
+                                                    base: 'sm'
+                                                }} fontWeight="500">Collection: 13 Jan, 2023</Text>
+                                                <Text fontSize={{
+                                                    base: 'sm'
+                                                }} fontWeight="500">Delivery: 15 Jan, 2023</Text>
+                                            </Box>
+                                        </Flex>
+                                    </Box>
+                                    <Box>
+                                        <Flex justifyContent="space-between" alignItems="center" bg="gray.200" py={2} px={3} borderRadius="0.25rem">
+                                            <Text fontWeight='700'>3. Abuja to Sokoto</Text>
+
+                                            <Box>
+                                                <Text fontSize={{
+                                                    base: 'sm'
+                                                }} fontWeight="500">Collection: 11 Jan, 2023</Text>
+                                                <Text fontSize={{
+                                                    base: 'sm'
+                                                }} fontWeight="500">Delivery: 13 Jan, 2023</Text>
+                                            </Box>
+                                        </Flex>
+                                    </Box>
+
+                                    <Box>
+                                        <Flex justifyContent="space-between" alignItems="center" bg="gray.200" py={2} px={3} borderRadius="0.25rem">
+                                            <Text fontWeight='700'>4. Abuja to Sokoto</Text>
+
+                                            <Box>
+                                                <Text fontSize={{
+                                                    base: 'sm'
+                                                }} fontWeight="500">Collection: 11 Jan, 2023</Text>
+                                                <Text fontSize={{
+                                                    base: 'sm'
+                                                }} fontWeight="500">Delivery: 13 Jan, 2023</Text>
+                                            </Box>
+                                        </Flex>
+                                    </Box>
+
+                                    <Box>
+                                        <Flex justifyContent="space-between" alignItems="center" bg="gray.200" py={2} px={3} borderRadius="0.25rem">
+                                            <Text fontWeight='700'>5. Abuja to Sokoto</Text>
+
+                                            <Box>
+                                                <Text fontSize={{
+                                                    base: 'sm'
+                                                }} fontWeight="500">Collection: 11 Jan, 2023</Text>
+                                                <Text fontSize={{
+                                                    base: 'sm'
+                                                }} fontWeight="500">Delivery: 13 Jan, 2023</Text>
+                                            </Box>
+                                        </Flex>
+                                    </Box>
+                                </VStack>
+                            </Box>
+
+                            <Box>
+                                {/* <Text color='secondaryGray.700'
+                                    fontSize={{
+                                        base: 'md'
+                                    }}
+                                    fontWeight='500' mb={2}>
+                                    Updates and Details
+                                </Text> */}
+
+                                <Tabs isFitted variant='enclosed'>
+                                    <TabList mb='1em'>
+                                        <Tab>Details</Tab>
+                                        <Tab>Update</Tab>
+                                    </TabList>
+                                    <TabPanels>
+                                        <TabPanel>
+                                            <FormControl mb={2}>
+                                                <FormLabel>License Number</FormLabel>
+                                                <Input type='text' placeholder="AB123456BB" isDisabled />
+                                            </FormControl>
+
+                                            <Box>
+                                                <Text fontWeight="600">Driver</Text>
+                                                <Flex alignItems="center">
+                                                    <Image src={Headshot.src} borderRadius='full' boxSize='40px' mt={2} />
+                                                    <Text pl={2} fontWeight="600" >Mr John Doe</Text>
+                                                </Flex>
+                                            </Box>
+                                        </TabPanel>
+                                        <TabPanel>
+                                            <FormControl mb={2}>
+                                                <FormLabel>License Number</FormLabel>
+                                                <Input type='text' placeholder="AB123456BB" />
+                                            </FormControl>
+
+                                            <Button
+                                                isLoading
+                                                loadingText='Updating'
+                                                colorScheme='teal'
+                                            >
+                                                Update
+                                            </Button>
+                                        </TabPanel>
+                                    </TabPanels>
+                                </Tabs>
                             </Box>
                         </SimpleGrid>
-                        
+
                     </ModalBody>
                 </ModalContent>
             </Modal>
