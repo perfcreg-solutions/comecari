@@ -18,9 +18,6 @@ import AuthProvider from '../contexts/AuthContext'
 
 const queryClient = new QueryClient();
 
-
-
-
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
 
 
