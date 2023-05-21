@@ -48,7 +48,7 @@ export function SidebarLinks(props: SidebarLinksProps) {
         return (
           <>
             {isOpen &&
-              <VStack mt={2} spacing={1} borderColor="gray.200" pl={4} alignItems={'center'}>
+              <VStack mt={2} spacing={1} borderColor="gray.200" pl={10} alignItems={'start'}>
                 {hasChildren.map((childRoute, childIndex) => (
                   <Link key={childIndex} href={childRoute.layout + childRoute.path}>
                     <Text

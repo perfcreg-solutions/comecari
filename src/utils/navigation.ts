@@ -10,7 +10,6 @@ export const findCurrentRoute = (routes: IRoute[]): IRoute => {
       window.location.href.indexOf(route.layout + route.path) !== -1 &&
       route
   );
-
   return foundRoute;
 };
 
