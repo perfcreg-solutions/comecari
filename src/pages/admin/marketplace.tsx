@@ -32,16 +32,15 @@ import Truck6 from 'img/trucks/van06.png'
 
 import { shipmentData } from 'views/admin/marketplace/variables/tableMarketplace'
 
-
 export default function Marketplace() {
-    const truckImageMapping = {
-        Truck1: Truck.src,
-        Truck2: Truck2,
-        Truck3: Truck3,
-        Truck4: Truck4,
-        Truck5: Truck5,
-        Truck6: Truck6,
-    };
+    // const truckImageMapping = {
+    //     Truck1: Truck.src,
+    //     Truck2: Truck2,
+    //     Truck3: Truck3,
+    //     Truck4: Truck4,
+    //     Truck5: Truck5,
+    //     Truck6: Truck6,
+    // };
 
     const { isOpen, onOpen, onClose } = useDisclosure()
 
