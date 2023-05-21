@@ -104,13 +104,13 @@ const routes: IRoute[] = [
     icon: <Icon as={RiExchangeDollarLine} width='20px' height='20px' color='inherit' />,
     component: Invoice
   },
-  // {
-  //   name: 'Reports',
-  //   layout: '/admin',
-  //   path: '/report',
-  //   icon: <Icon as={MdNoteAlt} width='20px' height='20px' color='inherit' />,
-  //   component: Report
-  // },
+  {
+    name: 'Reports',
+    layout: '/admin',
+    path: '/report',
+    icon: <Icon as={MdNoteAlt} width='20px' height='20px' color='inherit' />,
+    component: Report
+  },
   {
     name: 'Settings',
     layout: '/admin',

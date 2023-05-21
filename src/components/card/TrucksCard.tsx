@@ -4,6 +4,7 @@ import {
     Text,
     Icon,
     Input,
+    Select,
     Button,
     Modal,
     SimpleGrid,
@@ -67,6 +68,8 @@ export default function Truck(props: {
             url: Slider3.src,
         }
     ];
+
+    const [deletePrompt, setDeletePrompt] = useState(false)
 
     return (
         <Card position="relative">
@@ -305,7 +308,7 @@ export default function Truck(props: {
                                     <TabPanels>
                                         <TabPanel>
                                             <FormControl mb={2}>
-                                                <FormLabel>License Number</FormLabel>
+                                                <FormLabel>Plate Number</FormLabel>
                                                 <Input type='text' placeholder="AB123456BB" isDisabled />
                                             </FormControl>
 
@@ -318,18 +321,51 @@ export default function Truck(props: {
                                             </Box>
                                         </TabPanel>
                                         <TabPanel>
-                                            <FormControl mb={2}>
-                                                <FormLabel>License Number</FormLabel>
-                                                <Input type='text' placeholder="AB123456BB" />
-                                            </FormControl>
+                                            <SimpleGrid columns={2} spacing={5}>
+                                                <FormControl mb={2}>
+                                                    <FormLabel>Active Location</FormLabel>
+                                                    <Input type='text' placeholder="AB123456BB" />
+                                                </FormControl>
 
-                                            <Button
-                                                isLoading
-                                                loadingText='Updating'
-                                                colorScheme='blue'
-                                            >
-                                                Update
-                                            </Button>
+                                                <FormControl mb={2}>
+                                                    <FormLabel>Status</FormLabel>
+                                                    <Select placeholder='Select option'>
+                                                        <option value='option1'>Active</option>
+                                                        <option value='option2'>Inactive</option>
+                                                    </Select>
+                                                </FormControl>
+
+                                                <FormControl mb={2}>
+                                                    <FormLabel>Assign New Driver</FormLabel>
+                                                    <Select placeholder='Select option'>
+                                                        <option value='option1'>John Doe</option>
+                                                        <option value='option2'>Matthew doe</option>
+                                                        <option value='option3'>Sam Doe</option>
+                                                    </Select>
+                                                </FormControl>
+                                            </SimpleGrid>
+                                            
+
+                                            <Flex>
+                                                <Button colorScheme='blue'>
+                                                    Update
+                                                </Button>
+                                                <Button colorScheme='red' ml={1} onClick={() => setDeletePrompt(!deletePrompt)}>
+                                                    Delete Truck
+                                                </Button>
+                                            </Flex>
+
+                                            {deletePrompt && <Box mt={6}>
+                                                <Text>Are you sure you want to delete this truck?</Text>
+                                                <Flex>
+                                                    <Button colorScheme='blue' onClick={() => setDeletePrompt(!deletePrompt)}>
+                                                        No. Take me back.
+                                                    </Button>
+                                                    <Button colorScheme='red' ml={1}>
+                                                        Yes, I want to.
+                                                    </Button>
+                                                </Flex>
+                                            </Box> }
                                         </TabPanel>
                                     </TabPanels>
                                 </Tabs>
