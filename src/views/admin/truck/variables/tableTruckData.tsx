@@ -32,7 +32,9 @@ export const TruckData = [
         "carrierID": "C001",
         "driverID": "D001",
         "additionalInfo": "Well-maintained truck",
-        "status": "Unavailable"
+        "status": "Unavailable",
+        "created": "2022",
+        "datModified": "2022",
     },
     {
         "id": "T002",
@@ -60,7 +62,9 @@ export const TruckData = [
         "carrierID": "C002",
         "driverID": "D002",
         "additionalInfo": "Temperature controlled truck",
-        "status": "Unavailable"
+        "status": "Unavailable",
+        "created": "2022",
+        "dateModified": "2022",
     },
     {
         "id": "T003",
@@ -87,7 +91,9 @@ export const TruckData = [
         },
         "carrierID": "C003",
         "driverID": "D003",
-        "additionalInfo": "New tires installed"
+        "additionalInfo": "New tires installed",
+        "created": "2022",
+        "dateModified": "2022",
     },
     {
         "id": "T004",
@@ -114,7 +120,9 @@ export const TruckData = [
         },
         "carrierID": "C004",
         "driverID": "D004",
-        "additionalInfo": "Recently serviced"
+        "additionalInfo": "Recently serviced",
+        "created": "2022",
+        "dateModified": "2022",
     },
     {
         "id": "T005",
@@ -141,7 +149,9 @@ export const TruckData = [
         },
         "carrierID": "C005",
         "driverID": "D005",
-        "additionalInfo": "Clean and well-maintained"
+        "additionalInfo": "Clean and well-maintained",
+        "created": "2022",
+        "dateModified": "2022",
     },
     {
         "id": "T006",
@@ -168,7 +178,9 @@ export const TruckData = [
         },
         "carrierID": "C006",
         "driverID": "D006",
-        "additionalInfo": "Cold chain compliant"
+        "additionalInfo": "Cold chain compliant",
+        "created": "2022",
+        "dateModified": "2022",
     },
     {
         "id": "T007",
@@ -195,7 +207,9 @@ export const TruckData = [
         },
         "carrierID": "C007",
         "driverID": "D007",
-        "additionalInfo": "Regularly serviced"
+        "additionalInfo": "Regularly serviced",
+        "created": "2022",
+        "dateModified": "2022",
     },
     {
         "id": "T008",
@@ -222,6 +236,8 @@ export const TruckData = [
         },
         "carrierID": "C008",
         "driverID": "D008",
-        "additionalInfo": "Ideal for perishables"
+        "additionalInfo": "Ideal for perishables",
+        "created": "2022",
+        "dateModified": "2022",
     }
 ]

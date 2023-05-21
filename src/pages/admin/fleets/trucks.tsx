@@ -46,7 +46,7 @@ export default function Trucks() {
 
     const { isOpen, onOpen, onClose } = useDisclosure()
 
-    return(
+    return (
         <AdminLayout brandtext="Trucks">
             <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
                 <>
@@ -62,16 +62,17 @@ export default function Trucks() {
                         {TruckData.length > 0 && TruckData.map((data, index) => (
                             // const {id, carrierID, driverID, type, regNumber, capacity, licensePlate, dateCreated, dateModified } = data
                             <TrucksCard
-                                id = {data.id}
-                                carrierID = {data.carrierID}
-                                driverID = {data.driverId}
-                                type = {data.type}
-                                regNumber={data.regNumber}
-                                capacity={data.capacity}
+                                key={index}
+                                id={data.id}
+                                carrierID={data.carrierID}
+                                driverID={data.driverID}
+                                type={data.type}
+                                regNumber={data.vin}
+                                capacity={ data.capacity}
                                 licensePlate={data.licensePlate}
                                 dateCreated={data.created}
                                 dateModified={data.dateModified}
-                                truck= {data.truck}
+                                truck={data.truck}
                                 status={data.status}
                                 dimensions={data.dimensions}
                             />
@@ -147,7 +148,7 @@ export default function Trucks() {
                                     <Input type="file" />
                                 </FormControl>
                             </SimpleGrid>
-                            
+
 
                             <Box>
                                 {/* <Text fontSize={{
@@ -166,7 +167,7 @@ export default function Trucks() {
                                     </FormControl>
                                 </SimpleGrid>
 
-                                
+
                                 <SimpleGrid columns={3} spacing={5} mt={4}>
                                     <FormControl>
                                         <FormLabel>Height</FormLabel>

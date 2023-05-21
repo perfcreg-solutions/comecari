@@ -40,6 +40,7 @@ export default function Drivers() {
                     <SimpleGrid columns={{ base: 1, md: 3, xl: 3 }} gap='20px' mb='20px'>
                         {DriverData.length > 0 && DriverData.map((data, index) => (
                             <DriverCard 
+                                                        key={index}
                                 id={data.id}
                                 name={data.name}
                                 image={data.image}

@@ -39,19 +39,29 @@ import Headshot from 'img/profile/headshot.jpg'
 
 import Maps from '../../../public/maps.png'
 
+interface Capacity {
+    volume: number;
+    weight: number
+  }
+
+  interface Dimension {
+    length: number;
+    width: number;
+    height: number;
+  }
 export default function Truck(props: {
     carrierID: string;
     truck: string;
     id: string;
     driverID: string;
     type: string;
-    regNumber: number;
-    capacity: string;
+    regNumber: string;
+    capacity: Capacity;
     licensePlate: string;
     dateCreated: string;
     dateModified: string;
     status: string;
-    dimensions: string;
+    dimensions: Dimension;
 }) {
     const { id, carrierID, driverID, type, regNumber, capacity, licensePlate, dateCreated, dateModified, truck, status, dimensions, ...rest } = props
     const { isOpen, onOpen, onClose } = useDisclosure()
