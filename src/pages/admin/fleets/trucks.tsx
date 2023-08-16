@@ -36,7 +36,6 @@ import Truck3 from 'img/trucks/van03.png'
 import Truck4 from 'img/trucks/van04.png'
 import Truck5 from 'img/trucks/van05.png'
 import Truck6 from 'img/trucks/van06.png'
-
 import TrucksCard from 'components/card/TrucksCard'
 import { TruckData } from 'views/admin/truck/variables/tableTruckData'
 import { AddIcon } from '@chakra-ui/icons'
@@ -45,6 +44,8 @@ import { AddIcon } from '@chakra-ui/icons'
 export default function Trucks() {
 
     const { isOpen, onOpen, onClose } = useDisclosure()
+   
+   
 
     return (
         <AdminLayout brandtext="Trucks">
@@ -103,7 +104,6 @@ export default function Trucks() {
                                     <Input type="text" placeholder="Volvo" />
                                 </FormControl>
 
-                                <Image src={Truck2.src} width="50%" mx="auto" />
 
                                 <FormControl>
                                     <FormLabel>Model</FormLabel>

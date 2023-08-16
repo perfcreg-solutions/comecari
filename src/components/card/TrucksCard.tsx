@@ -34,10 +34,8 @@ import SimpleImageSlider from "react-simple-image-slider";
 import Slider1 from 'img/trucks/truck1.jpg'
 import Slider2 from 'img/trucks/truck2.jpg'
 import Slider3 from 'img/trucks/truck3.jpg'
-
 import Headshot from 'img/profile/headshot.jpg'
-
-import Maps from '../../../public/maps.png'
+import Map from 'components/gmap/Map';
 
 interface Capacity {
     volume: number;
@@ -49,6 +47,17 @@ interface Capacity {
     width: number;
     height: number;
   }
+
+     interface Coordinate {
+        lat: number;
+        lng: number;
+      }
+    const path: Coordinate[] = [
+        { lat: 37.772, lng: -122.214 },
+        { lat: 21.291, lng: -157.821 },
+        { lat: -18.142, lng: 178.431 },
+        { lat: -27.467, lng: 153.027 },
+      ];
 export default function Truck(props: {
     carrierID: string;
     truck: string;
@@ -80,6 +89,9 @@ export default function Truck(props: {
     ];
 
     const [deletePrompt, setDeletePrompt] = useState(false)
+    const mapURL = `https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyA5Lt3E5gYb-lfogvaSpCrvCpocLqHwNOI`;
+
+ 
 
     return (
         <Card position="relative">
@@ -136,9 +148,14 @@ export default function Truck(props: {
                                     fontWeight='500' mb={2}>
                                     Active trip
                                 </Text>
-                                <Image src={Maps.src} w="100%" h="400px" />
+                                <Map 
+                                paths={path}
+                                containerElement={<div style={{ height: `400px`, width: "500px" }} />}
+                                mapElement={<div style={{ height: `100%` }} />}
+                                googleMapURL={mapURL} 
+                                loadingElement={<div style={{ height: `100%` }} />}
+                                />
                             </Box>
-
                             <Box>
                                 <Text color='secondaryGray.700'
                                     fontSize={{
@@ -157,7 +174,7 @@ export default function Truck(props: {
                                         showBullets={false}
                                         showNavs={true}
                                         autoPlay={true}
-                                        onStartSlide={(index, length) => {
+                                        onStartSlide={(index) => {
                                             setImageNum(index);
                                         }}
                                         autoPlayDelay={3}

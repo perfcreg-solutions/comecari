@@ -1,17 +1,16 @@
 import { ChakraProvider } from '@chakra-ui/react'
-import { AppProps } from 'next/app'
+import { AppProps} from 'next/app'
+import { useRouter } from 'next/router'
 import React from 'react'
 import theme from 'theme/theme'
-
 import 'styles/Fonts.css'
 import 'styles/App.css'
 import 'styles/Contact.css'
-
+import 'react-toastify/dist/ReactToastify.css';
 import 'react-calendar/dist/Calendar.css'
 import 'styles/MiniCalendar.css'
 import Head from 'next/head'
 import axios from 'axios'
-
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import AuthProvider from '../contexts/AuthContext'
@@ -22,6 +21,8 @@ axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
 
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const router = useRouter()
+	const pageKey = router.asPath
   return (
     <QueryClientProvider client={queryClient}>
       <ChakraProvider theme={theme}>
@@ -32,9 +33,8 @@ function MyApp({ Component, pageProps }: AppProps) {
         </Head>
         <React.StrictMode>
           <AuthProvider>
-            <Component {...pageProps} />
+            <Component {...pageProps}  />
           </AuthProvider>
-          {/* <Component {...pageProps} /> */}
         </React.StrictMode>
       </ChakraProvider>
       <ReactQueryDevtools initialIsOpen={false} />

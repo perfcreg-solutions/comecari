@@ -1,143 +1,121 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import axios from 'axios'
-
-import {
-  useAddMemberAfterInvite,
-  useCreateUserBasedOnAuth0User,
-  useGetAuthUser,
-  useUpdateUser,
-} from '../services';
-
+import { useRouter } from 'next/router';
 import { ReactNode } from 'react';
+import { getUserAPI, loginAPI } from 'services'
+import { useMutation, useQueries, useQuery, useQueryClient } from "@tanstack/react-query";
 
 interface IAuthContext {
   isAuthLoading: boolean;
   isAuthenticated: boolean;
-  authError: string | null;
-  authUser: any;
-  setAuthUser: (user: any) => void;
+  // authError: string | null;
+  // authUser: any;
+  // setAccessToken: (token: string) => void;
+  // setAuthUser: (user: any) => void;
   refetchAuthUser: () => void;
-  setIsAuthLoading: (isLoading: boolean) => void;
+  // setIsAuthLoading: (isLoading: boolean) => void;
+  login: (credential: any) => void
 }
 
 interface IAuthProviderProps {
   children: ReactNode;
 }
 
+interface UserLoginInterface {
+  email: string;
+  password: string;
+}
 const AuthContext = createContext<IAuthContext | undefined>(undefined);
 
 export const useAuth = () => {
   return useContext(AuthContext);
 };
 
-const AuthProvider: React.FC<IAuthProviderProps> = ({ children}) => {
+const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
   const [isAuthLoading, setIsAuthLoading] = useState<boolean>(false);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [authError, setAuthError] = useState<string | null>(null);
   const [authUser, setAuthUser] = useState<any>(null);
+  const [accessToken, setAccessToken] = useState<string>(null);
+  const [refreshToken, setRefreshToken] = useState<string>(null);
+
 
   const refetchAuthUser = () => {
-    // Logic to refetch auth user
+    setIsAuthenticated(false);
+    setAuthError(null);
+    setAuthUser(null);
+    setAccessToken(null);
+  };
+
+  const router = useRouter();
+  useEffect(() => {
+    if (isAuthenticated) {
+      (async () => {
+        // Before we send any request with axios, we need to get accessToken auth and
+        // set it into the each request headers, so the API can authorize requests.
+        // And the baseUrl, so we don't have to write our API url in each request.
+        axios.interceptors.request.use(
+          async (config) => {
+            if (!config.headers['Authorization']) {
+              config.headers['Authorization'] = `Bearer ${accessToken}`;
+            }
+            return config;
+          },
+          (error) => {
+            console.log('Setting accessToken in axios interceptor failed', error);
+            return Promise.reject(error);
+          }
+        );
+        
+          const {data} = await getUserAPI(); // Fetch user data
+          if (data.role.name === 'admin') {
+            setAuthUser(data)
+            router.push('/admin');
+          } else {
+            // Redirect to regular user page
+            console.log(data)
+          }
+     
+      })();
+      // Fetch authenticated user's data after login
+      
+    }
+  }, [isAuthenticated]);
+
+
+  // Login Mutation using react-query
+  const loginMutation = useMutation(loginAPI, {
+    onMutate: () => setIsAuthLoading(true),
+    onSuccess: (data) => {
+      setAccessToken(data.data.accessToken);
+      setRefreshToken(data.data.refreshToken);
+      setIsAuthenticated(true);
+      setIsAuthLoading(false);
+    },
+    onError: (error: any) => {
+      setAuthError(error.message)
+      setIsAuthLoading(false)
+    },
+  });
+
+  const login = async (credentials : UserLoginInterface) => {
+    try {
+      await loginMutation.mutateAsync(credentials); // Use mutateAsync to return the promise
+    } catch (error) {
+      console.error('Login error:', error);
+    }
   };
 
 
-  const { refetch: getAuthUser } = useGetAuthUser();
-  const { mutateAsync: createUserMutation } = useCreateUserBasedOnAuth0User();
-  const { mutateAsync: updateUserMutation } = useUpdateUser();
-  const { mutateAsync: addMemberAfterInviteMutation } =useAddMemberAfterInvite();
-
-   /**
-   * Checks if a user is authenticated in auth
-   * Gets the accessToken from the auth and sets in axios headers
-   * Gets the user record from our db or creates a new one
-   */
-   useEffect(() => {
-    if (isAuthLoading) {
-      console.log('Auth0 Loading...');
-      return;
-    }
-
-    if (authError) {
-      console.log(authError);
-      setAuthUser(null);
-      setIsAuthLoading(false);
-      return;
-    }
-
-    if (!isAuthenticated) {
-      console.log('Auth0 is not authenticated.');
-      setAuthUser(null);
-      setIsAuthLoading(false);
-      return;
-    }
-
-    if (!authUser) {
-      console.log("Auth0 Can't find user");
-      setAuthUser(null);
-      setIsAuthLoading(false);
-      return;
-    }
-
-    (async () => {
-      // Before we send any request with axios, we need to get accessToken auth and
-      // set it into the each request headers, so the API can authorize requests.
-      // And the baseUrl, so we don't have to write our API url in each request.
-      axios.interceptors.request.use(
-        async (config) => {
-          if (!config.headers['Authorization']) {
-            const accessToken = 'sffafsfs';
-            config.headers['Authorization'] = `Bearer ${accessToken}`;
-          }
-          return config;
-        },
-        (error) => {
-          console.log('Setting accessToken in axios interceptor failed', error);
-          return Promise.reject(error);
-        }
-      );
-
-      // Check if there's a user in our db with the auth user's email address.
-      const { data: existingAuthUser } = await getAuthUser();
-
-      // Generate fullName from the data provided by auth
-      const fullName =
-        authUser.given_name && authUser.family_name
-          ? `${authUser.given_name} ${authUser.family_name}`
-          : authUser.name;
-
-      // // If there isn't, create a new one, based on the values that auth provides.
-      // if (!existingAuthUser) {
-      //   const userToCreate = {
-      //     [`${authProvider}Id`]: authUser.sub,
-      //     email: authUser.email,
-      //     ...(fullName && { fullName }),
-      //     ...(authUser.picture && { avatar: authUser.picture }),
-      //     // If a user has authenticated with Social (Google). It means their email is already verified.
-      //     ...(authProvider === AuthProviders.GOOGLE && { emailVerified: true }),
-      //   };
-      //   const newlyCreatedUser = await createUserMutation(userToCreate);
-      //   console.log('Successfully created a new auth user: ', newlyCreatedUser);
-      //   setAuthUser(newlyCreatedUser);
-      //   setIsAuthLoading(false);
-      //   return;
-      // }
-
-      // setAuthUser(existingAuthUser);
-    })();
-  }, [
-    isAuthenticated,
-    authError,
-    isAuthLoading,
-    authUser,
-  ]);
+ 
 
   const value = {
-    isAuthLoading,
+    login,
     isAuthenticated,
-    authError,
-    authUser,
-    setAuthUser,
-    refetchAuthUser,
+    isAuthLoading,
+    // accessToken,
+    // setAuthUser,
+    // refetchAuthUser,
     setIsAuthLoading,
   };
 

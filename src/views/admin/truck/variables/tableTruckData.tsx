@@ -9,7 +9,7 @@ export const TruckData = [
     {
         "id": "T001",
         "type": "Flatbed",
-        truck: Truck,
+        'truck': Truck,
         "make": "Volvo",
         "model": "FH16",
         "year": 2022,
