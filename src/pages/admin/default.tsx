@@ -167,8 +167,6 @@ export default function UserReports() {
               value='13'
             />
 
-            {/* <MiniStatistics growth='+23%' name='Sales' value='$574.34' /> */}
-
           </SimpleGrid>
 
           <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px' mb='20px'>
@@ -189,22 +187,9 @@ export default function UserReports() {
 
             />
 
-            {/* <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px'>
-              <DailyTraffic />
-              <PieCard />
-            </SimpleGrid> */}
           </SimpleGrid>
 
-          {/* <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap='20px' mb='20px'>
-            <ComplexTable
-              columnsData={columnsDataComplex}
-              tableData={(tableDataComplex as unknown) as TableData[]}
-            />
-            <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px'>
-              <Tasks />
-              <MiniCalendar h='100%' minW='100%' selectRange={false} />
-            </SimpleGrid>
-          </SimpleGrid> */}
+        
 
         </>
       </Box>
