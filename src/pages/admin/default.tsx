@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Box,
   Flex,
   FormLabel,
@@ -9,26 +10,36 @@ import {
 } from '@chakra-ui/react'
 // Assets
 // Custom components
+import MiniCalendar from 'components/calendar/MiniCalendar'
 import MiniStatistics from 'components/card/MiniStatistics'
 import IconBox from 'components/icons/IconBox'
 import { FcCancel } from 'react-icons/fc'
 import {
   MdAddTask,
+  MdAttachMoney,
   MdBarChart,
   MdFileCopy,
   MdFireTruck
 } from 'react-icons/md'
+import CheckTable from 'views/admin/default/components/CheckTable'
 import ShipmentOverviewComplexTable from 'views/admin/default/components/ShipmentOverviewComplexTable'
 import ShipmentHistoryComplexTable from 'views/admin/default/components/ShipmentHistoryComplexTable'
+import DailyTraffic from 'views/admin/default/components/DailyTraffic'
+import PieCard from 'views/admin/default/components/PieCard'
+import Tasks from 'views/admin/default/components/Tasks'
+import TotalSpent from 'views/admin/default/components/TotalSpent'
 import WeeklyRevenue from 'views/admin/default/components/WeeklyRevenue'
 import {
+  columnsDataCheck,
   ShipmentOverviewDataComplex,
   ShipmentHistoryDataComplex,
   TableData,
   shipmentData
 } from 'views/admin/default/variables/columnsData'
+import tableDataCheck from 'views/admin/default/variables/tableDataCheck.json'
 // import tableDataComplex from 'views/admin/default/variables/tableDataComplex.json'
 import tableShipmentData from 'views/admin/default/variables/tableShipmentData.json'
+import { isWindowAvailable } from 'utils/navigation'
 import AdminLayout from 'layouts/admin'
 import { Image } from 'components/image/Image'
 import Usa from 'img/dashboards/usa.png'
@@ -167,6 +178,8 @@ export default function UserReports() {
               value='13'
             />
 
+            {/* <MiniStatistics growth='+23%' name='Sales' value='$574.34' /> */}
+
           </SimpleGrid>
 
           <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px' mb='20px'>
@@ -187,9 +200,22 @@ export default function UserReports() {
 
             />
 
+            {/* <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px'>
+              <DailyTraffic />
+              <PieCard />
+            </SimpleGrid> */}
           </SimpleGrid>
 
-        
+          {/* <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap='20px' mb='20px'>
+            <ComplexTable
+              columnsData={columnsDataComplex}
+              tableData={(tableDataComplex as unknown) as TableData[]}
+            />
+            <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px'>
+              <Tasks />
+              <MiniCalendar h='100%' minW='100%' selectRange={false} />
+            </SimpleGrid>
+          </SimpleGrid> */}
 
         </>
       </Box>
