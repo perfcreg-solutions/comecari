@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, useCallback } from "react";
 import axios from 'axios'
 import { useRouter } from 'next/router';
 import { ReactNode } from 'react';
@@ -42,15 +42,17 @@ const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
 
   const { refetch: getAuthUser } = useGetAuthUser();
   const { mutateAsync: userLoginMutaion } = useLogin();
-  const { mutateAsync: updateUserMutation } = useUpdateUser();
-  const { mutateAsync: addMemberAfterInviteMutation } =useAddMemberAfterInvite();
+  // const { mutateAsync: updateUserMutation } = useUpdateUser();
+  // const { mutateAsync: addMemberAfterInviteMutation } =useAddMemberAfterInvite();
 
-  const refetchAuthUser = () => {
-    setIsAuthenticated(false);
-    setAuthError(null);
-    setAuthUser(null);
-    setAccessToken(null);
-  };
+  /**
+   * Re-fetches authUser information from the API and sets it in the state.
+   */
+  const refetchAuthUser = useCallback(async () => {
+    const { data: refreshAuthUser } = await getAuthUser();
+    console.log('refetchAuthUser', refreshAuthUser);
+    setAuthUser(refreshAuthUser);
+  }, [getAuthUser]);
 
   const router = useRouter();
   useEffect(() => {
@@ -89,19 +91,19 @@ const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
 
 
   // Login Mutation using react-query
-  const loginMutation = useMutation(loginAPI, {
-    onMutate: () => setIsAuthLoading(true),
-    onSuccess: (data) => {
-      setAccessToken(data.data.accessToken);
-      setRefreshToken(data.data.refreshToken);
-      setIsAuthenticated(true);
-      setIsAuthLoading(false);
-    },
-    onError: (error: any) => {
-      setAuthError(error.message)
-      setIsAuthLoading(false)
-    },
-  });
+  // const loginMutation = useMutation(loginAPI, {
+  //   onMutate: () => setIsAuthLoading(true),
+  //   onSuccess: (data) => {
+  //     setAccessToken(data.data.accessToken);
+  //     setRefreshToken(data.data.refreshToken);
+  //     setIsAuthenticated(true);
+  //     setIsAuthLoading(false);
+  //   },
+  //   onError: (error: any) => {
+  //     setAuthError(error.message)
+  //     setIsAuthLoading(false)
+  //   },
+  // });
 
   const login = async (credentials : UserLoginInterface) => {
     try {
