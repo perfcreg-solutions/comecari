@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   Avatar,
   Box,
@@ -6,7 +7,10 @@ import {
   Icon,
   Select,
   SimpleGrid,
-  useColorModeValue
+  useColorModeValue,
+  Skeleton,
+  SkeletonCircle,
+  SkeletonText,
 } from '@chakra-ui/react'
 // Assets
 // Custom components
@@ -44,11 +48,13 @@ import AdminLayout from 'layouts/admin'
 import { Image } from 'components/image/Image'
 import Usa from 'img/dashboards/usa.png'
 
-export default function UserReports() {
+export default function Dashboard() {
   // Chakra Color Mode
 
   const brandColor = useColorModeValue('brand.500', 'white')
   const boxBg = useColorModeValue('secondaryGray.300', 'whiteAlpha.100')
+
+  const [isLoaded, setIsLoaded] = useState(false)
 
   return (
     <AdminLayout brandtext={"Dashboard"}>
@@ -60,50 +66,54 @@ export default function UserReports() {
             mb='20px'
           >
 
-            <MiniStatistics
-              endContent={
-                <Flex me='-16px' mt='10px'>
-                  <FormLabel htmlFor='balance'>
-                    <Box boxSize={'12'}>
-                      <Image src={Usa} alt='' w={'100%'} h={'100%'} />
-                    </Box>
-                  </FormLabel>
-                  <Select
-                    id='balance'
-                    variant='mini'
-                    mt='5px'
-                    me='0px'
-                    defaultValue='usd'
-                  >
-                    <option value='usd'>USD</option>
-                    <option value='eur'>EUR</option>
-                    <option value='gba'>GBA</option>
-                  </Select>
-                </Flex>
-              }
-              name='Total Revenue'
-              value='$1,000'
-            />
+            <Skeleton borderRadius={15} isLoaded={!isLoaded}>
+              <MiniStatistics
+                endContent={
+                  <Flex me='-16px' mt='10px'>
+                    <FormLabel htmlFor='balance'>
+                      <Box boxSize={'12'}>
+                        <Image src={Usa} alt='' w={'100%'} h={'100%'} />
+                      </Box>
+                    </FormLabel>
+                    <Select
+                      id='balance'
+                      variant='mini'
+                      mt='5px'
+                      me='0px'
+                      defaultValue='usd'
+                    >
+                      <option value='usd'>USD</option>
+                      <option value='eur'>EUR</option>
+                      <option value='gba'>GBA</option>
+                    </Select>
+                  </Flex>
+                }
+                name='Total Revenue'
+                value='$1,000'
+              />
+            </Skeleton>
 
-            <MiniStatistics
-              startContent={
-                <IconBox
-                  w='56px'
-                  h='56px'
-                  bg={boxBg}
-                  icon={
-                    <Icon
-                      w='32px'
-                      h='32px'
-                      as={MdBarChart}
-                      color={brandColor}
-                    />
-                  }
-                />
-              }
-              name='Shipments this month'
-              value='23'
-            />
+            <Skeleton borderRadius={15} isLoaded={!isLoaded}>
+              <MiniStatistics
+                startContent={
+                  <IconBox
+                    w='56px'
+                    h='56px'
+                    bg={boxBg}
+                    icon={
+                      <Icon
+                        w='32px'
+                        h='32px'
+                        as={MdBarChart}
+                        color={brandColor}
+                      />
+                    }
+                  />
+                }
+                name='Shipments this month'
+                value='23'
+              />
+            </Skeleton>
 
             <MiniStatistics
               startContent={
@@ -219,6 +229,7 @@ export default function UserReports() {
 
         </>
       </Box>
+      
     </AdminLayout>
   )
 }

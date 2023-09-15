@@ -1,12 +1,12 @@
+import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 
 
-interface UserLoginInterface {
-  email: string;
-  password: string;
-}
-
 export const loginAPI = async (fields: UserLoginInterface) => {
+  interface UserLoginInterface {
+    email: string;
+    password: string;
+  }
   try {
     const { data } = await axios.post('/public/user/login', fields);
     return data;
@@ -18,54 +18,66 @@ export const loginAPI = async (fields: UserLoginInterface) => {
 
 export const getUserAPI = async () => {
   try {
-    const { data } = await axios.get('/auth/user/profile');
+    const { data } = await axios.get('/auth/user/info');
     return data
   } catch (error) {
     throw new Error(error.response?.data?.message || 'Get user failed');
   }
 }
 
-interface AddNumberInterface {
-  mobileNumber: string;
-}
-export const addNumber = async (fields: AddNumberInterface) => {
-  try {
-    const { data } = await axios.post('/public/user/add-number', fields)
-    return data
-  } catch (error) {
-    console.log(error);
-    throw new Error(error.response?.data?.message || 'Invalid Phone Number');
+
+export const useAddNumber =(): any => {
+  interface AddNumberInterface {
+    mobileNumber: string;
   }
+
+  const addNumber = async (fields: AddNumberInterface) => {
+    const {data} = await axios.post('/public/user/add-number', fields);
+    return data;
+  }
+  return useMutation(addNumber)
 }
 
-interface VerifyNumberInterface {
-  token: string;
-}
-export const verifyNumber = async (fields: VerifyNumberInterface) => {
-  try {
+export const useVerifyNumber = (): any => {
+  interface VerifyNumberInterface {
+    token: string;
+  }
+  const verifyNumber = async (fields: VerifyNumberInterface) => {
     const { data } = await axios.post('/public/user/verify-number', fields)
-    return data
-  } catch (error) {
-    console.log(error);
-    throw new Error(error.response?.data?.message || 'Invalid Token')
+    return data;
   }
+  return useMutation(verifyNumber)
 }
 
-interface UserSignupInterface {
-  email: string;
-  firstName: string;
-  lastName: string;
-  mobileNumber: string;
-  password: string;
-}
-export const signupAPI = async (fields: UserSignupInterface) => {
-  try {
+export const useSignUp = (): any => {
+  interface UserSignupInterface {
+    email: string;
+    firstName: string;
+    lastName: string;
+    mobileNumber: string;
+    password: string;
+  }
+  const signUp = async (fields: UserSignupInterface) => {
     const { data } = await axios.post('/public/user/sign-up', fields);
     return data;
-  } catch (error) {
-    throw new Error(error.response?.data?.message || 'Sign Up failed')
   }
-};
+    return useMutation(signUp)
+}
+
+
+export const refreshAPI = async () => {
+  const { data } = await axios.post('/auth/user/refresh/');
+  return data
+}
+
+export const getUserProfile = async () => {
+  try {
+    const { data } = await axios.get('/auth/user/profile');
+    return data
+  } catch (error) {
+    throw new Error(error.response?.data?.message || 'Get user failed');
+  }
+}
 
 interface ChangePasswordInterface {
   newPassword: string;

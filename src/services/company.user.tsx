@@ -30,3 +30,11 @@ export const updateUser = async (fields: UpdateUserInterface) => {
     }
 };
 
+export const getCompanyUserAPI = async () => {
+    try {
+        const { data } = await axios.get('/company/user');
+        return data
+    } catch (error) {
+        throw new Error(error.response?.data?.message || 'Get Company User failed');
+    }
+}
