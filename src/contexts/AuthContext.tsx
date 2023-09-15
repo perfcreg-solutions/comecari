@@ -2,18 +2,17 @@ import { createContext, useContext, useState, useEffect } from "react";
 import axios from 'axios'
 import { useRouter } from 'next/router';
 import { ReactNode } from 'react';
-import { getUserAPI, loginAPI } from 'services'
+import { useLogin, useGetAuthUser } from 'services'
 import { useMutation, useQueries, useQuery, useQueryClient } from "@tanstack/react-query";
 
 interface IAuthContext {
   isAuthLoading: boolean;
   isAuthenticated: boolean;
-  // authError: string | null;
-  // authUser: any;
-  // setAccessToken: (token: string) => void;
-  // setAuthUser: (user: any) => void;
+  authError?: string;
+  authUser?: any;
+  setAuthUser?: void;
   refetchAuthUser: () => void;
-  // setIsAuthLoading: (isLoading: boolean) => void;
+  setIsAuthLoading: (isLoading: boolean) => void;
   login: (credential: any) => void
 }
 
@@ -39,6 +38,12 @@ const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
   const [accessToken, setAccessToken] = useState<string>(null);
   const [refreshToken, setRefreshToken] = useState<string>(null);
 
+
+
+  const { refetch: getAuthUser } = useGetAuthUser();
+  const { mutateAsync: userLoginMutaion } = useLogin();
+  const { mutateAsync: updateUserMutation } = useUpdateUser();
+  const { mutateAsync: addMemberAfterInviteMutation } =useAddMemberAfterInvite();
 
   const refetchAuthUser = () => {
     setIsAuthenticated(false);
@@ -113,6 +118,7 @@ const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
     login,
     isAuthenticated,
     isAuthLoading,
+    authUser,
     // accessToken,
     // setAuthUser,
     // refetchAuthUser,
