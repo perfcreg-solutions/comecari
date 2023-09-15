@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import {
-  Avatar,
   Box,
   Flex,
   FormLabel,
@@ -10,7 +9,6 @@ import {
   useColorModeValue,
   Skeleton,
   SkeletonCircle,
-  SkeletonText,
 } from '@chakra-ui/react'
 // Assets
 // Custom components
