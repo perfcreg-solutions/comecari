@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, ChangeEvent, SyntheticEvent } from 'react';
 // Chakra imports
 import {
 	Box,
@@ -13,6 +13,7 @@ import {
 	InputGroup,
 	InputRightElement,
 	Text,
+	SimpleGrid,
 	useColorModeValue,
 	FormErrorMessage
 } from '@chakra-ui/react';
@@ -29,6 +30,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { useAuth } from 'contexts/AuthContext';
 import { useRouter } from 'next/router';
 import { ToastContainer, toast } from 'react-toastify';
+import { useSignUp } from 'services'
 
 
 export default function SignIn() {
@@ -45,38 +47,53 @@ export default function SignIn() {
 	const [show, setShow] = React.useState(false);
 	const handleClick = () => setShow(!show);
 	const [message, setMessage] = React.useState(false);
+	const [email, setEmail] = useState<string>('')
+	const [mobileNumber, setMobileNumber] = useState<string>('')
+	const [firstName, setFirstName] = useState<string>('')
+	const [lastName, setLastName] = useState<string>('')
+	const [password, setPassword] = useState<string>('')
 
-	const { login, isAuthenticated, authError, isAuthLoading, getAuthUser } = useAuth();
-	const router = useRouter();
+
+	const {
+		mutateAsync: mutationSignUp,
+		isError: isErrorSignUp,
+		error: errorSignUp,
+		isLoading: isLoadingSignUp
+	} = useSignUp();
+
+	const [input, setInput] = useState('')
+	const isFirstNameError = input === ''
+
+	const router = useRouter()
 
 
-	const onSubmit = async (data) => {
+	const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+		setEmail(e.target.value)
+		setMobileNumber(e.target.value)
+		setFirstName(e.target.value)
+		setLastName(e.target.value)
+		setPassword(e.target.value)
+	}
+	const onSubmit = async (e: SyntheticEvent) => {
+		e.preventDefault();
 		try {
-			// Use the toast.promise function to display loading, success, and error states
-			const loginPromise = login(data); // Assuming login function sends the login request
-
-			const result : any  = await toast.promise(loginPromise, {
-				pending: 'Logging in...',
-				success: {
-					render({ data : any }) {
-						return "working"; // Replace 'username' with the actual user property returned by your login request
-					},
-				},
-				error: {
-					render({ data  : any }) {
-						// When the promise is rejected, data will contain the error
-						return data.message;
-					},
-				},
-			});
-			
+			toast.loading("Processing Request");
+			await mutationSignUp({
+				email,
+				firstName,
+				lastName,
+				password,
+				mobileNumber
+			})
+			toast.done("Data Created")
+			console.log("User Sigup successful")
+			return router.push("/admin");
 		} catch (error) {
-			setMessage(true)
+			console.log(error)
 		}
 	};
 
 
-	const { handleSubmit, control, formState: { errors }, register } = useForm();
 	return (
 		<DefaultAuthLayout illustrationBackground={Background.src}>
 			<ToastContainer />
@@ -133,93 +150,155 @@ export default function SignIn() {
 						</Text>
 						<HSeparator />
 					</Flex>
-					<form onSubmit={handleSubmit(onSubmit)}>
+
+					<SimpleGrid columns={{ base: 1, md: 2, lg: 2 }} spacing={3}>
+						<FormControl>
+							<FormLabel display='flex' ms='4px' fontSize='sm' fontWeight='500' color={textColor} mb='8px'>
+								First name<Text color={brandStars}>*</Text>
+							</FormLabel>
+
+							<Input
+								isRequired={true}
+								variant='auth'
+								fontSize='sm'
+								ms={{ base: '0px', md: '0px' }}
+								type="text"
+								placeholder='John'
+								mb='24px'
+								fontWeight='500'
+								size='lg'
+								onChange={(e)=>setFirstName(e.target.value)}
+								value={firstName}
+							/>
+
+						</FormControl>
+
+						<FormControl>
+							<FormLabel display='flex' ms='4px' fontSize='sm' fontWeight='500' color={textColor} mb='8px'>
+								Last name<Text color={brandStars}>*</Text>
+							</FormLabel>
+
+							<Input
+								isRequired={true}
+								variant='auth'
+								fontSize='sm'
+								ms={{ base: '0px', md: '0px' }}
+								type="text"
+								placeholder='Doe'
+								mb='24px'
+								fontWeight='500'
+								size='lg'
+								onChange={(e) => setLastName(e.target.value)}
+								value={lastName}
+							/>
+						</FormControl>
+					</SimpleGrid>
+
+					<SimpleGrid columns={{ base: 1, md: 2, lg: 2 }} spacing={3}>
 						<FormControl>
 							<FormLabel display='flex' ms='4px' fontSize='sm' fontWeight='500' color={textColor} mb='8px'>
 								Email<Text color={brandStars}>*</Text>
 							</FormLabel>
-							<Controller
-								name="email"
-								defaultValue="" // Provide an initial value here
-								control={control}
-								render={({ field }) =>
-									<Input
-										isRequired={true}
-										variant='auth'
-										fontSize='sm'
-										ms={{ base: '0px', md: '0px' }}
-										type="email"
-										placeholder='mail@simmmple.com'
-										mb='24px'
-										fontWeight='500'
-										size='lg'
-										{...field}
-									/>
-								}
+
+							<Input
+								isRequired={true}
+								variant='auth'
+								fontSize='sm'
+								ms={{ base: '0px', md: '0px' }}
+								type="email"
+								placeholder='mail@simmmple.com'
+								mb='24px'
+								fontWeight='500'
+								size='lg'
+								onChange={(e) => setEmail(e.target.value)}
+								value={email}
 							/>
-							<FormErrorMessage>{errors.email && errors.email.message}</FormErrorMessage>
 						</FormControl>
 
 						<FormControl>
-							<FormLabel ms='4px' fontSize='sm' fontWeight='500' color={textColor} display='flex'>
-								Password<Text color={brandStars}>*</Text>
+							<FormLabel display='flex' ms='4px' fontSize='sm' fontWeight='500' color={textColor} mb='8px'>
+								Mobile Number<Text color={brandStars}>*</Text>
 							</FormLabel>
-							<InputGroup size='md'>
-								<Controller
-									name="password"
-									defaultValue="" // Provide an initial value here
-									control={control}
-									render={({ field }) =>
-										<Input
-											isRequired={true}
-											fontSize='sm'
-											placeholder='Min. 8 characters'
-											mb='24px'
-											size='lg'
-											type={show ? 'text' : 'password'}
-											variant='auth'
-											{...field}
-										/>
-									}
-								/>
-								<InputRightElement display='flex' alignItems='center' mt='4px'>
-									<Icon
-										color={textColorSecondary}
-										_hover={{ cursor: 'pointer' }}
-										as={show ? RiEyeCloseLine : MdOutlineRemoveRedEye}
-										onClick={handleClick}
-									/>
-								</InputRightElement>
-							</InputGroup>
-							<FormErrorMessage>{errors.password && errors.password.message}</FormErrorMessage>
-						</FormControl>
 
-						<FormControl>
-							<Flex justifyContent='space-between' align='center' mb='24px'>
-								<FormControl display='flex' alignItems='center'>
-									<Checkbox id='remember-login' colorScheme='brandScheme' me='10px' />
-									<FormLabel
-										htmlFor='remember-login'
-										mb='0'
-										fontWeight='normal'
-										color={textColor}
-										fontSize='sm'>
-										Keep me logged in
-									</FormLabel>
-								</FormControl>
-								<Link href='/auth/forgot-password'>
-									<a>
-										<Text color={textColorBrand} fontSize='sm' w='124px' fontWeight='500'>
-											Forgot password?
-										</Text>
-									</a>
-								</Link>
-							</Flex>
-							<Button fontSize='sm' variant='brand' fontWeight='500' w='100%' h='50' mb='24px' type="submit">
-								Sign In
-							</Button>
+							<Input
+								isRequired={true}
+								variant='auth'
+								fontSize='sm'
+								ms={{ base: '0px', md: '0px' }}
+								type="number"
+								placeholder='0911 111 1111'
+								mb='24px'
+								fontWeight='500'
+								size='lg'
+								onChange={(e) => setMobileNumber(e.target.value)}
+								value={mobileNumber}
+							/>
 						</FormControl>
-					</form>
+					</SimpleGrid>
+
+
+					<FormControl>
+						<FormLabel ms='4px' fontSize='sm' fontWeight='500' color={textColor} display='flex'>
+							Password<Text color={brandStars}>*</Text>
+						</FormLabel>
+						<InputGroup size='md'>
+							<Input
+								isRequired={true}
+								fontSize='sm'
+								placeholder='Min. 8 characters'
+								mb='24px'
+								size='lg'
+								type={show ? 'text' : 'password'}
+								variant='auth'
+								onChange={(e) => setPassword(e.target.value)}
+								value={password}
+							/>
+
+							<InputRightElement display='flex' alignItems='center' mt='4px'>
+								<Icon
+									color={textColorSecondary}
+									_hover={{ cursor: 'pointer' }}
+									as={show ? RiEyeCloseLine : MdOutlineRemoveRedEye}
+									onClick={handleClick}
+								/>
+							</InputRightElement>
+						</InputGroup>
+						{/* <FormErrorMessage>{errors.password && errors.password.message}</FormErrorMessage> */}
+					</FormControl>
+
+					<FormControl>
+						<Flex justifyContent='space-between' align='center' mb='24px'>
+							<FormControl display='flex' alignItems='center'>
+								<Checkbox id='remember-login' colorScheme='brandScheme' me='10px' />
+								<FormLabel
+									htmlFor='remember-login'
+									mb='0'
+									fontWeight='normal'
+									color={textColor}
+									fontSize='sm'>
+									Keep me logged in
+								</FormLabel>
+							</FormControl>
+							<Link href='/auth/forgot-password'>
+								<a>
+									<Text color={textColorBrand} fontSize='sm' w='124px' fontWeight='500'>
+										Forgot password?
+									</Text>
+								</a>
+							</Link>
+						</Flex>
+						<Button fontSize='sm' variant='brand' 
+							onClick={onSubmit}
+							// disabled={isLoadingSignUp}
+							fontWeight='500' 
+							w='100%' 
+							h='50' 
+							mb='24px' 
+							type="submit">
+							Sign In
+						</Button>
+					</FormControl>
+					{/* </form> */}
 					<Flex flexDirection='column' justifyContent='center' alignItems='start' maxW='100%' mt='0px'>
 						<Text color={textColorDetails} fontWeight='400' fontSize='14px'>
 							Not registered yet?
@@ -234,6 +313,7 @@ export default function SignIn() {
 					</Flex>
 				</Flex>
 			</Flex>
+
 		</DefaultAuthLayout>
 	);
 }

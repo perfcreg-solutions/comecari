@@ -10,8 +10,8 @@ interface IAuthContext {
   isAuthenticated: boolean;
   authError?: string;
   authUser?: any;
-  setAuthUser?: void;
-  refetchAuthUser: () => void;
+  setAuthUser?: any;
+  refetchAuthUser?: any;
   setIsAuthLoading: (isLoading: boolean) => void;
   login: (credential: any) => void
 }
@@ -50,7 +50,6 @@ const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
    */
   const refetchAuthUser = useCallback(async () => {
     const { data: refreshAuthUser } = await getAuthUser();
-    console.log('refetchAuthUser', refreshAuthUser);
     setAuthUser(refreshAuthUser);
   }, [getAuthUser]);
 
@@ -66,6 +65,7 @@ const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
             if (!config.headers['Authorization']) {
               config.headers['Authorization'] = `Bearer ${accessToken}`;
             }
+            // console.log(accessToken);
             return config;
           },
           (error) => {
@@ -73,41 +73,38 @@ const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
             return Promise.reject(error);
           }
         );
-        
-          const {data} = await getUserAPI(); // Fetch user data
-          if (data.role.name === 'admin') {
+          const {data} = await getAuthUser(); // Fetch user data
+          console.log(data.data.type)
+
+          if (data.data.type === 'ADMIN') {
             setAuthUser(data)
             router.push('/admin');
           } else {
-            // Redirect to regular user page
             console.log(data)
           }
      
       })();
-      // Fetch authenticated user's data after login
       
     }
   }, [isAuthenticated]);
 
 
-  // Login Mutation using react-query
-  // const loginMutation = useMutation(loginAPI, {
-  //   onMutate: () => setIsAuthLoading(true),
-  //   onSuccess: (data) => {
-  //     setAccessToken(data.data.accessToken);
-  //     setRefreshToken(data.data.refreshToken);
-  //     setIsAuthenticated(true);
-  //     setIsAuthLoading(false);
-  //   },
-  //   onError: (error: any) => {
-  //     setAuthError(error.message)
-  //     setIsAuthLoading(false)
-  //   },
-  // });
 
   const login = async (credentials : UserLoginInterface) => {
     try {
-      await loginMutation.mutateAsync(credentials); // Use mutateAsync to return the promise
+      await userLoginMutaion(credentials, {
+        onMutate: () => setIsAuthLoading(true),
+        onSuccess: (data: any) => {
+          setAccessToken(data.data.accessToken);
+          setRefreshToken(data.data.refreshToken);
+          setIsAuthenticated(true);
+          setIsAuthLoading(false);
+        },
+        onError: (error: any) => {
+          setAuthError(error.message)
+          setIsAuthLoading(false)
+        },
+      }); // Use mutateAsync to return the promise
     } catch (error) {
       console.error('Login error:', error);
     }
@@ -117,13 +114,13 @@ const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
  
 
   const value = {
-    login,
     isAuthenticated,
     isAuthLoading,
     authUser,
-    // accessToken,
-    // setAuthUser,
-    // refetchAuthUser,
+    authError,
+    login,
+    setAuthUser,
+    refetchAuthUser,
     setIsAuthLoading,
   };
 

@@ -15,16 +15,18 @@ export const useLogin = (): any => {
 }
 
 
-export const useGetAuthUser = async () => {
+export const useGetAuthUser = () => {
   const getAuthUser = async () => {
-    const { data } = await axios.get('/auth/user/info');
+    const { data } = await axios('/auth/user/info');
     return data;
   };
 
   const { data, isLoading, refetch } = useQuery(['getAuthUser'], getAuthUser, {
     enabled: false,
   });
-}
+
+  return { isLoading, data, refetch };
+};
 
 // export const useUpdateUser = (): any => {
 //   const updateUser = async (data: updateUserProps) => {
@@ -46,36 +48,54 @@ export const addNumber = async (fields: AddNumberInterface) => {
     console.log(error);
     throw new Error(error.response?.data?.message || 'Invalid Phone Number');
   }
-}
 
-interface VerifyNumberInterface {
-  token: string;
-}
-export const verifyNumber = async (fields: VerifyNumberInterface) => {
-  try {
-    const { data } = await axios.post('/public/user/verify-number', fields)
-    return data
-  } catch (error) {
-    console.log(error);
-    throw new Error(error.response?.data?.message || 'Invalid Token')
+  const addNumber = async (fields: AddNumberInterface) => {
+    const {data} = await axios.post('/public/user/add-number', fields);
+    return data;
   }
+  return useMutation(addNumber)
 }
 
-interface UserSignupInterface {
-  email: string;
-  firstName: string;
-  lastName: string;
-  mobileNumber: string;
-  password: string;
+export const useVerifyNumber = (): any => {
+  interface VerifyNumberInterface {
+    token: string;
+  }
+  const verifyNumber = async (fields: VerifyNumberInterface) => {
+    const { data } = await axios.post('/public/user/verify-number', fields)
+    return data;
+  }
+  return useMutation(verifyNumber)
 }
-export const signupAPI = async (fields: UserSignupInterface) => {
-  try {
+
+export const useSignUp = (): any => {
+  interface UserSignupInterface {
+    email: string;
+    firstName: string;
+    lastName: string;
+    mobileNumber: string;
+    password: string;
+  }
+  const signUp = async (fields: UserSignupInterface) => {
     const { data } = await axios.post('/public/user/sign-up', fields);
     return data;
-  } catch (error) {
-    throw new Error(error.response?.data?.message || 'Sign Up failed')
   }
-};
+    return useMutation(signUp)
+}
+
+
+export const refreshAPI = async () => {
+  const { data } = await axios.post('/auth/user/refresh/');
+  return data
+}
+
+export const getUserProfile = async () => {
+  try {
+    const { data } = await axios.get('/auth/user/profile');
+    return data
+  } catch (error) {
+    throw new Error(error.response?.data?.message || 'Get user failed');
+  }
+}
 
 interface ChangePasswordInterface {
   newPassword: string;
