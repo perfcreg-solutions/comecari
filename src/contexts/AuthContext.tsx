@@ -68,7 +68,7 @@ const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
         );
         
           const {data} = await getUserAPI(); // Fetch user data
-          if (data.role.name === 'admin') {
+          if (data.type == 'ADMIN') {
             setAuthUser(data)
             router.push('/admin');
           } else {

@@ -2,15 +2,17 @@ import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 
 
+interface UserLoginInterface {
+  email: string;
+  password: string;
+}
+
 export const loginAPI = async (fields: UserLoginInterface) => {
-  interface UserLoginInterface {
-    email: string;
-    password: string;
-  }
+
   try {
     const { data } = await axios.post('/public/user/login', fields);
     return data;
-  } catch (error) {
+  } catch (error: any) {
     throw new Error(error.response?.data?.message || 'Login failed');
   }
 };
@@ -20,48 +22,44 @@ export const getUserAPI = async () => {
   try {
     const { data } = await axios.get('/auth/user/info');
     return data
-  } catch (error) {
+  } catch (error: any) {
     throw new Error(error.response?.data?.message || 'Get user failed');
   }
 }
 
-
-export const useAddNumber =(): any => {
-  interface AddNumberInterface {
-    mobileNumber: string;
-  }
-
-  const addNumber = async (fields: AddNumberInterface) => {
-    const {data} = await axios.post('/public/user/add-number', fields);
-    return data;
-  }
-  return useMutation(addNumber)
+interface AddNumberInterface {
+  mobileNumber: string;
 }
 
-export const useVerifyNumber = (): any => {
-  interface VerifyNumberInterface {
-    token: string;
-  }
-  const verifyNumber = async (fields: VerifyNumberInterface) => {
+export const useAddNumber = async (field: AddNumberInterface) => {
+    const { data } = await axios.post('/public/user/add-number', field)
+    return data;
+}
+
+interface VerifyNumberInterface {
+  token: string;
+}
+export const useVerifyNumber = (fields: VerifyNumberInterface): any => {
+  const verifyNumber = async () => {
     const { data } = await axios.post('/public/user/verify-number', fields)
     return data;
   }
   return useMutation(verifyNumber)
 }
 
-export const useSignUp = (): any => {
-  interface UserSignupInterface {
-    email: string;
-    firstName: string;
-    lastName: string;
-    mobileNumber: string;
-    password: string;
-  }
-  const signUp = async (fields: UserSignupInterface) => {
+interface UserSignupInterface {
+  email: string;
+  firstName: string;
+  lastName: string;
+  mobileNumber: string;
+  password: string;
+}
+export const useSignUp = (fields: UserSignupInterface): any => {
+  const signUp = async () => {
     const { data } = await axios.post('/public/user/sign-up', fields);
     return data;
   }
-    return useMutation(signUp)
+  return useMutation(signUp)
 }
 
 
