@@ -46,11 +46,11 @@ export default function Default(props: {
 }) {
     const { truck, shipmentId, pickupLocation, pickupDetails, deliveryLocation, deliveryDetails, driver, price, status, date, ...rest } = props
 
-    const greenColor = useColorModeValue('green.500', 'white')
-    const greenBg = useColorModeValue('green.100', 'whiteAlpha.100')
-    const redColor = useColorModeValue('red.500', 'white')
-    const redBg = useColorModeValue('red.100', 'whiteAlpha.100')
-    const color = useColorModeValue('black.400', 'whiteAlpha.400')
+    const greenColor = useColorModeValue('green.500', 'white');
+    const greenBg = useColorModeValue('green.100', 'whiteAlpha.100');
+    const redColor = useColorModeValue('red.500', 'white');
+    const redBg = useColorModeValue('red.100', 'whiteAlpha.100');
+    const color = useColorModeValue('black.400', 'whiteAlpha.400');
 
     const { isOpen, onOpen, onClose } = useDisclosure()
 
