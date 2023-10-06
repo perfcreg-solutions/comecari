@@ -7,12 +7,14 @@ import Link from 'next/link'
 import { IRoute } from 'types/navigation'
 import { ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
+import {useAuth} from 'contexts/AuthContext'
 interface SidebarLinksProps {
   routes: IRoute[]
 }
 
 export function SidebarLinks(props: SidebarLinksProps) {
   const { routes } = props
+  const {} = useAuth()
 
 
   //   Chakra color mode
