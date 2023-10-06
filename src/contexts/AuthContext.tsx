@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useRouter } from 'next/router';
 import { ReactNode } from 'react';
 import { getUserAPI, loginAPI, refreshAPI } from 'services'
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 interface IAuthContext {
   isAuthLoading: boolean;
@@ -34,8 +34,9 @@ const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
   const [authUser, setAuthUser] = useState<any>(null);
   const [accessToken, setAccessToken] = useState<string>(null);
   const [refreshToken, setRefreshToken] = useState<string>(null);
-
   const router = useRouter();
+  const { data: user} = useQuery(['user'], getUserAPI);
+
   useEffect(() => {
     if (isAuthenticated) {
       (async () => {
@@ -49,6 +50,7 @@ const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
           },
           (error) => {
             if (error.response && error.response.status === 401) {
+              console.log("trying to reconnect")
               refetchAuthUser()
             }
             console.log('Setting accessToken in axios interceptor failed', error);
@@ -56,9 +58,7 @@ const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
           }
         );
 
-        const { data } = await getUserAPI(); // Fetch user data
-        if (data.type == 'ADMIN') {
-          setAuthUser(data)
+        if (user?.type == 'ADMIN') {
           router.push('/admin');
         } else {
           router.push('/welcome');
@@ -78,7 +78,7 @@ const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
       setIsAuthLoading(false);
     },
     onError: (error: any) => {
-      setAuthError(error.message)
+      setAuthError(error)
       setIsAuthLoading(false)
     },
   });
@@ -113,7 +113,7 @@ const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
           setIsAuthenticated(false);
         }
       }
-    });
+  });
 
   const login = async (credentials: UserLoginInterface) => {
     try {
@@ -131,6 +131,12 @@ const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
     }
   };
 
+  const logout = async()=> {
+    setIsAuthenticated(false)
+    setAccessToken("")
+    setRefreshToken("")
+  }
+
   const value = {
     isAuthenticated,
     isAuthLoading,
@@ -139,6 +145,8 @@ const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
     refetchAuthUser,
     setIsAuthLoading,
     login,
+    logout,
+    authError
 
   };
 

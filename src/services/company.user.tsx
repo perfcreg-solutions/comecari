@@ -6,11 +6,11 @@ interface CreateUserInterface {
     companyAddress: string;
 }
 
-export const createUser = async (fields: CreateUserInterface) => {
+export const createCompany = async (fields: CreateUserInterface) => {
     try {
         const { data } = await axios.post('/company/user/create', fields);
         return data;
-    } catch (error) {
+    } catch (error : any) {
         throw new Error(error.response?.data?.message || 'User Create failed');
     }
 };
@@ -21,20 +21,20 @@ interface UpdateUserInterface {
     companyAddress: string;
 }
 
-export const updateUser = async (fields: UpdateUserInterface) => {
+export const updateCompany = async (fields: UpdateUserInterface) => {
     try {
         const { data } = await axios.put(`/company/user/update/${company}`, fields);
         return data;
-    } catch (error) {
+    } catch (error : any) {
         throw new Error(error.response?.data?.message || 'User Update failed');
     }
 };
 
-export const getCompanyUserAPI = async () => {
+export const getCompany = async () => {
     try {
         const { data } = await axios.get('/company/user');
         return data
-    } catch (error) {
+    } catch (error : any) {
         throw new Error(error.response?.data?.message || 'Get Company User failed');
     }
 }

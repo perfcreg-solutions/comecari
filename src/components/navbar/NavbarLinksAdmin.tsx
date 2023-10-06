@@ -32,7 +32,7 @@ export default function HeaderLinks(props: { secondary: boolean }) {
 	const { secondary } = props;
 	const { colorMode, toggleColorMode } = useColorMode();
 
-	const {authUser} = useAuth()
+	const { authUser, logout } = useAuth()
 	// Chakra Color Mode
 	const navbarIcon = useColorModeValue('gray.400', 'white');
 	let menuBg = useColorModeValue('white', 'navy.800');
@@ -111,7 +111,7 @@ export default function HeaderLinks(props: { secondary: boolean }) {
 					</Flex>
 					<Flex flexDirection='column'>
 						<MenuItem _hover={{ bg: 'none' }} _focus={{ bg: 'none' }} px='0' borderRadius='8px' mb='10px'>
-							<ItemContent info='Update on order' message='Order 0034 is now in transit'/>
+							<ItemContent info='Update on order' message='Order 0034 is now in transit' />
 						</MenuItem>
 						<MenuItem _hover={{ bg: 'none' }} _focus={{ bg: 'none' }} px='0' borderRadius='8px' mb='10px'>
 							<ItemContent info='New Order Alert' message='Seems you there is an order should should check out' />
@@ -209,15 +209,24 @@ export default function HeaderLinks(props: { secondary: boolean }) {
 						<MenuItem _hover={{ bg: 'none' }} _focus={{ bg: 'none' }} borderRadius='8px' px='14px'>
 							<Text fontSize='sm'>Profile Settings</Text>
 						</MenuItem>
-						<MenuItem _hover={{ bg: 'none' }} _focus={{ bg: 'none' }} borderRadius='8px' px='14px'>
-							<Text fontSize='sm'>Newsletter Settings</Text>
-						</MenuItem>
+						{
+							authUser?.type == "ADMIN" && (
+								<MenuItem _hover={{ bg: 'none' }} _focus={{ bg: 'none' }} borderRadius='8px' px='14px'>
+									<Text fontSize='sm'>Company Settings</Text>
+								</MenuItem>
+							)
+						}
+
 						<MenuItem
 							_hover={{ bg: 'none' }}
 							_focus={{ bg: 'none' }}
 							color='red.400'
 							borderRadius='8px'
-							px='14px'>
+							px='14px'
+							onClick={() => {
+								logout
+							}}
+						>
 							<Text fontSize='sm'>Log out</Text>
 						</MenuItem>
 					</Flex>

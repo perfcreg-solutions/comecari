@@ -92,9 +92,9 @@ export function SidebarLinks(props: SidebarLinksProps) {
       ) {
         return (
 
-          <Link key={index} href={ !authUser || authUser.type != "ADMIN" ? "#" : route.layout + route.path}  >
+          <Link key={index} href={ !authUser || authUser.type != "ADMIN" ?  "#" : route.layout + route.path}  >
             <a onClick={handleClick} style={
-            !authUser
+            !authUser|| authUser.type != "ADMIN"
               ? { pointerEvents: "none", opacity:"0.5" }
               : {}
           }>

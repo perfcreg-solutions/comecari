@@ -57,25 +57,12 @@ export default function SignIn(props: PageProps, ref: PageRef) {
 			// Use the toast.promise function to display loading, success, and error states
 			const loginPromise : any = await login(data); // Assuming login function sends the login request
 
-			const result: any = await toast.promise(loginPromise, {
-				pending: 'Logging in...',
-				success: {
-					render(data: any){
-						return data.message
-					}
-				},
-				error: {
-					render(data: any) {
-						// When the promise is rejected, data will contain the error
-						return data.message;
-					},
-				},
-			});
-
+			console.log(loginPromise)
 		} catch (error) {
 			setMessage(true)
 		}
 	};
+
 	useEffect(()=> {
 		console.log(isAuthenticated)
 		// isAuthenticated &&  router.push('/admin');
