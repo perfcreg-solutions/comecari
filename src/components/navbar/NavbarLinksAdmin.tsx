@@ -62,6 +62,7 @@ export default function HeaderLinks(props: { secondary: boolean }) {
 				}}
 				me='10px'
 				borderRadius='30px'
+				placeholder='Tracking number...'
 			/>
 			<Flex
 				bg={ethBg}
@@ -107,7 +108,7 @@ export default function HeaderLinks(props: { secondary: boolean }) {
 					</Flex>
 					<Flex flexDirection='column'>
 						<MenuItem _hover={{ bg: 'none' }} _focus={{ bg: 'none' }} px='0' borderRadius='8px' mb='10px'>
-							<ItemContent info='Update on order' message='Order 0034 is now in transit'/>
+							<ItemContent info='Update on order' message='Order 0034 is now in transit' />
 						</MenuItem>
 						<MenuItem _hover={{ bg: 'none' }} _focus={{ bg: 'none' }} px='0' borderRadius='8px' mb='10px'>
 							<ItemContent info='New Order Alert' message='Seems you there is an order should should check out' />
