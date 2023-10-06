@@ -279,7 +279,7 @@ export default function SignIn() {
 									Keep me logged in
 								</FormLabel>
 							</FormControl>
-							<Link href='/auth/forgot-password'>
+							<Link href='/auth/reset'>
 								<a>
 									<Text color={textColorBrand} fontSize='sm' w='124px' fontWeight='500'>
 										Forgot password?
@@ -301,11 +301,11 @@ export default function SignIn() {
 					{/* </form> */}
 					<Flex flexDirection='column' justifyContent='center' alignItems='start' maxW='100%' mt='0px'>
 						<Text color={textColorDetails} fontWeight='400' fontSize='14px'>
-							Not registered yet?
-							<Link href='/auth/sign-up'>
+							Already registered?
+							<Link href='/auth/sign-in'>
 								<a>
 									<Text color={textColorBrand} as='span' ms='5px' fontWeight='500'>
-										Create an Account
+										Sign in
 									</Text>
 								</a>
 							</Link>
