@@ -9,6 +9,11 @@ import {
   useColorModeValue,
   Skeleton,
   SkeletonCircle,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+  Stack
 } from '@chakra-ui/react'
 // Assets
 // Custom components
@@ -58,6 +63,27 @@ export default function Dashboard() {
     <AdminLayout brandtext={"Dashboard"}>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
         <>
+          <Stack spacing={3}>
+            <Alert status='error'>
+              <AlertIcon />
+              There was an error processing your request
+            </Alert>
+
+            <Alert status='success'>
+              <AlertIcon />
+              Data uploaded to the server. Fire on!
+            </Alert>
+
+            <Alert status='warning'>
+              <AlertIcon />
+              Seems your account is about expire, upgrade now
+            </Alert>
+
+            <Alert status='info'>
+              <AlertIcon />
+              Chakra is going live on August 30th. Get ready!
+            </Alert>
+          </Stack>
           <SimpleGrid
             columns={{ base: 1, md: 2, lg: 3, '2xl': 6 }}
             gap='20px'
