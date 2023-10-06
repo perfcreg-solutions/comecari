@@ -63,27 +63,27 @@ export default function Dashboard() {
     <AdminLayout brandtext={"Dashboard"}>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
         <>
-          <Stack spacing={3}>
-            <Alert status='error'>
+          <SimpleGrid columns={2} gap="20px">
+            <Alert status='error' my={2}>
               <AlertIcon />
               There was an error processing your request
             </Alert>
 
-            <Alert status='success'>
+            <Alert status='success' my={2}>
               <AlertIcon />
               Data uploaded to the server. Fire on!
             </Alert>
 
-            <Alert status='warning'>
+            <Alert status='warning' my={2}>
               <AlertIcon />
               Seems your account is about expire, upgrade now
             </Alert>
 
-            <Alert status='info'>
+            <Alert status='info' my={2}>
               <AlertIcon />
               Chakra is going live on August 30th. Get ready!
             </Alert>
-          </Stack>
+          </SimpleGrid>
           <SimpleGrid
             columns={{ base: 1, md: 2, lg: 3, '2xl': 6 }}
             gap='20px'
