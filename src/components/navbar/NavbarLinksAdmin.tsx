@@ -66,6 +66,7 @@ export default function HeaderLinks(props: { secondary: boolean }) {
 				}}
 				me='10px'
 				borderRadius='30px'
+				placeholder='Tracking number...'
 			/>
 			<Flex
 				bg={ethBg}

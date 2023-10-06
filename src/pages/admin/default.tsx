@@ -2,6 +2,7 @@ import { useState } from 'react'
 import {
   Box,
   Flex,
+  Spacer,
   FormLabel,
   Icon,
   Select,
@@ -9,6 +10,11 @@ import {
   useColorModeValue,
   Skeleton,
   SkeletonCircle,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+  Stack
 } from '@chakra-ui/react'
 // Assets
 // Custom components
@@ -23,6 +29,7 @@ import {
   MdFileCopy,
   MdFireTruck
 } from 'react-icons/md'
+import { LiaTimesSolid } from 'react-icons/lia'
 import CheckTable from 'views/admin/default/components/CheckTable'
 import ShipmentOverviewComplexTable from 'views/admin/default/components/ShipmentOverviewComplexTable'
 import ShipmentHistoryComplexTable from 'views/admin/default/components/ShipmentHistoryComplexTable'
@@ -58,6 +65,47 @@ export default function Dashboard() {
     <AdminLayout brandtext={"Dashboard"}>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
         <>
+          <SimpleGrid columns={2} gap="20px">
+          <Box>
+              <Alert status='success'>
+                <AlertIcon />
+                <Box>
+                  <AlertTitle>Success!</AlertTitle>
+                  <AlertDescription>
+                    Your application has been received. We will review your application
+                    and respond within the next 48 hours.
+                  </AlertDescription>
+                </Box>
+                {/* <CloseButton
+                  alignSelf='flex-start'
+                  position='relative'
+                  right={-1}
+                  top={-1}
+                /> */}
+
+                <LiaTimesSolid 
+                  size={30}
+                  alignSelf='flex-start'
+                  position='relative'
+                  right={-1}
+                  top={-1} />
+              </Alert>
+          </Box>
+
+            <Alert status='warning' my={2}>
+              <Flex alignItems="center" justify="space-between">
+                <Flex>
+                  <AlertIcon />
+                  Seems your account is about expire, upgrade now
+                </Flex>
+                <Spacer />
+
+                <LiaTimesSolid
+                  size={25}
+                  />
+              </Flex>
+            </Alert>
+          </SimpleGrid>
           <SimpleGrid
             columns={{ base: 1, md: 2, lg: 3, '2xl': 6 }}
             gap='20px'
