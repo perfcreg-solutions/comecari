@@ -14,7 +14,7 @@ interface SidebarLinksProps {
 
 export function SidebarLinks(props: SidebarLinksProps) {
   const { routes } = props
-  const {} = useAuth()
+  const {authUser} = useAuth()
 
 
   //   Chakra color mode
@@ -52,7 +52,7 @@ export function SidebarLinks(props: SidebarLinksProps) {
             {isOpen &&
               <VStack mt={2} spacing={1} borderColor="gray.200" pl={10} alignItems={'start'}>
                 {hasChildren.map((childRoute, childIndex) => (
-                  <Link key={childIndex} href={childRoute.layout + childRoute.path}>
+                  <Link key={childIndex} href={childRoute.layout + childRoute.path}  style={{ pointerEvents: "none" }}>
                     <Text
                       // me='auto'
                       color={
@@ -92,8 +92,12 @@ export function SidebarLinks(props: SidebarLinksProps) {
       ) {
         return (
 
-          <Link key={index} href={route.layout + route.path}>
-            <a onClick={handleClick}>
+          <Link key={index} href={ !authUser || authUser.type != "ADMIN" ? "#" : route.layout + route.path}  >
+            <a onClick={handleClick} style={
+            !authUser
+              ? { pointerEvents: "none", opacity:"0.5" }
+              : {}
+          }>
               {route.icon ? (
                 <Box>
                   <HStack
