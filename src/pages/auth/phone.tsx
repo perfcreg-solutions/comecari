@@ -29,60 +29,45 @@ import { useForm, Controller } from 'react-hook-form';
 import { useAuth } from 'contexts/AuthContext';
 import { useRouter } from 'next/router';
 import { ToastContainer, toast } from 'react-toastify';
-import { addNumber } from 'services'
+import { useAddNumber } from 'services'
+import { useMutation } from "@tanstack/react-query"
 
 
-
-export default function SignIn() {
+export default function Phone() {
 	// Chakra color mode
 	const textColor = useColorModeValue('navy.700', 'white');
 	const textColorSecondary = 'gray.400';
-	const textColorDetails = useColorModeValue('navy.700', 'secondaryGray.600');
-	const textColorBrand = useColorModeValue('brand.500', 'white');
 	const brandStars = useColorModeValue('brand.500', 'brand.400');
-	const googleBg = useColorModeValue('secondaryGray.300', 'whiteAlpha.200');
-	const googleText = useColorModeValue('navy.700', 'white');
-	const googleHover = useColorModeValue({ bg: 'gray.200' }, { bg: 'whiteAlpha.300' });
-	const googleActive = useColorModeValue({ bg: 'secondaryGray.300' }, { bg: 'whiteAlpha.200' });
 	const [show, setShow] = React.useState(false);
-	const handleClick = () => setShow(!show);
-	
-	const [message, setMessage] = React.useState(false);
 
-	const { login, isAuthenticated, isAuthLoading } = useAuth();
-	const router = useRouter();
+	const [message, setMessage] = React.useState('');
+	const addNumber = useMutation(useAddNumber);
+	const onSubmit = async (data: any) => {
+		await addNumber.mutateAsync(data, {
+			onSuccess: (data) => {
+				toast.success(data.message, {
+					autoClose: 3000,
+					closeOnClick: true,
 
+				})
+			},
 
-	const onSubmit = async (data) => {
-		try {
-			// Use the toast.promise function to display loading, success, and error states
-			const addNumberPromise = addNumber(data); // Assuming login function sends the login request
-
-			const result : any  = await toast.promise(addNumberPromise, {
-				pending: 'Submiting number...',
-				success: {
-					render({ data : any }) {
-						return "working"; // Replace 'username' with the actual user property returned by your login request
-					},
-				},
-				error: {
-					render({ data  : any }) {
-						// When the promise is rejected, data will contain the error
-						return "Invalid phone number";
-					},
-				},
-			});
-			
-		} catch (error) {
-			setMessage(true)
-		}
-	};
+			onError: (error: any) => {
+				setMessage(error)
+				setShow(true)
+				toast.error(error.message)
+			}
+		});
+	}
 
 
-	const { handleSubmit, control, formState: { errors }, register } = useForm();
+
+	const { handleSubmit, control, formState: { errors } } = useForm();
 	return (
 		<DefaultAuthLayout illustrationBackground={Background.src}>
-			<ToastContainer />
+			<ToastContainer
+				theme="light"
+			/>
 			<Flex
 				maxW={{ base: '100%', md: 'max-content' }}
 				w='100%'
@@ -113,7 +98,7 @@ export default function SignIn() {
 					mx={{ base: 'auto', lg: 'unset' }}
 					me='auto'
 					mb={{ base: '20px', md: 'auto' }}>
-					
+
 					<form onSubmit={handleSubmit(onSubmit)}>
 						<FormControl>
 							<FormLabel display='flex' ms='4px' fontSize='sm' fontWeight='500' color={textColor} mb='8px'>
@@ -138,16 +123,15 @@ export default function SignIn() {
 									/>
 								}
 							/>
-							<FormErrorMessage>{errors.email && errors.email.message}</FormErrorMessage>
+							<FormErrorMessage>{show && message}</FormErrorMessage>
 						</FormControl>
 						<FormControl>
-							
+
 							<Button fontSize='sm' variant='brand' fontWeight='500' w='100%' h='50' mb='24px' type="submit">
 								Confirm Phone Number
 							</Button>
 						</FormControl>
 					</form>
-					
 				</Flex>
 			</Flex>
 		</DefaultAuthLayout>

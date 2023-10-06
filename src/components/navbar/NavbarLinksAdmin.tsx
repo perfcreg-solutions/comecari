@@ -25,10 +25,14 @@ import { MdNotificationsNone, MdInfoOutline } from 'react-icons/md';
 import { IoMdMoon, IoMdSunny } from 'react-icons/io';
 import { FaEthereum } from 'react-icons/fa';
 import routes from 'routes';
+import { useAuth } from 'contexts/AuthContext';
 import { Image } from 'components/image/Image';
+// import {}
 export default function HeaderLinks(props: { secondary: boolean }) {
 	const { secondary } = props;
 	const { colorMode, toggleColorMode } = useColorMode();
+
+	const {authUser} = useAuth()
 	// Chakra Color Mode
 	const navbarIcon = useColorModeValue('gray.400', 'white');
 	let menuBg = useColorModeValue('white', 'navy.800');
@@ -179,7 +183,7 @@ export default function HeaderLinks(props: { secondary: boolean }) {
 					<Avatar
 						_hover={{ cursor: 'pointer' }}
 						color='white'
-						name='Adela Parkson'
+						name={`${authUser?.firstName} ${authUser?.lastName}`}
 						bg='#11047A'
 						size='sm'
 						w='40px'
@@ -198,7 +202,7 @@ export default function HeaderLinks(props: { secondary: boolean }) {
 							fontSize='sm'
 							fontWeight='700'
 							color={textColor}>
-							👋&nbsp; Hey, Adela
+							👋&nbsp; Hey, {`${authUser?.firstName} ${authUser?.lastName}`}
 						</Text>
 					</Flex>
 					<Flex flexDirection='column' p='10px'>
