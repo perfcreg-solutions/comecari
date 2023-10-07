@@ -14,7 +14,9 @@ import {
 	InputRightElement,
 	Text,
 	useColorModeValue,
-	FormErrorMessage
+	FormErrorMessage,
+    useToast,
+
 } from '@chakra-ui/react';
 // Custom components
 import { HSeparator } from 'components/separator/Separator';
@@ -29,8 +31,6 @@ import Background from 'img/auth/banner.png'
 import { useForm, Controller } from 'react-hook-form';
 import { useAuth } from 'contexts/AuthContext';
 import { useRouter } from 'next/router';
-import { ToastContainer, toast } from 'react-toastify';
-
 type PageProps = {}
 type PageRef = React.ForwardedRef<HTMLDivElement>
 export default function SignIn(props: PageProps, ref: PageRef) {
@@ -46,27 +46,40 @@ export default function SignIn(props: PageProps, ref: PageRef) {
 	const googleActive = useColorModeValue({ bg: 'secondaryGray.300' }, { bg: 'whiteAlpha.200' });
 	const [show, setShow] = React.useState(false);
 	const handleClick = () => setShow(!show);
-	const [message, setMessage] = React.useState(false);
+	const toast = useToast();
 
-	const { login, isAuthenticated, isAuthLoading,  } = useAuth();
+	const { login, isAuthenticated,  isAuthLoading, error, authError} = useAuth();
 	const router = useRouter();
+
+	useEffect(()=> {
+	if (isAuthenticated){
+		toast({
+			position: 'top-right',
+			description: `User Login successfull`,
+			status: 'success',
+			duration: 5000,
+			isClosable: true,
+		})
+		router.push("/welcome")
+	}
+	}, [isAuthenticated, router])
+
+	useEffect(()=> {
+		if (error){
+			toast({
+			position: 'top-right',
+			description: `${authError}`,
+			status: 'error',
+			duration: 5000,
+			isClosable: true,
+			})
+		}
+		}, [error])
 
 
 	const onSubmit = async (data : any) => {
-		try {
-			// Use the toast.promise function to display loading, success, and error states
-			const loginPromise : any = await login(data); // Assuming login function sends the login request
-
-			console.log(loginPromise)
-		} catch (error) {
-			setMessage(true)
-		}
+		await login(data)
 	};
-
-	useEffect(()=> {
-		console.log(isAuthenticated)
-		// isAuthenticated &&  router.push('/admin');
-	}, [])
 	
 
 
@@ -74,7 +87,6 @@ export default function SignIn(props: PageProps, ref: PageRef) {
 	return (
 		// <PageTransition ref={ref}>
 			<DefaultAuthLayout illustrationBackground={Background.src}>
-				<ToastContainer />
 				<Flex
 					maxW={{ base: '100%', md: 'max-content' }}
 					w='100%'
@@ -85,8 +97,9 @@ export default function SignIn(props: PageProps, ref: PageRef) {
 					justifyContent='center'
 					mb={{ base: '30px', md: '60px' }}
 					px={{ base: '25px', md: '0px' }}
-					mt={{ base: '40px', md: '14vh' }}
-					flexDirection='column'>
+					mt={{ base: '40px', md: '4vh' }}
+					flexDirection='column'
+				>
 					<Box me='auto'>
 						<Heading color={textColor} fontSize='36px' mb='10px'>
 							Sign In
@@ -95,6 +108,7 @@ export default function SignIn(props: PageProps, ref: PageRef) {
 							Enter your email and password to sign in!
 						</Text>
 					</Box>
+
 					<Flex
 						zIndex='2'
 						direction='column'
@@ -144,6 +158,8 @@ export default function SignIn(props: PageProps, ref: PageRef) {
 											fontSize='sm'
 											ms={{ base: '0px', md: '0px' }}
 											type="email"
+											disabled={isAuthenticated}
+
 											placeholder='mail@simmmple.com'
 											mb='24px'
 											fontWeight='500'
@@ -173,6 +189,7 @@ export default function SignIn(props: PageProps, ref: PageRef) {
 												size='lg'
 												type={show ? 'text' : 'password'}
 												variant='auth'
+												disabled={isAuthenticated}
 												{...field}
 											/>
 										}
@@ -210,7 +227,17 @@ export default function SignIn(props: PageProps, ref: PageRef) {
 										</a>
 									</Link>
 								</Flex>
-								<Button fontSize='sm' variant='brand' fontWeight='500' w='100%' h='50' mb='24px' type="submit">
+								<Button 
+								fontSize='sm' 
+								variant='brand'
+								fontWeight='500' 
+								w='100%' 
+								h='50' 
+								mb='24px' 
+								type="submit"
+								isLoading={isAuthLoading || isAuthenticated}
+								loadingText='Submiting....'
+								>
 									Sign In
 								</Button>
 							</FormControl>
@@ -230,6 +257,5 @@ export default function SignIn(props: PageProps, ref: PageRef) {
 					</Flex>
 				</Flex>
 			</DefaultAuthLayout>
-		// </PageTransition>
 	);
 }

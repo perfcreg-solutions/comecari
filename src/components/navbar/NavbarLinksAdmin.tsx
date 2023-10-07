@@ -47,6 +47,10 @@ export default function HeaderLinks(props: { secondary: boolean }) {
 		'14px 17px 40px 4px rgba(112, 144, 176, 0.06)'
 	);
 	const borderButton = useColorModeValue('secondaryGray.500', 'whiteAlpha.200');
+	// useEffect(()=> {
+
+
+	// },[])
 	return (
 		<Flex
 			w={{ sm: '100%', md: 'auto' }}
@@ -225,7 +229,7 @@ export default function HeaderLinks(props: { secondary: boolean }) {
 							borderRadius='8px'
 							px='14px'
 							onClick={() => {
-								logout
+								logout()
 							}}
 						>
 							<Text fontSize='sm'>Log out</Text>

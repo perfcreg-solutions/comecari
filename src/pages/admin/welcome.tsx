@@ -3,7 +3,6 @@ import {
     Button,
     Flex,
     Text,
-    Link,
     Input,
     SimpleGrid,
     Modal,
@@ -15,10 +14,7 @@ import {
     ModalCloseButton,
     FormControl,
     FormLabel,
-    FormErrorMessage,
-    FormHelperText,
 } from '@chakra-ui/react'
-import { useDisclosure } from '@chakra-ui/react'
 import { useState } from 'react'
 import { FaUser, FaUsers } from 'react-icons/fa'
 import AdminLayout from 'layouts/admin'
@@ -26,10 +22,7 @@ import Check from 'img/dashboards/check.png'
 
 export default function Welcome() {
     const [size, setSize] = useState('xl')
-    const handleSizeClick = (newSize) => {
-        setSize(newSize)
-        onOpen()
-    }
+
 
     const [isOpenModal1, setIsOpenModal1] = useState(false);
     const [isOpenModal2, setIsOpenModal2] = useState(false);

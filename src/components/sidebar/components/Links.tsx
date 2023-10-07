@@ -52,7 +52,7 @@ export function SidebarLinks(props: SidebarLinksProps) {
             {isOpen &&
               <VStack mt={2} spacing={1} borderColor="gray.200" pl={10} alignItems={'start'}>
                 {hasChildren.map((childRoute, childIndex) => (
-                  <Link key={childIndex} href={childRoute.layout + childRoute.path}  style={{ pointerEvents: "none" }}>
+                  <Link key={childIndex} href={childRoute.layout + childRoute.path}>
                     <Text
                       // me='auto'
                       color={
@@ -92,12 +92,16 @@ export function SidebarLinks(props: SidebarLinksProps) {
       ) {
         return (
 
-          <Link key={index} href={ !authUser || authUser.type != "ADMIN" ?  "#" : route.layout + route.path}  >
-            <a onClick={handleClick} style={
-            !authUser|| authUser.type != "ADMIN"
-              ? { pointerEvents: "none", opacity:"0.5" }
-              : {}
-          }>
+          <Link key={index} href={ 
+            //!authUser || authUser.type != "ADMIN" ?  "#" : 
+          route.layout + route.path}  >
+            <a onClick={handleClick} 
+            // style={
+            // !authUser|| authUser.type != "ADMIN"
+            //   ? { pointerEvents: "none", opacity:"0.5" }
+            //   : {}
+          // }
+          >
               {route.icon ? (
                 <Box>
                   <HStack

@@ -14,6 +14,7 @@ import axios from 'axios'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import AuthProvider from '../contexts/AuthContext'
+import NextNProgress from 'nextjs-progressbar';
 
 const queryClient = new QueryClient();
 
@@ -33,6 +34,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         </Head>
         <React.StrictMode>
           <AuthProvider>
+            <NextNProgress height={4} />
             <Component {...pageProps}  />
           </AuthProvider>
         </React.StrictMode>

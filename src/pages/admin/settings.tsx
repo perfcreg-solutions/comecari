@@ -1,39 +1,30 @@
 import {
     Box,
     Button,
-    Flex,
     Text,
-    Link,
     Input,
     Image,
     SimpleGrid,
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,
     FormControl,
     FormLabel,
-    FormErrorMessage,
-    FormHelperText,
     Editable,
     EditableInput,
-    EditableTextarea,
     EditablePreview,
     useToast,
     Tabs, TabList, TabPanels, Tab, TabPanel,
 } from '@chakra-ui/react'
-import { useDisclosure } from '@chakra-ui/react'
-import { useState } from 'react'
-import { FaUser, FaUsers } from 'react-icons/fa'
+import { useEffect, useState } from 'react'
 import AdminLayout from 'layouts/admin'
 import Avatar from 'img/avatars/avatar9.png'
-
+import {useAuth} from 'contexts/AuthContext'
 export default function Settings() {
     const toast = useToast();
+    const [user, setUser] = useState();
+    const {authUser} = useAuth()
 
+    useEffect(()=>{
+        setUser(authUser)
+    },[])
     return (
         <AdminLayout brandtext={"Settings"}>
             <Box bg='#fff' p={5} mt={{ base: '130px', md: '80px', xl: '80px' }}>
@@ -68,7 +59,7 @@ export default function Settings() {
                             <SimpleGrid spacing={8} columns={{ base: 1, md: 2 }} mt={2}>
                                 <FormControl>
                                     <FormLabel>First name</FormLabel>
-                                    <Editable defaultValue='John' fontSize="lg" border='1px' borderColor='gray.200' borderRadius="12px">
+                                    <Editable defaultValue={user?.firstName} fontSize="lg" border='1px' borderColor='gray.200' borderRadius="12px">
                                         <EditablePreview p={3} />
                                         <EditableInput p={3} />
                                     </Editable>
@@ -76,7 +67,7 @@ export default function Settings() {
 
                                 <FormControl>
                                     <FormLabel>Last name</FormLabel>
-                                    <Editable defaultValue='Doe' fontSize="lg" border='1px' borderColor='gray.200' borderRadius="12px">
+                                    <Editable defaultValue={user?.lastName} fontSize="lg" border='1px' borderColor='gray.200' borderRadius="12px">
                                         <EditablePreview p={3} />
                                         <EditableInput p={3} />
                                     </Editable>
@@ -84,7 +75,7 @@ export default function Settings() {
 
                                 <FormControl>
                                     <FormLabel>Email Address</FormLabel>
-                                    <Editable defaultValue='johndoe@gmail.com' fontSize="lg" border='1px' borderColor='gray.200' borderRadius="12px">
+                                    <Editable defaultValue={user?.email} fontSize="lg" border='1px' borderColor='gray.200' borderRadius="12px">
                                         <EditablePreview p={3} />
                                         <EditableInput p={3} />
                                     </Editable>
@@ -92,7 +83,7 @@ export default function Settings() {
 
                                 <FormControl>
                                     <FormLabel>Phone Number</FormLabel>
-                                    <Editable defaultValue='0892737623762' fontSize="lg" border='1px' borderColor='gray.200' borderRadius="12px">
+                                    <Editable defaultValue={user?.phoneNumber} fontSize="lg" border='1px' borderColor='gray.200' borderRadius="12px">
                                         <EditablePreview p={3} />
                                         <EditableInput p={3} />
                                     </Editable>

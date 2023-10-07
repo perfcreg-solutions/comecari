@@ -10,7 +10,10 @@ interface IAuthContext {
   isAuthenticated: boolean;
   refetchAuthUser: () => void;
   login: (credential: any) => void,
-  authUser: object
+  authUser: any,
+  error: boolean,
+  authError: string
+  logout: () => void;
 }
 
 interface IAuthProviderProps {
@@ -21,6 +24,14 @@ interface UserLoginInterface {
   email: string;
   password: string;
 }
+
+
+// Create key constants for localStorage
+const ACCESS_TOKEN_KEY = 'access_token';
+const REFRESH_TOKEN_KEY = 'refresh_token';
+const AUTH_USER_KEY = 'auth_user';
+const IS_AUTHENTICATED_KEY = 'is_authenticated'
+
 const AuthContext = createContext<IAuthContext | undefined>(undefined);
 
 export const useAuth = () => {
@@ -28,61 +39,73 @@ export const useAuth = () => {
 };
 
 const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
+
   const [isAuthLoading, setIsAuthLoading] = useState<boolean>(false);
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  const [authError, setAuthError] = useState<string | null>(null);
-  const [authUser, setAuthUser] = useState<any>(null);
-  const [accessToken, setAccessToken] = useState<string>(null);
-  const [refreshToken, setRefreshToken] = useState<string>(null);
-  const router = useRouter();
-  const { data: user} = useQuery(['user'], getUserAPI);
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      (async () => {
-        axios.interceptors.request.use(
-
-          async (config) => {
-            if (!config.headers['Authorization']) {
-              config.headers['Authorization'] = `Bearer ${accessToken}`;
-            }
-            return config;
-          },
-          (error) => {
-            if (error.response && error.response.status === 401) {
-              console.log("trying to reconnect")
-              refetchAuthUser()
-            }
-            console.log('Setting accessToken in axios interceptor failed', error);
-            return Promise.reject(error);
-          }
-        );
-
-        if (user?.type == 'ADMIN') {
-          router.push('/admin');
-        } else {
-          router.push('/welcome');
-        }
-      })();
+  const [isAuthenticated, setIsAuthenticated] = useState<any>(() => {
+    if (typeof localStorage !== 'undefined') {
+      return localStorage.getItem('is_authenticated') || false;
     }
-  }, [isAuthenticated]);
+    return null;
+  });
+  const [error, setError] = useState<boolean>(false);
 
+  const [authError, setAuthError] = useState<string | null>(null);
 
-  // Login Mutation using react-query
+  const [authUser, setAuthUser] = useState<any>(() => {
+    // Initialize authUser from localStorage or null
+    if (typeof localStorage !== 'undefined') {
+      return JSON.parse(localStorage.getItem('auth_user')) || null;
+    }
+  });
+
+  const [accessToken, setAccessToken] = useState<string>(() => {
+    // Initialize accessToken from localStorage or null
+    if (typeof localStorage !== 'undefined') {
+      return localStorage.getItem('access_token') || null;
+    }
+    return null;
+  });
+
+  const [refreshToken, setRefreshToken] = useState<string>(() => {
+    // Initialize refreshToken from localStorage or null
+    if (typeof localStorage !== 'undefined') {
+      return localStorage.getItem('refresh_token') || null;
+    }
+    return null;
+  });
+
+  const { data: user } = useQuery(['user'], getUserAPI, {
+    refetchOnWindowFocus: false,
+  });
+
   const loginMutation = useMutation(loginAPI, {
-    onMutate: () => setIsAuthLoading(true),
+    onMutate: () => {
+      setAccessToken('');
+      setRefreshToken('');
+      setIsAuthenticated(false);
+      setAuthError("")
+      setError(false)
+      setIsAuthLoading(true);
+    },
     onSuccess: (data) => {
+      if (typeof localStorage !== 'undefined') {
+        localStorage.setItem(IS_AUTHENTICATED_KEY, true);
+        localStorage.setItem(ACCESS_TOKEN_KEY, data.data.accessToken);
+        localStorage.setItem(REFRESH_TOKEN_KEY, data.data.refreshToken);
+        localStorage.setItem(AUTH_USER_KEY, JSON.stringify(user?.data));
+      }
       setAccessToken(data.data.accessToken);
       setRefreshToken(data.data.refreshToken);
+      setAuthUser(user?.data)
       setIsAuthenticated(true);
       setIsAuthLoading(false);
     },
     onError: (error: any) => {
-      setAuthError(error)
+      setAuthError(error.response.data.message)
       setIsAuthLoading(false)
+      setError(true)
     },
   });
-
 
   const RefreshTokenMutation = useMutation(
     async () => {
@@ -101,19 +124,19 @@ const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
         refreshAPI, {
         onMutate: () => setIsAuthLoading(true),
         onSuccess: (data: any) => {
+          if (typeof localStorage !== 'undefined') {
+            localStorage.setItem(ACCESS_TOKEN_KEY, data.data.accessToken);
+            localStorage.setItem(REFRESH_TOKEN_KEY, data.data.refreshToken);
+          }
           setAccessToken(data.data.accessToken);
           setRefreshToken(data.data.refreshToken);
-          setIsAuthenticated(true);
           setIsAuthLoading(false);
         },
         onError: () => {
-          setAccessToken('');
-          setRefreshToken('');
-          setIsAuthLoading(false)
-          setIsAuthenticated(false);
+         logout()
         }
       }
-  });
+    });
 
   const login = async (credentials: UserLoginInterface) => {
     try {
@@ -131,11 +154,44 @@ const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
     }
   };
 
-  const logout = async()=> {
-    setIsAuthenticated(false)
-    setAccessToken("")
-    setRefreshToken("")
+  const logout = async () => {
+    setIsAuthenticated(false);
+    setAccessToken('');
+    setRefreshToken('');
+    setAuthUser(null);
+    setAuthError(null);
+    // Clear accessToken and refreshToken from localStorage
+    if (typeof localStorage !== 'undefined') {
+      localStorage.removeItem(ACCESS_TOKEN_KEY);
+      localStorage.removeItem(REFRESH_TOKEN_KEY);
+      localStorage.removeItem(AUTH_USER_KEY);
+      localStorage.removeItem(IS_AUTHENTICATED_KEY);
+
+    }
   }
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      (async () => {
+        axios.interceptors.request.use(
+          async (config) => {
+            if (!config.headers['Authorization']) {
+              config.headers['Authorization'] = `Bearer ${accessToken}`;
+            }
+            return config;
+          },
+          (error) => {
+            if (error.response && error.response.status === 401) {
+              console.log("trying to reconnect")
+              refetchAuthUser()
+            }
+            console.log('Setting accessToken in axios interceptor failed', error);
+            return Promise.reject(error);
+          }
+        );
+      })();
+    }
+  }, [isAuthenticated]);
 
   const value = {
     isAuthenticated,
@@ -146,8 +202,8 @@ const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
     setIsAuthLoading,
     login,
     logout,
+    error,
     authError
-
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
