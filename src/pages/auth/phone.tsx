@@ -10,16 +10,18 @@ import {
 	Input,
 	Text,
 	useColorModeValue,
-	FormErrorMessage
+	FormErrorMessage,
+	useToast
 } from '@chakra-ui/react';
 // Custom components
 import DefaultAuthLayout from 'layouts/auth/Default';
 // Assets
 import Background from 'img/auth/banner3.jpg'
 import { useForm, Controller } from 'react-hook-form';
-import { ToastContainer, toast } from 'react-toastify';
 import { useAddNumber } from 'services'
 import { useMutation } from "@tanstack/react-query"
+import { useRouter } from 'next/router';
+
 
 
 export default function Phone() {
@@ -28,25 +30,45 @@ export default function Phone() {
 	const textColorSecondary = 'gray.400';
 	const brandStars = useColorModeValue('brand.500', 'brand.400');
 	const [show, setShow] = React.useState(false);
+	const router = useRouter();
+	const toast = useToast();
 
-	const [message, setMessage] = React.useState('');
-	const addNumber = useMutation(useAddNumber);
+	const addNumber = useMutation(useAddNumber, {
+		onMutate:()=> {
+			setShow(true),
+			toast({
+				position: 'top-right',
+				description: `Processing data`,
+				status: 'info',
+				duration: 5000,
+				isClosable: true,
+			})
+		},
+		onSuccess:() => {
+			toast({
+				position: 'top-right',
+				description: `User Login successfull`,
+				status: 'success',
+				duration: 5000,
+				isClosable: true,
+			})
+			setShow(false),
+			router.push("/otp")
+		},
+		onError: (e) => {
+			console.log(e)
+			toast({
+				position: 'top-right',
+				description: `${e?.response?.data?.message !== undefined ? e?.response?.data?.message : "Network Error"}`,
+				status: 'warning',
+				duration: 5000,
+				isClosable: true,
+			}),
+			setShow(false)
+		}
+	})
 	const onSubmit = async (data: any) => {
-		await addNumber.mutateAsync(data, {
-			onSuccess: (data) => {
-				toast.success(data.message, {
-					autoClose: 3000,
-					closeOnClick: true,
-
-				})
-			},
-
-			onError: (error: any) => {
-				setMessage(error)
-				setShow(true)
-				toast.error(error.message)
-			}
-		});
+		await addNumber.mutateAsync(data)
 	}
 
 
@@ -54,9 +76,6 @@ export default function Phone() {
 	const { handleSubmit, control, formState: { errors } } = useForm();
 	return (
 		<DefaultAuthLayout illustrationBackground={Background.src}>
-			<ToastContainer
-				theme="light"
-			/>
 			<Flex
 				maxW={{ base: '100%', md: 'max-content' }}
 				w='100%'
@@ -112,11 +131,13 @@ export default function Phone() {
 									/>
 								}
 							/>
-							<FormErrorMessage>{show && message}</FormErrorMessage>
 						</FormControl>
 						<FormControl>
 
-							<Button fontSize='sm' variant='brand' fontWeight='500' w='100%' h='50' mb='24px' type="submit">
+							<Button fontSize='sm' variant='brand' fontWeight='500' w='100%' h='50' mb='24px' type="submit"
+							isLoading={show}
+							loadingText='Submiting....'
+							>
 								Confirm Phone Number
 							</Button>
 						</FormControl>
