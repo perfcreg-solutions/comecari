@@ -27,7 +27,7 @@ import Link from 'next/link';
 import { FcGoogle } from 'react-icons/fc';
 import { MdOutlineRemoveRedEye } from 'react-icons/md';
 import { RiEyeCloseLine } from 'react-icons/ri';
-import Background from 'img/auth/banner.png'
+import Background from 'img/auth/banner2.jpg'
 import { useForm, Controller } from 'react-hook-form';
 import { useAuth } from 'contexts/AuthContext';
 import { useRouter } from 'next/router';
@@ -219,7 +219,7 @@ export default function SignIn(props: PageProps, ref: PageRef) {
 											Keep me logged in
 										</FormLabel>
 									</FormControl>
-									<Link href='/auth/forgot-password'>
+									<Link href='/auth/reset'>
 										<a>
 											<Text color={textColorBrand} fontSize='sm' w='124px' fontWeight='500'>
 												Forgot password?

@@ -3,31 +3,20 @@ import React from 'react';
 import {
 	Box,
 	Button,
-	Checkbox,
 	Flex,
 	FormControl,
 	FormLabel,
 	Heading,
-	Icon,
 	Input,
-	InputGroup,
-	InputRightElement,
 	Text,
 	useColorModeValue,
 	FormErrorMessage
 } from '@chakra-ui/react';
 // Custom components
-import { HSeparator } from 'components/separator/Separator';
 import DefaultAuthLayout from 'layouts/auth/Default';
 // Assets
-import Link from 'next/link';
-import { FcGoogle } from 'react-icons/fc';
-import { MdOutlineRemoveRedEye } from 'react-icons/md';
-import { RiEyeCloseLine } from 'react-icons/ri';
-import Background from 'img/auth/banner.png'
+import Background from 'img/auth/banner3.jpg'
 import { useForm, Controller } from 'react-hook-form';
-import { useAuth } from 'contexts/AuthContext';
-import { useRouter } from 'next/router';
 import { ToastContainer, toast } from 'react-toastify';
 import { useAddNumber } from 'services'
 import { useMutation } from "@tanstack/react-query"
