@@ -27,8 +27,8 @@ import Check from 'img/dashboards/check.png'
 export default function Welcome() {
     const [size, setSize] = useState('xl')
     const handleSizeClick = (newSize) => {
-        setSize(newSize)
-        onOpen()
+        setSize(newSize);
+        onOpen();
     }
 
     const [isOpenModal1, setIsOpenModal1] = useState(false);
@@ -134,7 +134,6 @@ export default function Welcome() {
                         </ModalContent>
                     </Modal>
                 </Box>
-
             </Flex>
         </AdminLayout>
     )
