@@ -96,7 +96,7 @@ const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
       }
       setAccessToken(data.data.accessToken);
       setRefreshToken(data.data.refreshToken);
-      setAuthUser(user?.data)
+      setAuthUser(user?.data);
       setIsAuthenticated(true);
       setIsAuthLoading(false);
     },

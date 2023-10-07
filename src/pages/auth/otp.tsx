@@ -18,6 +18,7 @@ import {
 import DefaultAuthLayout from 'layouts/auth/Default';
 // Assets
 import Background from 'img/auth/banner5.jpg'
+import Link from 'next/link';
 import { useForm, Controller } from 'react-hook-form';
 import { ToastContainer, toast } from 'react-toastify';
 import { useAddNumber } from 'services'
@@ -27,13 +28,21 @@ export default function OTP() {
     // Chakra color mode
     const textColor = useColorModeValue('navy.700', 'white');
     const textColorSecondary = 'gray.400';
+    const textColorDetails = useColorModeValue('navy.700', 'secondaryGray.600');
+    const textColorBrand = useColorModeValue('brand.500', 'white');
     const brandStars = useColorModeValue('brand.500', 'brand.400');
+    const googleBg = useColorModeValue('secondaryGray.300', 'whiteAlpha.200');
+    const googleText = useColorModeValue('navy.700', 'white');
+    const googleHover = useColorModeValue({ bg: 'gray.200' }, { bg: 'whiteAlpha.300' });
+    const googleActive = useColorModeValue({ bg: 'secondaryGray.300' }, { bg: 'whiteAlpha.200' });
     const [show, setShow] = React.useState(false);
 
     const [message, setMessage] = React.useState('');
     const addNumber = useMutation(useAddNumber);
     const onSubmit = async (data: any) => {
+        // console.log("PIN INPUTS:" + data)
         await addNumber.mutateAsync(data, {
+            
             onSuccess: (data) => {
                 toast.success(data.message, {
                     autoClose: 3000,
@@ -46,19 +55,14 @@ export default function OTP() {
                 setMessage(error)
                 setShow(true)
                 toast.error(error.message)
+                console.log(error);
             }
-        });
+        });  
     }
-
-
 
     const { handleSubmit, control, formState: { errors } } = useForm();
     return (
         <DefaultAuthLayout illustrationBackground={Background.src}>
-            <ToastContainer
-                theme="light"
-            />
-
             <Flex
                 maxW={{ base: '100%', md: 'max-content' }}
                 w='100%'
@@ -100,21 +104,8 @@ export default function OTP() {
                                 defaultValue="" // Provide an initial value here
                                 control={control}
                                 render={({ field }) =>
-                                    // <Input
-                                    //     isRequired={true}
-                                    //     variant='auth'
-                                    //     fontSize='sm'
-                                    //     ms={{ base: '0px', md: '0px' }}
-                                    //     type="tel"
-                                    //     placeholder='+2348000000000'
-                                    //     mb='24px'
-                                    //     fontWeight='500'
-                                    //     size='lg'
-                                    //     {...field}
-                                    // />
-
                                     <HStack mb={4} justify='space-between'>
-                                        <PinInput otp size="lg" w='full'>
+                                        <PinInput otp size="lg" w='full' mask>
                                             <PinInputField />
                                             <PinInputField />
                                             <PinInputField />
@@ -132,6 +123,19 @@ export default function OTP() {
                             <Button fontSize='sm' variant='brand' fontWeight='500' w='100%' h='50' mb='24px' type="submit">
                                 Enter OTP
                             </Button>
+
+                            <Flex flexDirection='column' justifyContent='center' alignItems='start' maxW='100%' mt='0px'>
+                                <Text color={textColorDetails} fontWeight='400' fontSize='14px'>
+                                    Didn't get the OTP?
+                                    <Link href='/'>
+                                        <a>
+                                            <Text color={textColorBrand} as='span' ms='5px' fontWeight='500'>
+                                                Click to resend
+                                            </Text>
+                                        </a>
+                                    </Link>
+                                </Text>
+                            </Flex>
                         </FormControl>
                     </form>
                 </Flex>

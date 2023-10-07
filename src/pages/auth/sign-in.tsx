@@ -48,7 +48,7 @@ export default function SignIn(props: PageProps, ref: PageRef) {
 	const handleClick = () => setShow(!show);
 	const toast = useToast();
 
-	const { login, isAuthenticated,  isAuthLoading, error, authError} = useAuth();
+	const { login, isAuthenticated, isAuthLoading, error, authError} = useAuth();
 	const router = useRouter();
 
 	useEffect(()=> {

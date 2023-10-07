@@ -15,7 +15,8 @@ import {
 	Text,
 	SimpleGrid,
 	useColorModeValue,
-	FormErrorMessage
+	FormErrorMessage,
+	useToast
 } from '@chakra-ui/react';
 // Custom components
 import { HSeparator } from 'components/separator/Separator';
@@ -29,7 +30,6 @@ import Background from 'img/auth/banner.png'
 import { useForm, Controller } from 'react-hook-form';
 import { useAuth } from 'contexts/AuthContext';
 import { useRouter } from 'next/router';
-import { ToastContainer, toast } from 'react-toastify';
 import { useSignUp } from 'services'
 
 
@@ -53,7 +53,7 @@ export default function SignIn() {
 	const [lastName, setLastName] = useState<string>('')
 	const [password, setPassword] = useState<string>('')
 
-
+	const { signup, isAuthenticated, isAuthLoading, error, authError } = useAuth();
 	const {
 		mutateAsync: mutationSignUp,
 		isError: isErrorSignUp,
@@ -64,7 +64,8 @@ export default function SignIn() {
 	const [input, setInput] = useState('')
 	const isFirstNameError = input === ''
 
-	const router = useRouter()
+	const router = useRouter();
+	const toast = useToast();
 
 
 	const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -77,26 +78,25 @@ export default function SignIn() {
 	const onSubmit = async (e: SyntheticEvent) => {
 		e.preventDefault();
 		try {
-			toast.loading("Processing Request");
-			await mutationSignUp({
-				email,
-				firstName,
-				lastName,
-				password,
-				mobileNumber
-			})
-			toast.done("Data Created")
-			console.log("User Sigup successful")
-			return router.push("/admin");
+			// toast.loading("Processing Request");
+			// await mutationSignUp({
+			// 	email,
+			// 	firstName,
+			// 	lastName,
+			// 	password,
+			// 	mobileNumber
+			// })
+			// toast.done("Data Created")
+			// console.log("User Sigup successful")
+			// return router.push("/admin");
 		} catch (error) {
-			console.log(error)
+			// console.log(error)
 		}
 	};
 
 
 	return (
 		<DefaultAuthLayout illustrationBackground={Background.src}>
-			<ToastContainer />
 			<Flex
 				maxW={{ base: '100%', md: 'max-content' }}
 				w='100%'

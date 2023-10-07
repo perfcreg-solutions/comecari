@@ -10,16 +10,20 @@ import {
 	Input,
 	Text,
 	useColorModeValue,
-	FormErrorMessage
+	FormErrorMessage,
+	useToast,
 } from '@chakra-ui/react';
 // Custom components
 import DefaultAuthLayout from 'layouts/auth/Default';
+import { useEffect } from 'react'
 // Assets
 import Background from 'img/auth/banner3.jpg'
 import { useForm, Controller } from 'react-hook-form';
 import { ToastContainer, toast } from 'react-toastify';
 import { useAddNumber } from 'services'
+import { useAuth } from 'contexts/AuthContext';
 import { useMutation } from "@tanstack/react-query"
+import { useRouter } from 'next/router';
 
 
 export default function Phone() {
@@ -31,33 +35,45 @@ export default function Phone() {
 
 	const [message, setMessage] = React.useState('');
 	const addNumber = useMutation(useAddNumber);
+	const toast = useToast();
+	const router = useRouter();
+
+	const { login, isAuthenticated, isAuthLoading, error, authError } = useAuth();
+
+	useEffect(() => {
+		if (isAuthenticated) {
+			toast({
+				position: 'top-right',
+				description: `User Login successfull`,
+				status: 'success',
+				duration: 5000,
+				isClosable: true,
+			})
+			router.push("/otp")
+		}
+	}, [isAuthenticated, router])
+
+	useEffect(() => {
+		if (error) {
+			toast({
+				position: 'top-right',
+				description: `${authError}`,
+				status: 'error',
+				duration: 5000,
+				isClosable: true,
+			})
+		}
+	}, [error])
+
+
 	const onSubmit = async (data: any) => {
-		await addNumber.mutateAsync(data, {
-			onSuccess: (data) => {
-				toast.success(data.message, {
-					autoClose: 3000,
-					closeOnClick: true,
-
-					
-				})
-			},
-
-			onError: (error: any) => {
-				setMessage(error)
-				setShow(true)
-				toast.error(error.message)
-			}
-		});
-	}
-
+		await login(data)
+	};
 
 
 	const { handleSubmit, control, formState: { errors } } = useForm();
 	return (
 		<DefaultAuthLayout illustrationBackground={Background.src}>
-			<ToastContainer
-				theme="light"
-			/>
 			<Flex
 				maxW={{ base: '100%', md: 'max-content' }}
 				w='100%'
@@ -117,7 +133,17 @@ export default function Phone() {
 						</FormControl>
 						<FormControl>
 
-							<Button fontSize='sm' variant='brand' fontWeight='500' w='100%' h='50' mb='24px' type="submit">
+							<Button
+								fontSize='sm'
+								variant='brand'
+								fontWeight='500'
+								w='100%'
+								h='50'
+								mb='24px'
+								type="submit"
+								isLoading={isAuthLoading || isAuthenticated}
+								loadingText='Submiting....'
+							>
 								Confirm Phone Number
 							</Button>
 						</FormControl>
