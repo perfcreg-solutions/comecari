@@ -15,15 +15,12 @@ import {
     Tabs, TabList, TabPanels, Tab, TabPanel,
 } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
-import AdminLayout from 'layouts/admin'
 import Avatar from 'img/avatars/avatar9.png'
 import {useAuth} from 'contexts/AuthContext'
 import { useDisclosure } from '@chakra-ui/react'
-import { useState } from 'react'
 import { FaUser, FaUsers } from 'react-icons/fa'
 import Card from 'components/card/Card';
 import AdminLayout from 'layouts/admin'
-import Avatar from 'img/avatars/avatar9.png'
 import Logo from 'img/logo/logo.jpg'
 
 export default function Settings() {

@@ -38,6 +38,7 @@ export default function Phone() {
 					autoClose: 3000,
 					closeOnClick: true,
 
+					
 				})
 			},
 
@@ -74,7 +75,7 @@ export default function Phone() {
 						Add Phone
 					</Heading>
 					<Text mb='36px' ms='4px' color={textColorSecondary} fontWeight='400' fontSize='md'>
-						Enter your phone nmuber we can verify!!
+						Enter your phone number we can verify!!
 					</Text>
 				</Box>
 				<Flex
