@@ -7,6 +7,7 @@ import {
     SimpleGrid,
     FormControl,
     FormLabel,
+    FormErrorMessage,
     Editable,
     EditableInput,
     EditablePreview,
@@ -18,6 +19,7 @@ import { useEffect, useState, useRef } from 'react'
 import Avatar from 'img/avatars/avatar9.png'
 import { useAuth } from 'contexts/AuthContext'
 import { useDisclosure } from '@chakra-ui/react'
+import { useForm, Controller } from 'react-hook-form';
 import { FaUser, FaUsers } from 'react-icons/fa'
 import Card from 'components/card/Card';
 import AdminLayout from 'layouts/admin'
@@ -27,6 +29,12 @@ export default function Settings() {
     const toast = useToast();
     const [user, setUser] = useState();
     const { authUser } = useAuth();
+
+    const { handleSubmit, control, errors } = useForm();
+    const onSubmit = (data: any) => {
+        // Handle form submission here
+        console.log(data);
+    };
 
     // State variables for each form field
     const [firstName, setFirstName] = useState(user?.firstName || '');
@@ -47,14 +55,6 @@ export default function Settings() {
         }
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        console.log('Updated First Name:', firstName);
-        console.log('Updated Last Name:', lastName);
-        console.log('Updated Email:', email);
-        console.log('Updated Phone Number:', phoneNumber);
-    };
     return (
         <AdminLayout brandtext={"Settings"}>
             <Card p={5} mt={{ base: '130px', md: '80px', xl: '80px' }}>
@@ -70,7 +70,7 @@ export default function Settings() {
                         <TabPanel>
                             <Text fontWeight='700' fontSize='2xl' color='BlackAlpha.800'>Profile</Text>
 
-                            <form action="#" onSubmit={handleSubmit}>
+                            <form action="#" onSubmit={handleSubmit(onSubmit)}>
                                 <Image src={Avatar.src} width="120px" borderRadius="full" mt={8} />
                                 <Input
                                     ref={fileInputRef}
@@ -94,7 +94,7 @@ export default function Settings() {
                                 <SimpleGrid spacing={8} columns={{ base: 1, md: 2 }} mt={2}>
                                     <FormControl>
                                         <FormLabel>First name</FormLabel>
-                                        <Editable defaultValue={user?.firstName}
+                                        {/* <Editable defaultValue={user?.firstName}
                                             fontSize="lg"
                                             border='1px'
                                             borderColor='gray.200'
@@ -102,47 +102,96 @@ export default function Settings() {
                                             onChange={(value) => setFirstName(value)}>
                                             <EditablePreview p={3} />
                                             <EditableInput p={3} />
-                                        </Editable>
+                                        </Editable> */}
+
+                                        <Controller
+                                            name="firstName"
+                                            defaultValue={user?.firstName}
+                                            control={control}
+                                            render={({ field }) => (
+                                                <Input
+                                                    isRequired={true}
+                                                    variant='auth'
+                                                    fontSize='sm'
+                                                    ms={{ base: '0px', md: '0px' }}
+                                                    type="text"
+                                                    placeholder='John'
+                                                    mb='24px'
+                                                    fontWeight='500'
+                                                    size='lg'
+                                                    {...field}
+                                                />
+                                            )}
+                                        />
                                     </FormControl>
 
                                     <FormControl>
                                         <FormLabel>Last name</FormLabel>
-                                        <Editable defaultValue={user?.lastName}
-                                            fontSize="lg"
-                                            border='1px'
-                                            borderColor='gray.200'
-                                            borderRadius="12px"
-                                            onChange={(value) => setLastName(value)}>
-                                            <EditablePreview p={3} />
-                                            <EditableInput p={3} />
-                                        </Editable>
+                                        <Controller
+                                            name="lastName"
+                                            defaultValue={user?.lastName}
+                                            control={control}
+                                            render={({ field }) => (
+                                                <Input
+                                                    isRequired={true}
+                                                    variant='auth'
+                                                    fontSize='sm'
+                                                    ms={{ base: '0px', md: '0px' }}
+                                                    type="text"
+                                                    placeholder='Doe'
+                                                    mb='24px'
+                                                    fontWeight='500'
+                                                    size='lg'
+                                                    {...field}
+                                                />
+                                            )}
+                                        />
                                     </FormControl>
 
                                     <FormControl>
                                         <FormLabel>Email Address</FormLabel>
-                                        <Editable
+                                        <Controller
+                                            name="email"
                                             defaultValue={user?.email}
-                                            fontSize="lg"
-                                            border='1px'
-                                            borderColor='gray.200'
-                                            borderRadius="12px"
-                                            onChange={(value) => setEmail(value)}>
-                                            <EditablePreview p={3} />
-                                            <EditableInput p={3} />
-                                        </Editable>
+                                            control={control}
+                                            render={({ field }) => (
+                                                <Input
+                                                    isRequired={true}
+                                                    variant='auth'
+                                                    fontSize='sm'
+                                                    ms={{ base: '0px', md: '0px' }}
+                                                    type="email"
+                                                    placeholder='mail@comecari.com'
+                                                    mb='24px'
+                                                    fontWeight='500'
+                                                    size='lg'
+                                                    {...field}
+                                                />
+                                            )}
+                                        />
                                     </FormControl>
 
                                     <FormControl>
                                         <FormLabel>Phone Number</FormLabel>
-                                        <Editable defaultValue={user?.phoneNumber}
-                                            fontSize="lg"
-                                            border='1px'
-                                            borderColor='gray.200'
-                                            borderRadius="12px"
-                                            onChange={(value) => setPhoneNumber(value)}>
-                                            <EditablePreview p={3} />
-                                            <EditableInput p={3} />
-                                        </Editable>
+                                        <Controller
+                                            name="phoneNumber"
+                                            defaultValue={user?.phoneNumber}
+                                            control={control}
+                                            render={({ field }) => (
+                                                <Input
+                                                    isRequired={true}
+                                                    variant='auth'
+                                                    fontSize='sm'
+                                                    ms={{ base: '0px', md: '0px' }}
+                                                    type="number"
+                                                    placeholder='555 5555 555'
+                                                    mb='24px'
+                                                    fontWeight='500'
+                                                    size='lg'
+                                                    {...field}
+                                                />
+                                            )}
+                                        />
                                     </FormControl>
                                 </SimpleGrid>
 
