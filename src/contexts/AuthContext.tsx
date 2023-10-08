@@ -96,7 +96,6 @@ const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
         localStorage.setItem(REFRESH_TOKEN_KEY, data.data.refreshToken);
         localStorage.setItem(AUTH_USER_KEY, JSON.stringify(user?.data));
       }
-      console.log(user?.data)
       setAuthUser(user?.data);
       setIsAuthenticated(true);
       setIsAuthLoading(false);

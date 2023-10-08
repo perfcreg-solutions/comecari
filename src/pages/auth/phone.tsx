@@ -10,14 +10,16 @@ import {
 	Input,
 	Text,
 	useColorModeValue,
-	useToast
+	useToast,
 } from '@chakra-ui/react';
 // Custom components
 import DefaultAuthLayout from 'layouts/auth/Default';
+import { useEffect } from 'react'
 // Assets
 import Background from 'img/auth/banner3.jpg'
 import { useForm, Controller } from 'react-hook-form';
 import { useAddNumber } from 'services'
+import { useAuth } from 'contexts/AuthContext';
 import { useMutation } from "@tanstack/react-query"
 import { useRouter } from 'next/router';
 
@@ -46,7 +48,7 @@ export default function Phone() {
 		onSuccess:() => {
 			toast({
 				position: 'top-right',
-				description: `User Login successfull`,
+				description: `User Phone Successfull`,
 				status: 'success',
 				duration: 5000,
 				isClosable: true,
@@ -55,7 +57,6 @@ export default function Phone() {
 			router.push("otp")
 		},
 		onError: (e) => {
-			console.log(e)
 			toast({
 				position: 'top-right',
 				description: `${e?.response?.data?.message !== undefined ? e?.response?.data?.message : "Network Error"}`,
@@ -69,7 +70,6 @@ export default function Phone() {
 	const onSubmit = async (data: any) => {
 		await addNumber.mutateAsync(data)
 	}
-
 
 
 	const { handleSubmit, control, formState: { errors } } = useForm();

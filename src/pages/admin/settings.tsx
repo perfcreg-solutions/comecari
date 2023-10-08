@@ -37,8 +37,8 @@ export default function Settings() {
       });
 
     useEffect(()=>{
-        console.log(profile)
-        setUser(authUser)
+        console.log(profile?.data)
+        setUser(profile?.data)
     },[])
 
 
