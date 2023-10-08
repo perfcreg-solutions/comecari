@@ -51,12 +51,11 @@ const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
 
   const [authError, setAuthError] = useState<string | null>(null);
 
-  const [authUser, setAuthUser] = useState<any>(() => {
-    // Initialize authUser from localStorage or null
-    if (typeof localStorage !== 'undefined') {
-      return JSON.parse(localStorage.getItem('auth_user')) || null;
-    }
-  });
+  // const [authUser, setAuthUser] = useState<any>(() => {
+  //   if (typeof localStorage !== 'undefined') {
+  //     return JSON.parse(localStorage.getItem('auth_user')) || null;
+  //   }
+  // });
 
   const [accessToken, setAccessToken] = useState<string>(() => {
     // Initialize accessToken from localStorage or null
@@ -197,7 +196,7 @@ const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
     isAuthenticated,
     isAuthLoading,
     accessToken,
-    authUser,
+    // authUser,
     refetchAuthUser,
     setIsAuthLoading,
     login,

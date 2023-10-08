@@ -47,7 +47,7 @@ export default function Bids() {
                                 py='18px'
                             >
                                 <Text color={textColor} fontSize='xl' fontWeight='600'>
-                                    History
+                                    Bids
                                 </Text>
                                 <Button variant='action'>See all</Button>
                             </Flex>
@@ -62,6 +62,7 @@ export default function Bids() {
                                 pickup="24/04/23 (BEFORE 4:30PM)"
                                 delivery="25/05/23 (05:00AM)"
                                 status="Pending"
+                                button="View Bids"
                             />
 
                             <HistoryItem
@@ -74,6 +75,7 @@ export default function Bids() {
                                 pickup="12/04/23 (BEFORE 4:30PM)"
                                 delivery="12/05/23 (05:00AM)"
                                 status="Closed"
+                                button="View Bids"
                             />
 
                             <HistoryItem
@@ -86,6 +88,7 @@ export default function Bids() {
                                 pickup="12/04/23 (BEFORE 4:30PM)"
                                 delivery="12/05/23 (05:00AM)"
                                 status="Pending"
+                                button="View Bids"
                             />
                             <HistoryItem
                                 type='Long Truck'
@@ -97,6 +100,7 @@ export default function Bids() {
                                 pickup="12/04/23 (BEFORE 4:30PM)"
                                 delivery="12/05/23 (05:00AM)"
                                 status="Approved"
+                                button="View Bids"
                             />
                             <HistoryItem
                                 type='Tanker'
@@ -108,6 +112,7 @@ export default function Bids() {
                                 pickup="12/04/23 (BEFORE 4:30PM)"
                                 delivery="12/05/23 (05:00AM)"
                                 status="Pending"
+                                button="View Bids"
                             />
 
                             <HistoryItem
@@ -120,6 +125,7 @@ export default function Bids() {
                                 pickup="12/04/23 (BEFORE 4:30PM)"
                                 delivery="12/05/23 (05:00AM)"
                                 status="Approved"
+                                button="View Bids"
                             />
                         </Card>
                     </SimpleGrid>
