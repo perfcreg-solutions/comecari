@@ -10,7 +10,6 @@ import {
 	Input,
 	Text,
 	useColorModeValue,
-	FormErrorMessage,
 	useToast
 } from '@chakra-ui/react';
 // Custom components
@@ -53,7 +52,7 @@ export default function Phone() {
 				isClosable: true,
 			})
 			setShow(false),
-			router.push("/otp")
+			router.push("otp")
 		},
 		onError: (e) => {
 			console.log(e)
@@ -93,7 +92,7 @@ export default function Phone() {
 						Add Phone
 					</Heading>
 					<Text mb='36px' ms='4px' color={textColorSecondary} fontWeight='400' fontSize='md'>
-						Enter your phone nmuber we can verify!!
+						Enter your phone number we can verify!!
 					</Text>
 				</Box>
 				<Flex

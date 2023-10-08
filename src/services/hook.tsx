@@ -31,7 +31,7 @@ export const useFetch =(url: string) => {
 }
 
 
-export const ProtectedRoute =({children}) => {
+export const ProtectedRoute =({children}: any)  => {
     const { isAuthenticated } = useAuth();
     const router = useRouter();
   

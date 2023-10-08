@@ -14,13 +14,11 @@ import {
 	InputRightElement,
 	Text,
 	useColorModeValue,
-	FormErrorMessage,
-    useToast,
+	useToast,
 
 } from '@chakra-ui/react';
 // Custom components
 import { HSeparator } from 'components/separator/Separator';
-import PageTransition from 'components/PageTransition/PageTransition';
 import DefaultAuthLayout from 'layouts/auth/Default';
 // Assets
 import Link from 'next/link';
@@ -32,6 +30,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { useAuth } from 'contexts/AuthContext';
 import { useRouter } from 'next/router';
 type PageProps = {}
+
 type PageRef = React.ForwardedRef<HTMLDivElement>
 export default function SignIn(props: PageProps, ref: PageRef) {
 	// Chakra color mode
@@ -158,7 +157,7 @@ export default function SignIn(props: PageProps, ref: PageRef) {
 											fontSize='sm'
 											ms={{ base: '0px', md: '0px' }}
 											type="email"
-											disabled={isAuthenticated}
+											disabled={isAuthenticated || isAuthLoading}
 
 											placeholder='mail@simmmple.com'
 											mb='24px'
@@ -168,7 +167,6 @@ export default function SignIn(props: PageProps, ref: PageRef) {
 										/>
 									}
 								/>
-								<FormErrorMessage>{errors.email && errors.email.message}</FormErrorMessage>
 							</FormControl>
 
 							<FormControl>
@@ -189,7 +187,7 @@ export default function SignIn(props: PageProps, ref: PageRef) {
 												size='lg'
 												type={show ? 'text' : 'password'}
 												variant='auth'
-												disabled={isAuthenticated}
+												disabled={isAuthenticated || isAuthLoading}
 												{...field}
 											/>
 										}
@@ -203,7 +201,6 @@ export default function SignIn(props: PageProps, ref: PageRef) {
 										/>
 									</InputRightElement>
 								</InputGroup>
-								<FormErrorMessage>{errors.password && errors.password.message}</FormErrorMessage>
 							</FormControl>
 
 							<FormControl>
