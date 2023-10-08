@@ -19,16 +19,16 @@ export default function HistoryItem(props: {
 	pickup: string;
 	delivery: string;
 }) {
-	const { image, pickup, delivery, date, price, location, destination, type, status } = props;
+	const { image, pickup, delivery, date, price, location, destination, type, status, button } = props;
 	// Chakra Color Mode
 	const textColor = useColorModeValue('brands.900', 'white');
 	const bgItem = useColorModeValue(
-		{ bg: 'white', boxShadow: '10px 40px 58px -10px rgba(112, 144, 176, 0.2)' },
+		{ bg: 'white', boxShadow: '0 30px 35px 20px rgba(112, 144, 176, 0.2)' },
 		{ bg: 'navy.700', boxShadow: 'unset' }
 	);
 	const textColorDate = useColorModeValue('secondaryGray.600', 'white');
 	return (
-		<Card _hover={bgItem} bg='transparent' boxShadow='unset' px='24px' py='21px' transition='0.2s linear'>
+		<Card _hover={bgItem} bg='transparent' boxShadow='unset' px='24px' py='21px' my='10px' transition='0.2s linear'>
 			<Flex direction={{ base: 'column' }} justify='center'>
 
 
@@ -131,7 +131,7 @@ export default function HistoryItem(props: {
 						<Box>
 							<Image src={image} w='66px' h='66px' borderRadius='20px' me='16px' />
 						</Box>
-						<Button colorScheme='green' m="5px">View Bids</Button>
+						<Button colorScheme='green' m="5px">{button}</Button>
 					</Flex>
 				</Flex>
 

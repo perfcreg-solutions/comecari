@@ -27,6 +27,9 @@ import Trucks from 'pages/admin/fleets/trucks'
 import Invoice from 'pages/admin/invoice'
 import Report from 'pages/admin/report'
 
+// User Import
+import UserDashboard from 'pages/user/default'
+
 // Auth Imports
 import SignInCentered from 'pages/auth/sign-in'
 import { IRoute } from 'types/navigation'
@@ -38,6 +41,27 @@ const routes: IRoute[] = [
     path: '/default',
     icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
     component: MainDashboard
+  },
+  {
+    name: 'Marketplace',
+    layout: '/admin',
+    path: '/marketplace',
+    icon: <Icon as={GiBarracksTent} width='20px' height='20px' color='inherit' />,
+    component: Marketplace
+  },
+  {
+    name: 'Bids',
+    layout: '/admin',
+    path: '/bids',
+    icon: <Icon as={MdMoney} width='20px' height='20px' color='inherit' />,
+    component: Bids
+  },
+  {
+    name: 'Jobs',
+    layout: '/admin',
+    path: '/jobs',
+    icon: <Icon as={RiBriefcaseFill} width='20px' height='20px' color='inherit' />,
+    component: Jobs
   },
   {
     name: 'My fleet',
@@ -67,35 +91,6 @@ const routes: IRoute[] = [
 
     },
     ]
-    // secondary: true
-  },
-  {
-    name: 'Jobs',
-    layout: '/admin',
-    path: '/jobs',
-    icon: <Icon as={RiBriefcaseFill} width='20px' height='20px' color='inherit' />,
-    component: Jobs
-  },
-  // {
-  //   name: 'Post Jobs',
-  //   layout: '/admin',
-  //   path: '/postjob',
-  //   icon: <Icon as={RiBriefcaseFill} width='20px' height='20px' color='inherit' />,
-  //   component: Postjob
-  // },
-  {
-    name: 'Bids',
-    layout: '/admin',
-    path: '/bids',
-    icon: <Icon as={MdMoney} width='20px' height='20px' color='inherit' />,
-    component: Bids
-  },
-  {
-    name: 'Marketplace',
-    layout: '/admin',
-    path: '/marketplace',
-    icon: <Icon as={GiBarracksTent} width='20px' height='20px' color='inherit' />,
-    component: Marketplace
   },
   {
     name: 'Invoice',
@@ -118,34 +113,6 @@ const routes: IRoute[] = [
     icon: <Icon as={MdOutlineSettings} width='20px' height='20px' color='inherit' />,
     component: MainDashboard
   }
-  // {
-  //   name: 'Data Tables',
-  //   layout: '/admin',
-  //   icon: <Icon as={MdBarChart} width='20px' height='20px' color='inherit' />,
-  //   path: '/data-tables',
-  //   component: DataTables
-  // },
-  // {
-  //   name: 'Profile',
-  //   layout: '/admin',
-  //   path: '/profile',
-  //   icon: <Icon as={MdPerson} width='20px' height='20px' color='inherit' />,
-  //   component: Profile
-  // },
-  // {
-  //   name: 'Sign In',
-  //   layout: '/auth',
-  //   path: '/sign-in',
-  //   icon: <Icon as={MdLock} width='20px' height='20px' color='inherit' />,
-  //   component: SignInCentered
-  // },
-  // {
-  //   name: 'RTL Admin',
-  //   layout: '/rtl',
-  //   path: '/rtl-default',
-  //   icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
-  //   component: RTL
-  // }
 ]
 
 export default routes

@@ -44,7 +44,7 @@ export default function Welcome() {
             <AdminLayout brandtext={""}>
                 <Flex alignItems="center" justifyContent="center" height="90vh">
                     <Box textAlign='center'>
-                        <Text fontSize='4xl'>Welcome {user?.firstName?.charAt(0).toUpperCase() + user?.firstName?.slice(1)}!</Text>
+                        <Text fontSize='4xl'>Welcome! {user?.firstName?.charAt(0).toUpperCase() + user?.firstName?.slice(1)}</Text>
                         <Text fontSize='lg'>We noticed you are signed in as a User.</Text>
                         <Text fontSize='lg'>Would you like to sign up as a Company or continue as a User?</Text>
 
