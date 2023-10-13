@@ -1,7 +1,6 @@
 import {
     Box,
     Button,
-    Image,
     Icon,
     Input,
     Select,
@@ -10,42 +9,35 @@ import {
     ModalOverlay,
     ModalContent,
     ModalHeader,
-    ModalFooter,
     ModalBody,
     ModalCloseButton,
-    Table,
     Flex,
-    Tbody,
-    Text,
     FormControl,
     FormLabel,
     useDisclosure,
-    Th,
-    Thead,
-    Tr,
-    useColorModeValue,
+    useToast,
 } from '@chakra-ui/react'
 // Assets
 // Custom components
 
 import AdminLayout from 'layouts/admin'
 // import TruckData from 'views/admin/truck/variables/tableTrucksData.json'
-import Truck from 'img/trucks/van01.png'
-import Truck2 from 'img/trucks/van02.png'
-import Truck3 from 'img/trucks/van03.png'
-import Truck4 from 'img/trucks/van04.png'
-import Truck5 from 'img/trucks/van05.png'
-import Truck6 from 'img/trucks/van06.png'
 import TrucksCard from 'components/card/TrucksCard'
 import { TruckData } from 'views/admin/truck/variables/tableTruckData'
 import { AddIcon } from '@chakra-ui/icons'
+import { useForm, Controller } from 'react-hook-form'
+import { useState } from 'react';
 
 
 export default function Trucks() {
-
-    const { isOpen, onOpen, onClose } = useDisclosure()
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const toast = useToast();
    
-   
+    const { handleSubmit, control} = useForm();
+    const onAddTruck = (data: any) => {
+        // Handle form submission for Form 1 here
+        console.log('Add Truck Data:', data);
+    };
 
     return (
         <AdminLayout brandtext="Trucks">
@@ -89,139 +81,437 @@ export default function Trucks() {
                     <ModalCloseButton />
 
                     <ModalBody>
-                        <SimpleGrid columns={2} spacing={10} mb={4}>
-                            <SimpleGrid columns={2} spacing={5}>
-                                <FormControl>
-                                    <FormLabel>Select Truck type</FormLabel>
-                                    <Select>
-                                        <option selected>Mini Van</option>
-                                        <option>Sixteen Wheeler</option>
-                                    </Select>
-                                </FormControl>
-
-                                <FormControl>
-                                    <FormLabel>Vehicle Make</FormLabel>
-                                    <Input type="text" placeholder="Volvo" />
-                                </FormControl>
-
-
-                                <FormControl>
-                                    <FormLabel>Model</FormLabel>
-                                    <Input type="text" placeholder="FH16" />
-                                </FormControl>
-
-                                <FormControl>
-                                    <FormLabel>Year</FormLabel>
-                                    <Input type="text" placeholder="e.g 2017" />
-                                </FormControl>
-
-                                <FormControl>
-                                    <FormLabel>Plate Number</FormLabel>
-                                    <Input type="text" placeholder="BB2345BBG" />
-                                </FormControl>
-
-                                <FormControl>
-                                    <FormLabel>Active Location</FormLabel>
-                                    <Input type="text" placeholder="e.g Ikeja" />
-                                </FormControl>
-
-                                <FormControl>
-                                    <FormLabel>Assign Driver</FormLabel>
-                                    <Select>
-                                        <option value='option1'>John Doe</option>
-                                        <option value='option2'>Matthew doe</option>
-                                        <option value='option3'>Sam Doe</option>
-                                    </Select>
-                                </FormControl>
-
-                                <FormControl>
-                                    <FormLabel>Are you GIT Insured?</FormLabel>
-                                    <Select>
-                                        <option value='option1'>Select option</option>
-                                        <option value='option1'>Yes</option>
-                                        <option value='option2'>No</option>
-                                    </Select>
-                                </FormControl>
-
-                                <FormControl>
-                                    <FormLabel>If yes, upload GIT Insurance proof</FormLabel>
-                                    <Input type="file" />
-                                </FormControl>
-                            </SimpleGrid>
-
-
-                            <Box>
-                                {/* <Text fontSize={{
-                                        base: 'md'
-                                    }}
-                                    fontWeight='500' mb={2} color="teal.400">Capacity</Text> */}
+                        <form action="#" onSubmit={handleSubmit(onAddTruck)}>
+                            <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} spacing={10} mb={4}>
                                 <SimpleGrid columns={2} spacing={5}>
                                     <FormControl>
-                                        <FormLabel>Weight</FormLabel>
-                                        <Input type="text" placeholder="2,500KGs" />
+                                        <FormLabel>Select Truck type</FormLabel>
+                                        {/* <Select>
+                                            <option selected>Mini Van</option>
+                                            <option>Sixteen Wheeler</option>
+                                        </Select> */}
+
+                                        <Controller
+                                            name="truckType"
+                                            control={control}
+                                            render={({ field }) => (
+
+                                                <Select isRequired={true}
+                                                    variant='auth'
+                                                    fontSize='sm'
+                                                    ms={{ base: '0px', md: '0px' }}
+                                                    type="text"
+                                                    placeholder='Volvo'
+                                                    mb='18px'
+                                                    fontWeight='500'
+                                                    size='lg'
+                                                    {...field}>
+
+                                                    <option value="1">Mini van</option>
+                                                    <option value="2">Sixteen wheeler</option>
+                                                </Select>
+                                            )}
+                                        />
                                     </FormControl>
 
                                     <FormControl>
-                                        <FormLabel>Volume</FormLabel>
-                                        <Input type="text" placeholder="1,000" />
+                                        <FormLabel>Vehicle Make</FormLabel>
+                                        <Controller
+                                            name="vehicleMake"
+                                            control={control}
+                                            render={({ field }) => (
+                                                <Input
+                                                    isRequired={true}
+                                                    variant='auth'
+                                                    fontSize='sm'
+                                                    ms={{ base: '0px', md: '0px' }}
+                                                    type="text"
+                                                    placeholder='Volvo'
+                                                    mb='18px'
+                                                    fontWeight='500'
+                                                    size='lg'
+                                                    {...field}
+                                                />
+                                            )}
+                                        />
+                                    </FormControl>
+
+                                    <FormControl>
+                                        <FormLabel>Model</FormLabel>
+                                        <Controller
+                                            name="model"
+                                            control={control}
+                                            render={({ field }) => (
+                                                <Input
+                                                    isRequired={true}
+                                                    variant='auth'
+                                                    fontSize='sm'
+                                                    ms={{ base: '0px', md: '0px' }}
+                                                    type="text"
+                                                    placeholder='FH16'
+                                                    mb='18px'
+                                                    fontWeight='500'
+                                                    size='lg'
+                                                    {...field}
+                                                />
+                                            )}
+                                        />
+                                    </FormControl>
+
+                                    <FormControl>
+                                        <FormLabel>Year</FormLabel>
+                                        <Controller
+                                            name="year"
+                                            control={control}
+                                            render={({ field }) => (
+                                                <Input
+                                                    isRequired={true}
+                                                    variant='auth'
+                                                    fontSize='sm'
+                                                    ms={{ base: '0px', md: '0px' }}
+                                                    type="text"
+                                                    placeholder='2017'
+                                                    mb='18px'
+                                                    fontWeight='500'
+                                                    size='lg'
+                                                    {...field}
+                                                />
+                                            )}
+                                        />
+                                    </FormControl>
+
+                                    <FormControl>
+                                        <FormLabel>Plate Number</FormLabel>
+                                        <Controller
+                                            name="plateNumber"
+                                            control={control}
+                                            render={({ field }) => (
+                                                <Input
+                                                    isRequired={true}
+                                                    variant='auth'
+                                                    fontSize='sm'
+                                                    ms={{ base: '0px', md: '0px' }}
+                                                    type="text"
+                                                    placeholder='BB3627273'
+                                                    mb='18px'
+                                                    fontWeight='500'
+                                                    size='lg'
+                                                    {...field}
+                                                />
+                                            )}
+                                        />
+                                    </FormControl>
+
+                                    <FormControl>
+                                        <FormLabel>Active Location</FormLabel>
+                                        <Controller
+                                            name="activeLocation"
+                                            control={control}
+                                            render={({ field }) => (
+                                                <Input
+                                                    isRequired={true}
+                                                    variant='auth'
+                                                    fontSize='sm'
+                                                    ms={{ base: '0px', md: '0px' }}
+                                                    type="text"
+                                                    placeholder='e.g Ikeja'
+                                                    mb='18px'
+                                                    fontWeight='500'
+                                                    size='lg'
+                                                    {...field}
+                                                />
+                                            )}
+                                        />
+                                    </FormControl>
+
+                                    <FormControl>
+                                        <FormLabel>Assign Driver</FormLabel>
+                                        <Controller
+                                            name="driver"
+                                            control={control}
+                                            render={({ field }) => (
+
+                                                <Select isRequired={true}
+                                                    variant='auth'
+                                                    fontSize='sm'
+                                                    ms={{ base: '0px', md: '0px' }}
+                                                    type="text"
+                                                    mb='18px'
+                                                    fontWeight='500'
+                                                    size='lg'
+                                                    {...field}>
+
+                                                    <option value="1">John Doe</option>
+                                                    <option value="2">Matthew Doe</option>
+                                                    <option value="3">Sam Doe</option>
+                                                </Select>
+                                            )}
+                                        />
+                                    </FormControl>
+
+                                    <FormControl>
+                                        <FormLabel>Are you GIT Insured?</FormLabel>
+                                        <Controller
+                                            name="gitInsured"
+                                            control={control}
+                                            render={({ field }) => (
+
+                                                <Select isRequired={true}
+                                                    variant='auth'
+                                                    fontSize='sm'
+                                                    ms={{ base: '0px', md: '0px' }}
+                                                    type="text"
+                                                    mb='18px'
+                                                    fontWeight='500'
+                                                    size='lg'
+                                                    {...field}>
+
+                                                    <option value="1">Select option</option>
+                                                    <option value="2">Yes</option>
+                                                    <option value="3">No</option>
+                                                </Select>
+                                            )}
+                                        />
+                                    </FormControl>
+
+                                    <FormControl>
+                                        <FormLabel>If yes, upload GIT Insurance proof</FormLabel>
+                                        <Controller
+                                            name="gitDoc"
+                                            control={control}
+                                            render={({ field }) => (
+                                                <Input
+                                                    isRequired={true}
+                                                    variant='auth'
+                                                    fontSize='sm'
+                                                    ms={{ base: '0px', md: '0px' }}
+                                                    type="file"
+                                                    mb='18px'
+                                                    fontWeight='500'
+                                                    size='lg'
+                                                    {...field}
+                                                />
+                                            )}
+                                        />
                                     </FormControl>
                                 </SimpleGrid>
 
 
-                                <SimpleGrid columns={3} spacing={5} mt={4}>
-                                    <FormControl>
-                                        <FormLabel>Height</FormLabel>
-                                        <Input type="text" placeholder="250" />
-                                    </FormControl>
+                                <Box>
+                                    <SimpleGrid columns={2} spacing={5}>
+                                        <FormControl>
+                                            <FormLabel>Weight</FormLabel>
+                                            <Controller
+                                                name="weight"
+                                                control={control}
+                                                render={({ field }) => (
+                                                    <Input
+                                                        isRequired={true}
+                                                        variant='auth'
+                                                        fontSize='sm'
+                                                        ms={{ base: '0px', md: '0px' }}
+                                                        type="text"
+                                                        placeholder='2,500 KG'
+                                                        mb='18px'
+                                                        fontWeight='500'
+                                                        size='lg'
+                                                        {...field}
+                                                    />
+                                                )}
+                                            />
+                                        </FormControl>
 
-                                    <FormControl>
-                                        <FormLabel>Width</FormLabel>
-                                        <Input type="text" placeholder="100" />
-                                    </FormControl>
+                                        <FormControl>
+                                            <FormLabel>Volume</FormLabel>
+                                            <Controller
+                                                name="volume"
+                                                control={control}
+                                                render={({ field }) => (
+                                                    <Input
+                                                        isRequired={true}
+                                                        variant='auth'
+                                                        fontSize='sm'
+                                                        ms={{ base: '0px', md: '0px' }}
+                                                        type="text"
+                                                        placeholder='600 tonnes'
+                                                        mb='18px'
+                                                        fontWeight='500'
+                                                        size='lg'
+                                                        {...field}
+                                                    />
+                                                )}
+                                            />
+                                        </FormControl>
+                                    </SimpleGrid>
 
-                                    <FormControl>
-                                        <FormLabel>Length</FormLabel>
-                                        <Input type="text" placeholder="450" />
-                                    </FormControl>
-                                </SimpleGrid>
 
-                                {/* <FormControl mt={10}>
+                                    <SimpleGrid columns={3} spacing={5} mt={4}>
+                                        <FormControl>
+                                            <FormLabel>Height</FormLabel>
+                                            <Controller
+                                                name="height"
+                                                control={control}
+                                                render={({ field }) => (
+                                                    <Input
+                                                        isRequired={true}
+                                                        variant='auth'
+                                                        fontSize='sm'
+                                                        ms={{ base: '0px', md: '0px' }}
+                                                        type="text"
+                                                        placeholder='300m'
+                                                        mb='18px'
+                                                        fontWeight='500'
+                                                        size='lg'
+                                                        {...field}
+                                                    />
+                                                )}
+                                            />
+                                        </FormControl>
+
+                                        <FormControl>
+                                            <FormLabel>Width</FormLabel>
+                                            <Controller
+                                                name="width"
+                                                control={control}
+                                                render={({ field }) => (
+                                                    <Input
+                                                        isRequired={true}
+                                                        variant='auth'
+                                                        fontSize='sm'
+                                                        ms={{ base: '0px', md: '0px' }}
+                                                        type="text"
+                                                        placeholder='735m'
+                                                        mb='18px'
+                                                        fontWeight='500'
+                                                        size='lg'
+                                                        {...field}
+                                                    />
+                                                )}
+                                            />
+                                        </FormControl>
+
+                                        <FormControl>
+                                            <FormLabel>Length</FormLabel>
+                                            <Controller
+                                                name="length"
+                                                control={control}
+                                                render={({ field }) => (
+                                                    <Input
+                                                        isRequired={true}
+                                                        variant='auth'
+                                                        fontSize='sm'
+                                                        ms={{ base: '0px', md: '0px' }}
+                                                        type="text"
+                                                        placeholder='400m'
+                                                        mb='18px'
+                                                        fontWeight='500'
+                                                        size='lg'
+                                                        {...field}
+                                                    />
+                                                )}
+                                            />
+                                        </FormControl>
+                                    </SimpleGrid>
+
+                                    {/* <FormControl mt={10}>
                                     <FormLabel>Upload photos of Vehicle</FormLabel>
                                     <Input type="file" />
                                 </FormControl> */}
-                                <SimpleGrid columns={2} spacing={5}>
-                                    <FormControl mt={10}>
-                                        <FormLabel>Upload front view of Vehicle</FormLabel>
-                                        <Input type="file" />
-                                    </FormControl>
+                                    <SimpleGrid columns={2} spacing={5}>
+                                        <FormControl mt={10}>
+                                            <FormLabel>Upload front view of Vehicle</FormLabel>
+                                            <Controller
+                                                name="frontView"
+                                                control={control}
+                                                render={({ field }) => (
+                                                    <Input
+                                                        isRequired={true}
+                                                        variant='auth'
+                                                        fontSize='sm'
+                                                        ms={{ base: '0px', md: '0px' }}
+                                                        type="file"
+                                                        mb='18px'
+                                                        size='lg'
+                                                        {...field}
+                                                    />
+                                                )}
+                                            />
+                                        </FormControl>
 
-                                    <FormControl mt={10}>
-                                        <FormLabel>Back View</FormLabel>
-                                        <Input type="file" />
-                                    </FormControl>
+                                        <FormControl mt={10}>
+                                            <FormLabel>Back View</FormLabel>
+                                            <Controller
+                                                name="backView"
+                                                control={control}
+                                                render={({ field }) => (
+                                                    <Input
+                                                        isRequired={true}
+                                                        variant='auth'
+                                                        fontSize='sm'
+                                                        ms={{ base: '0px', md: '0px' }}
+                                                        type="file"
+                                                        mb='18px'
+                                                        size='lg'
+                                                        {...field}
+                                                    />
+                                                )}
+                                            />
+                                        </FormControl>
 
-                                    <FormControl>
-                                        <FormLabel>Left View</FormLabel>
-                                        <Input type="file" />
-                                    </FormControl>
+                                        <FormControl>
+                                            <FormLabel>Left View</FormLabel>
+                                            <Controller
+                                                name="leftView"
+                                                control={control}
+                                                render={({ field }) => (
+                                                    <Input
+                                                        isRequired={true}
+                                                        variant='auth'
+                                                        fontSize='sm'
+                                                        ms={{ base: '0px', md: '0px' }}
+                                                        type="file"
+                                                        mb='18px'
+                                                        size='lg'
+                                                        {...field}
+                                                    />
+                                                )}
+                                            />
+                                        </FormControl>
 
-                                    <FormControl>
-                                        <FormLabel>Right View</FormLabel>
-                                        <Input type="file" />
-                                    </FormControl>
-                                </SimpleGrid>
-                            </Box>
-                        </SimpleGrid>
+                                        <FormControl>
+                                            <FormLabel>Right View</FormLabel>
+                                            <Controller
+                                                name="rightView"
+                                                control={control}
+                                                render={({ field }) => (
+                                                    <Input
+                                                        isRequired={true}
+                                                        variant='auth'
+                                                        fontSize='sm'
+                                                        ms={{ base: '0px', md: '0px' }}
+                                                        type="file"
+                                                        mb='18px'
+                                                        size='lg'
+                                                        {...field}
+                                                    />
+                                                )}
+                                            />
+                                        </FormControl>
+                                    </SimpleGrid>
+                                </Box>
+                            </SimpleGrid>
 
-                        <hr />
+                            <hr />
 
-                        <Flex mt={4} justifyContent="flex-end">
-                            <Button
-                                colorScheme='blue'
-                            >
-                                Add Truck
-                            </Button>
-                        </Flex>
+                            <Flex mt={4} justifyContent="flex-end">
+                                <Button
+                                    colorScheme='blue'
+                                    type="submit"
+                                >
+                                    Add Truck
+                                </Button>
+                            </Flex>
+                        </form>
                     </ModalBody>
                 </ModalContent>
             </Modal>

@@ -174,9 +174,6 @@ export default function Default(props: {
                                 </Text>
 
                                 <Flex alignItems="center" pt="15px">
-                                    {/* <Box backgroundColor='BlackAlpha.800' p="15px">
-                    <FiArrowUpRight color='Green.400' />
-                </Box> */}
                                     <IconBox
                                         w='40px'
                                         h='40px'
@@ -201,9 +198,6 @@ export default function Default(props: {
                                 </Flex>
 
                                 <Flex alignItems="center" pt="10px" pb="15px">
-                                    {/* <Box backgroundColor='BlackAlpha.800' p="15px">
-                    <FiArrowUpRight color='Green.400' />
-                </Box> */}
                                     <IconBox
                                         w='40px'
                                         h='40px'

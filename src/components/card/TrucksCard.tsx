@@ -139,7 +139,7 @@ export default function Truck(props: {
                     <ModalCloseButton />
 
                     <ModalBody>
-                        <SimpleGrid columns={2} spacing={10}>
+                        <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} spacing={10}>
                             <Box>
                                 <Text color='secondaryGray.700'
                                     fontSize={{
