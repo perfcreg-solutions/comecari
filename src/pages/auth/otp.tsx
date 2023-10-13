@@ -56,7 +56,7 @@ export default function OTP() {
 		onSuccess:() => {
 			toast({
 				position: 'top-right',
-				description: `User Login successfull`,
+				description: `User verified`,
 				status: 'success',
 				duration: 5000,
 				isClosable: true,

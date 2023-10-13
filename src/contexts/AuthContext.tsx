@@ -85,6 +85,7 @@ const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
       setAuthError("")
       setError(false)
       setIsAuthLoading(true);
+
     },
     onSuccess: (data) => {
       setAccessToken(data.data.accessToken);
@@ -197,7 +198,7 @@ const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
     isAuthenticated,
     isAuthLoading,
     accessToken,
-    // authUser,
+    authUser,
     refetchAuthUser,
     setIsAuthLoading,
     login,

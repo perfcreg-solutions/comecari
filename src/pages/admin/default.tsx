@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   Box,
   Flex,
@@ -50,52 +50,22 @@ export default function Dashboard() {
 
   const [isLoaded, setIsLoaded] = useState(true)
 
+  useEffect(()=> {
+    const timeoutId = setTimeout(() => {
+      setIsLoaded(false);
+    }, 12000);
+
+    // Clear the timeout if the component unmounts
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [])
+
   return (
     <ProtectedRoute>
       <AdminLayout brandtext={"Dashboard"}>
         <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
           <>
-            <SimpleGrid columns={2} gap="20px">
-            <Box>
-                <Alert status='success'>
-                  <AlertIcon />
-                  <Box>
-                    <AlertTitle>Success!</AlertTitle>
-                    <AlertDescription>
-                      Your application has been received. We will review your application
-                      and respond within the next 48 hours.
-                    </AlertDescription>
-                  </Box>
-                  {/* <CloseButton
-                    alignSelf='flex-start'
-                    position='relative'
-                    right={-1}
-                    top={-1}
-                  /> */}
-
-                  <LiaTimesSolid 
-                    size={30}
-                    alignSelf='flex-start'
-                    position='relative'
-                    right={-1}
-                    top={-1} />
-                </Alert>
-            </Box>
-
-              <Alert status='warning' my={2}>
-                <Flex alignItems="center" justify="space-between">
-                  <Flex>
-                    <AlertIcon />
-                    Seems your account is about expire, upgrade now
-                  </Flex>
-                  <Spacer />
-
-                  <LiaTimesSolid
-                    size={25}
-                    />
-                </Flex>
-              </Alert>
-            </SimpleGrid>
             <SimpleGrid
               columns={{ base: 1, md: 2, lg: 3, '2xl': 6 }}
               gap='20px'
@@ -150,7 +120,7 @@ export default function Dashboard() {
                   value='23'
                 />
               </Skeleton>
-
+              <Skeleton borderRadius={15} isLoaded={!isLoaded}>
               <MiniStatistics
                 startContent={
                   <IconBox
@@ -170,7 +140,9 @@ export default function Dashboard() {
                 name='Delivered (Today)'
                 value='05'
               />
+              </Skeleton>
 
+              <Skeleton borderRadius={15} isLoaded={!isLoaded}>
               <MiniStatistics
                 startContent={
                   <IconBox
@@ -183,46 +155,51 @@ export default function Dashboard() {
                 name='Delivered this month'
                 value='154'
               />
+              </Skeleton>
 
-              <MiniStatistics
-                startContent={
-                  <IconBox
-                    w='56px'
-                    h='56px'
-                    bg={boxBg}
-                    icon={
-                      <Icon
-                        w='32px'
-                        h='32px'
-                        as={MdFileCopy}
-                        color={brandColor}
-                      />
-                    }
-                  />
-                }
-                name='Total Shipments'
-                value='2935'
-              />
+              <Skeleton borderRadius={15} isLoaded={!isLoaded}>
+                <MiniStatistics
+                  startContent={
+                    <IconBox
+                      w='56px'
+                      h='56px'
+                      bg={boxBg}
+                      icon={
+                        <Icon
+                          w='32px'
+                          h='32px'
+                          as={MdFileCopy}
+                          color={brandColor}
+                        />
+                      }
+                    />
+                  }
+                  name='Total Shipments'
+                  value='2935'
+                />
+              </Skeleton>
 
-              <MiniStatistics
-                startContent={
-                  <IconBox
-                    w='56px'
-                    h='56px'
-                    bg={boxBg}
-                    icon={
-                      <Icon
-                        w='32px'
-                        h='32px'
-                        as={FcCancel}
-                        color={brandColor}
-                      />
-                    }
-                  />
-                }
-                name='Cancelled Orders (this month)'
-                value='13'
-              />
+              <Skeleton borderRadius={15} isLoaded={!isLoaded}>
+                <MiniStatistics
+                  startContent={
+                    <IconBox
+                      w='56px'
+                      h='56px'
+                      bg={boxBg}
+                      icon={
+                        <Icon
+                          w='32px'
+                          h='32px'
+                          as={FcCancel}
+                          color={brandColor}
+                        />
+                      }
+                    />
+                  }
+                  name='Cancelled Orders (this month)'
+                  value='13'
+                />
+              </Skeleton>
 
               {/* <MiniStatistics growth='+23%' name='Sales' value='$574.34' /> */}
 
