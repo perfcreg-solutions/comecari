@@ -88,7 +88,8 @@ export function SidebarLinks(props: SidebarLinksProps) {
       if (
         route.layout === '/admin' ||
         route.layout === '/auth' ||
-        route.layout === '/rtl'
+        route.layout === '/rtl' ||
+        route.layout === '/user'
       ) {
         return (
 

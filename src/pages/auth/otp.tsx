@@ -12,7 +12,7 @@ import {
     HStack,
     useColorModeValue,
     FormErrorMessage,
-    PinInput, PinInputField,
+    PinInput, PinInputField, useToast
 } from '@chakra-ui/react';
 // Custom components
 import DefaultAuthLayout from 'layouts/auth/Default';
@@ -21,8 +21,10 @@ import Background from 'img/auth/banner5.jpg'
 import Link from 'next/link';
 import { useForm, Controller } from 'react-hook-form';
 import { ToastContainer, toast } from 'react-toastify';
-import { useAddNumber } from 'services'
+import { useAddNumber, useVerifyNumber } from 'services'
 import { useMutation } from "@tanstack/react-query"
+import { useRouter } from 'next/router';
+
 
 export default function OTP() {
     // Chakra color mode
@@ -36,33 +38,52 @@ export default function OTP() {
     const googleHover = useColorModeValue({ bg: 'gray.200' }, { bg: 'whiteAlpha.300' });
     const googleActive = useColorModeValue({ bg: 'secondaryGray.300' }, { bg: 'whiteAlpha.200' });
     const [show, setShow] = React.useState(false);
+	const router = useRouter();
 
+    const toast = useToast()
     const [message, setMessage] = React.useState('');
-    const addNumber = useMutation(useAddNumber);
-    const onSubmit = async (data: any) => {
-        // console.log("PIN INPUTS:" + data)
-        await addNumber.mutateAsync(data, {
-            
-            onSuccess: (data) => {
-                toast.success(data.message, {
-                    autoClose: 3000,
-                    closeOnClick: true,
-
-                })
-            },
-
-            onError: (error: any) => {
-                setMessage(error)
-                setShow(true)
-                toast.error(error.message)
-                console.log(error);
-            }
-        });  
-    }
+    const token = useMutation(useVerifyNumber, {
+		onMutate:()=> {
+			setShow(true),
+			toast({
+				position: 'top-right',
+				description: `Processing data`,
+				status: 'info',
+				duration: 5000,
+				isClosable: true,
+			})
+		},
+		onSuccess:() => {
+			toast({
+				position: 'top-right',
+				description: `User verified`,
+				status: 'success',
+				duration: 5000,
+				isClosable: true,
+			})
+			setShow(false),
+			router.push("signup")
+		},
+		onError: (e) => {
+			console.log(e)
+			toast({
+				position: 'top-right',
+				description: `${e?.response?.data?.message !== undefined ? e?.response?.data?.message : "Network Error"}`,
+				status: 'warning',
+				duration: 5000,
+				isClosable: true,
+			}),
+			setShow(false)
+		}
+	})
+	const onSubmit = async (data: any) => {
+		await token.mutateAsync(data)
+	}
 
     const { handleSubmit, control, formState: { errors } } = useForm();
     return (
         <DefaultAuthLayout illustrationBackground={Background.src}>
+          
             <Flex
                 maxW={{ base: '100%', md: 'max-content' }}
                 w='100%'
@@ -116,7 +137,6 @@ export default function OTP() {
                                     </HStack>
                                 }
                             />
-                            <FormErrorMessage>{show && message}</FormErrorMessage>
                         </FormControl>
                         <FormControl>
 

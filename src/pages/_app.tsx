@@ -19,6 +19,7 @@ import NextNProgress from 'nextjs-progressbar';
 const queryClient = new QueryClient();
 
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
+axios.defaults.timeout = 10000
 
 
 function MyApp({ Component, pageProps }: AppProps) {

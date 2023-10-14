@@ -92,9 +92,9 @@ export const fileUpdate = async (fields: FileUploadInterface) => {
     const formData = new FormData(); // Create a FormData object to hold your data and file
     // Append the file to the FormData object
     formData.append('file', fields.file);
-    const { data } = await axios.post('/auth/user/profile/update', fields, {
+    const { data } = await axios.post('/auth/user/profile/upload', fields, {
       headers: {
-        'Content-Type': 'multipart/form-data', // Set the content type to multipart/form-data for file uploads
+        'Content-Type': `multipart/form-data; boundary=---XYZ}`, // Set the content type to multipart/form-data for file uploads
       }
     })
     return data

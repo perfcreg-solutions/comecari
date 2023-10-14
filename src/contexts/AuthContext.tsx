@@ -51,11 +51,11 @@ const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
 
   const [authError, setAuthError] = useState<string | null>(null);
 
-  // const [authUser, setAuthUser] = useState<any>(() => {
-  //   if (typeof localStorage !== 'undefined') {
-  //     return JSON.parse(localStorage.getItem('auth_user')) || null;
-  //   }
-  // });
+  const [authUser, setAuthUser] = useState<any>(() => {
+    if (typeof localStorage !== 'undefined') {
+      return JSON.parse(localStorage.getItem('auth_user')) || null;
+    }
+  });
 
   const [accessToken, setAccessToken] = useState<string>(() => {
     // Initialize accessToken from localStorage or null
@@ -85,16 +85,17 @@ const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
       setAuthError("")
       setError(false)
       setIsAuthLoading(true);
+
     },
     onSuccess: (data) => {
+      setAccessToken(data.data.accessToken);
+      setRefreshToken(data.data.refreshToken);
       if (typeof localStorage !== 'undefined') {
         localStorage.setItem(IS_AUTHENTICATED_KEY, true);
         localStorage.setItem(ACCESS_TOKEN_KEY, data.data.accessToken);
         localStorage.setItem(REFRESH_TOKEN_KEY, data.data.refreshToken);
         localStorage.setItem(AUTH_USER_KEY, JSON.stringify(user?.data));
       }
-      setAccessToken(data.data.accessToken);
-      setRefreshToken(data.data.refreshToken);
       setAuthUser(user?.data);
       setIsAuthenticated(true);
       setIsAuthLoading(false);
@@ -165,38 +166,39 @@ const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
       localStorage.removeItem(REFRESH_TOKEN_KEY);
       localStorage.removeItem(AUTH_USER_KEY);
       localStorage.removeItem(IS_AUTHENTICATED_KEY);
-
     }
   }
 
   useEffect(() => {
     if (isAuthenticated) {
-      (async () => {
-        axios.interceptors.request.use(
-          async (config) => {
-            if (!config.headers['Authorization']) {
-              config.headers['Authorization'] = `Bearer ${accessToken}`;
-            }
-            return config;
-          },
-          (error) => {
-            if (error.response && error.response.status === 401) {
-              console.log("trying to reconnect")
-              refetchAuthUser()
-            }
-            console.log('Setting accessToken in axios interceptor failed', error);
-            return Promise.reject(error);
+      const requestInterceptor = axios.interceptors.request.use(
+        (config) => {
+          if (!config.headers['Authorization']) {
+            config.headers['Authorization'] = `Bearer ${accessToken}`;
           }
-        );
-      })();
+          return config;
+        },
+        (error) => {
+          if (error.response && error.response.status === 401) {
+            console.log("401 error encountered, trying to refresh token");
+            refetchAuthUser();
+          }
+          console.log('Setting accessToken in axios interceptor failed', error);
+          return Promise.reject(error);
+        }
+      );
+      return () => {
+        axios.interceptors.request.eject(requestInterceptor);
+      };
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, accessToken]);
+  
 
   const value = {
     isAuthenticated,
     isAuthLoading,
     accessToken,
-    // authUser,
+    authUser,
     refetchAuthUser,
     setIsAuthLoading,
     login,

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   Box,
   Flex,
@@ -49,6 +49,17 @@ export default function Dashboard() {
   const boxBg = useColorModeValue('secondaryGray.300', 'whiteAlpha.100')
 
   const [isLoaded, setIsLoaded] = useState(true)
+
+  useEffect(()=> {
+    const timeoutId = setTimeout(() => {
+      setIsLoaded(false);
+    }, 12000);
+
+    // Clear the timeout if the component unmounts
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [])
 
   return (
     <ProtectedRoute>
@@ -109,7 +120,7 @@ export default function Dashboard() {
                   value='23'
                 />
               </Skeleton>
-
+              <Skeleton borderRadius={15} isLoaded={!isLoaded}>
               <MiniStatistics
                 startContent={
                   <IconBox
@@ -129,7 +140,9 @@ export default function Dashboard() {
                 name='Delivered (Today)'
                 value='05'
               />
+              </Skeleton>
 
+              <Skeleton borderRadius={15} isLoaded={!isLoaded}>
               <MiniStatistics
                 startContent={
                   <IconBox
@@ -142,46 +155,51 @@ export default function Dashboard() {
                 name='Delivered this month'
                 value='154'
               />
+              </Skeleton>
 
-              <MiniStatistics
-                startContent={
-                  <IconBox
-                    w='56px'
-                    h='56px'
-                    bg={boxBg}
-                    icon={
-                      <Icon
-                        w='32px'
-                        h='32px'
-                        as={MdFileCopy}
-                        color={brandColor}
-                      />
-                    }
-                  />
-                }
-                name='Total Shipments'
-                value='2935'
-              />
+              <Skeleton borderRadius={15} isLoaded={!isLoaded}>
+                <MiniStatistics
+                  startContent={
+                    <IconBox
+                      w='56px'
+                      h='56px'
+                      bg={boxBg}
+                      icon={
+                        <Icon
+                          w='32px'
+                          h='32px'
+                          as={MdFileCopy}
+                          color={brandColor}
+                        />
+                      }
+                    />
+                  }
+                  name='Total Shipments'
+                  value='2935'
+                />
+              </Skeleton>
 
-              <MiniStatistics
-                startContent={
-                  <IconBox
-                    w='56px'
-                    h='56px'
-                    bg={boxBg}
-                    icon={
-                      <Icon
-                        w='32px'
-                        h='32px'
-                        as={FcCancel}
-                        color={brandColor}
-                      />
-                    }
-                  />
-                }
-                name='Cancelled Orders (this month)'
-                value='13'
-              />
+              <Skeleton borderRadius={15} isLoaded={!isLoaded}>
+                <MiniStatistics
+                  startContent={
+                    <IconBox
+                      w='56px'
+                      h='56px'
+                      bg={boxBg}
+                      icon={
+                        <Icon
+                          w='32px'
+                          h='32px'
+                          as={FcCancel}
+                          color={brandColor}
+                        />
+                      }
+                    />
+                  }
+                  name='Cancelled Orders (this month)'
+                  value='13'
+                />
+              </Skeleton>
 
               {/* <MiniStatistics growth='+23%' name='Sales' value='$574.34' /> */}
 
