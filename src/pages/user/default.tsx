@@ -134,6 +134,7 @@ export default function Dashboard() {
                             </Flex>
 
                             <ShipmentHistory
+                                truck="Pickup Truck"
                                 date='30s ago'
                                 id="67288372CJ"
                                 image={Truck}
@@ -146,6 +147,7 @@ export default function Dashboard() {
                             />
 
                             <ShipmentHistory
+                                truck="Sixteen Wheeler"
                                 date='30s ago'
                                 id="67288372BB"
                                 image={Truck2}
