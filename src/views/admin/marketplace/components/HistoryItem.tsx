@@ -21,9 +21,9 @@ import { MdCheckCircle, MdCancel, MdOutlineError } from 'react-icons/md';
 import { FiArrowUpRight, FiArrowDownRight } from 'react-icons/fi'
 import IconBox from 'components/icons/IconBox';
 import Maps from '../../../../../public/maps.png'
-import Slider1 from 'img/trucks/truck1.jpg'
-import Slider2 from 'img/trucks/truck2.jpg'
-import Slider3 from 'img/trucks/truck3.jpg'
+import Slider1 from 'img/load/load1.jpg'
+import Slider2 from 'img/load/load2.jpg'
+import Slider3 from 'img/load/load3.jpg'
 import SimpleImageSlider from "react-simple-image-slider";
 
 
@@ -49,7 +49,7 @@ export default function HistoryItem(props: {
 	const textColorDate = useColorModeValue('secondaryGray.600', 'white');
 	const greenColor = useColorModeValue('green.500', 'white')
 	const greenBg = useColorModeValue('green.100', 'whiteAlpha.100')
-	const redColor = useColorModeValue('red.500', 'white')
+	const redColor = useColorModeValue('red.500', 'white');
 	const redBg = useColorModeValue('red.100', 'whiteAlpha.100')
 	
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -181,7 +181,7 @@ export default function HistoryItem(props: {
 			<Modal onClose={onClose} isOpen={isOpen} size='6xl' motionPreset="slideInBottom" >
 				<ModalOverlay />
 				<ModalContent>
-					<ModalHeader>Bid Details</ModalHeader>
+					<ModalHeader>Bid Details - Status: {status}</ModalHeader>
 					<ModalCloseButton />
 
 					<ModalBody>
@@ -257,6 +257,8 @@ export default function HistoryItem(props: {
 										{/* <Text color='secondaryGray.700'>{deliveryDetails}</Text> */}
 									</Box>
 								</Flex>
+
+								<Text fontSize="lg">Load Images</Text>
 
 								<SimpleImageSlider
 
