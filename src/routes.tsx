@@ -26,10 +26,8 @@ import Drivers from 'pages/admin/fleets/drivers'
 import Trucks from 'pages/admin/fleets/trucks'
 import Invoice from 'pages/admin/invoice'
 import Report from 'pages/admin/report'
-
 // User Import
 import UserDashboard from 'pages/user/default'
-
 // Auth Imports
 import SignInCentered from 'pages/auth/sign-in'
 import { IRoute } from 'types/navigation'

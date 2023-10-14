@@ -53,12 +53,12 @@ export default function Bids() {
                             </Flex>
 
                             <HistoryItem
-                                type='refregirated'
+                                truck='refregirated'
                                 date='30s ago'
                                 image={Truck}
                                 price='2000'
-                                location="Sokoto"
-                                destination='Kaduna'
+                                pickupLocation="Sokoto"
+                                deliveryLocation='Kaduna'
                                 pickup="24/04/23 (BEFORE 4:30PM)"
                                 delivery="25/05/23 (05:00AM)"
                                 status="Pending"
@@ -66,12 +66,12 @@ export default function Bids() {
                             />
 
                             <HistoryItem
-                                type='Van'
+                                truck='Van'
                                 date='30s ago'
                                 image={Truck2}
                                 price='500'
-                                location="Kano"
-                                destination='Osun'
+                                pickupLocation="Kano"
+                                deliveryLocation='Osun'
                                 pickup="12/04/23 (BEFORE 4:30PM)"
                                 delivery="12/05/23 (05:00AM)"
                                 status="Closed"
@@ -79,36 +79,36 @@ export default function Bids() {
                             />
 
                             <HistoryItem
-                                type='Open roof'
+                                truck='Open roof'
                                 date='30s ago'
                                 image={Truck3}
                                 price='500'
-                                location="Ibadan"
-                                destination='Lagos'
+                                pickupLocation="Ibadan"
+                                deliveryLocation='Lagos'
                                 pickup="12/04/23 (BEFORE 4:30PM)"
                                 delivery="12/05/23 (05:00AM)"
                                 status="Pending"
                                 button="View Bids"
                             />
                             <HistoryItem
-                                type='Long Truck'
+                                truck='Long Truck'
                                 date='30s ago'
                                 image={Truck6}
                                 price='400'
-                                location="Kano"
-                                destination='Kogi'
+                                pickupLocation="Kano"
+                                deliveryLocation='Kogi'
                                 pickup="12/04/23 (BEFORE 4:30PM)"
                                 delivery="12/05/23 (05:00AM)"
                                 status="Approved"
                                 button="View Bids"
                             />
                             <HistoryItem
-                                type='Tanker'
+                                truck='Tanker'
                                 date='30s ago'
                                 image={Truck5}
                                 price='750'
-                                location="Anambra"
-                                destination='Osun'
+                                pickupLocation="Anambra"
+                                deliveryLocation='Osun'
                                 pickup="12/04/23 (BEFORE 4:30PM)"
                                 delivery="12/05/23 (05:00AM)"
                                 status="Pending"
@@ -116,12 +116,12 @@ export default function Bids() {
                             />
 
                             <HistoryItem
-                                type='Open roof'
+                                truck='Open roof'
                                 date='30s ago'
                                 image={Truck4}
                                 price='3500'
-                                location="Benue"
-                                destination='Porthacourt'
+                                pickupLocation="Benue"
+                                deliveryLocation='Porthacourt'
                                 pickup="12/04/23 (BEFORE 4:30PM)"
                                 delivery="12/05/23 (05:00AM)"
                                 status="Approved"

@@ -33,9 +33,9 @@ const userRoutes: IRoute[] = [
         layout: '/user',
         path: '/shipment',
         icon: <Icon as={MdOutlineShoppingCart} width='20px' height='20px' color='inherit' />,
-        component:() => returns (
-            <SignInCentered />
-        )},
+        component: UserDashboard
+
+    }
 ]
 
 export default userRoutes;

@@ -22,6 +22,7 @@ import AdminLayout from 'layouts/admin'
 import { CgLoadbarSound } from 'react-icons/cg'
 
 import MarketplaceCard from 'components/card/MarketplaceCard'
+import { useForm, Controller } from 'react-hook-form'
 
 import Truck from 'img/trucks/van01.png'
 import Truck2 from 'img/trucks/van02.png'
@@ -42,7 +43,12 @@ export default function Marketplace() {
     //     Truck6: Truck6,
     // };
 
-    const { isOpen, onOpen, onClose } = useDisclosure()
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const { handleSubmit, control } = useForm();
+    const onFilterJobs = (data: any) => {
+        // Handle form submission for Form 1 here
+        console.log('Filter Jobs Data:', data);
+    };
 
     return (
         <AdminLayout brandtext="Marketplace">
@@ -78,37 +84,88 @@ export default function Marketplace() {
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader>Filter</ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody>
-                        {/* <Text>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Labore esse, in reiciendis totam vero iste natus, veniam neque molestiae, perspiciatis iusto harum fugiat quod.</Text> */}
-                        <FormControl>
-                            <FormLabel>Enter Pickup Location</FormLabel>
-                            <Input type='text' />
-                        </FormControl>
+                    <form action="#" onSubmit={handleSubmit(onFilterJobs)}>
+                        <ModalHeader>Filter</ModalHeader>
+                        <ModalCloseButton />
+                        <ModalBody>
+                            <FormControl>
+                                <FormLabel>Enter Pickup Location</FormLabel>
+                                <Controller
+                                    name="pickupLocation"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <Input
+                                            isRequired={true}
+                                            variant='auth'
+                                            fontSize='sm'
+                                            ms={{ base: '0px', md: '0px' }}
+                                            type="text"
+                                            // placeholder='Volvo'
+                                            mb='18px'
+                                            fontWeight='500'
+                                            size='lg'
+                                            {...field}
+                                        />
+                                    )}
+                                />
+                            </FormControl>
 
-                        <FormControl>
-                            <FormLabel>Enter Delivery Location</FormLabel>
-                            <Input type='text' />
-                        </FormControl>
+                            <FormControl>
+                                <FormLabel>Enter Delivery Location</FormLabel>
+                                <Controller
+                                    name="deliveryLocation"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <Input
+                                            isRequired={true}
+                                            variant='auth'
+                                            fontSize='sm'
+                                            ms={{ base: '0px', md: '0px' }}
+                                            type="text"
+                                            mb='18px'
+                                            fontWeight='500'
+                                            size='lg'
+                                            {...field}
+                                        />
+                                    )}
+                                />
+                            </FormControl>
 
-                        <FormControl>
-                            <FormLabel>Select Truck type</FormLabel>
-                            <Select>
-                                <option selected>Mini Van</option>
-                                <option>Sixteen Wheeler</option>
-                            </Select>
+                            <FormControl>
+                                <FormLabel>Select Truck type</FormLabel>
 
-                            <img src={Truck2.src} />
-                        </FormControl>
-                    </ModalBody>
+                                <Controller
+                                    name="truckType"
+                                    control={control}
+                                    render={({ field }) => (
 
-                    <ModalFooter>
-                        <Button colorScheme='blue' mr={3} onClick={onClose}>
-                            Show 16 results
-                        </Button>
-                    </ModalFooter>
+                                        <Select isRequired={true}
+                                            variant='auth'
+                                            fontSize='sm'
+                                            ms={{ base: '0px', md: '0px' }}
+                                            type="text"
+                                            placeholder='Volvo'
+                                            mb='18px'
+                                            fontWeight='500'
+                                            size='lg'
+                                            {...field}>
+
+                                            <option value="1">Mini van</option>
+                                            <option value="2">Sixteen wheeler</option>
+                                        </Select>
+                                    )}
+                                />
+
+                                <img src={Truck2.src} />
+                            </FormControl>
+                        </ModalBody>
+
+                        <ModalFooter>
+                            <Button colorScheme='blue' mr={3} type="submit" onClick={onClose}>
+                                Show 16 results
+                            </Button>
+                        </ModalFooter>
+                    </form>
                 </ModalContent>
             </Modal>
         </AdminLayout>
