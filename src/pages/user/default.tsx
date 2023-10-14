@@ -47,7 +47,7 @@ import { Image } from 'components/image/Image'
 import Usa from 'img/dashboards/usa.png'
 import { ProtectedRoute } from 'services'
 
-import MarketplaceCard from 'components/card/MarketplaceCard'
+import ShipmentCard from 'components/card/ShipmentCard'
 
 import Truck from 'img/trucks/van01.png'
 import Truck2 from 'img/trucks/van02.png'
@@ -57,6 +57,8 @@ import Truck5 from 'img/trucks/van05.png'
 import Truck6 from 'img/trucks/van06.png'
 
 import HistoryItem from 'views/admin/marketplace/components/HistoryItem'
+import ShipmentHistory from 'views/admin/marketplace/components/ShipmentHistory'
+// import ShipmentHistory
 
 
 export default function Dashboard() {
@@ -96,7 +98,7 @@ export default function Dashboard() {
 
                         <Card>
                             <Text fontSize="xl" fontWeight="600">Current Shipment</Text>
-                            <MarketplaceCard
+                            <ShipmentCard
                                 // key={index}
                                 truck={Truck2.src}
                                 shipmentId="2343223782"
@@ -131,29 +133,27 @@ export default function Dashboard() {
                                 <Button variant='action'>See all</Button>
                             </Flex>
 
-                            <HistoryItem
-                                type='Pickup Truck'
+                            <ShipmentHistory
                                 date='30s ago'
+                                id="67288372CJ"
                                 image={Truck}
-                                price='2000'
-                                location="Sokoto"
-                                destination='Kaduna'
+                                price='2,000,000'
+                                pickupLocation="Sokoto"
+                                deliveryLocation='Kaduna'
                                 pickup="24/04/23 (BEFORE 4:30PM)"
                                 delivery="25/05/23 (05:00AM)"
-                                status="Pending"
                                 button="View Details"
                             />
 
-                            <HistoryItem
-                                type='Van'
+                            <ShipmentHistory
                                 date='30s ago'
+                                id="67288372BB"
                                 image={Truck2}
-                                price='500'
-                                location="Kano"
-                                destination='Osun'
+                                price='500,000'
+                                pickupLocation="Kano"
+                                deliveryLocation='Osun'
                                 pickup="12/04/23 (BEFORE 4:30PM)"
                                 delivery="12/05/23 (05:00AM)"
-                                status="Closed"
                                 button="View Details"
                             />
                             

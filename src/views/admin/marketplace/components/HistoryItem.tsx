@@ -19,6 +19,7 @@ import { FaDollarSign, FaEthereum } from 'react-icons/fa';
 import { Image } from 'components/image/Image';
 import { MdCheckCircle, MdCancel, MdOutlineError } from 'react-icons/md';
 import { FiArrowUpRight, FiArrowDownRight } from 'react-icons/fi'
+import { TbCurrencyNaira } from 'react-icons/tb';
 import IconBox from 'components/icons/IconBox';
 import Maps from '../../../../../public/maps.png'
 import Slider1 from 'img/load/load1.jpg'
@@ -131,7 +132,7 @@ export default function HistoryItem(props: {
 								You Bid
 							</Text>
 							<Flex w='max-content' me={{ base: '4px', md: '32px', xl: '10px', '3xl': '32px' }} align='center' >
-								<Icon as={FaDollarSign} color={textColor} width='9px' me='7px' />
+								<Icon as={TbCurrencyNaira} color={textColor} width='20px' me='7px' />
 								<Text w='max-content' fontWeight='700' fontSize='md' color={textColor}>
 									{price}
 								</Text>
@@ -258,7 +259,7 @@ export default function HistoryItem(props: {
 									</Box>
 								</Flex>
 
-								<Text fontSize="lg">Load Images</Text>
+								<Text fontSize="lg" fontWeight="bold" mb="10px">Load Images</Text>
 
 								<SimpleImageSlider
 
@@ -273,6 +274,12 @@ export default function HistoryItem(props: {
 									}}
 									autoPlayDelay={3}
 								/>
+
+								<Flex align="center" mb="10px" mt="10px">
+									<Text fontSize="lg" fontWeight="bold">You bid:</Text>
+									<Icon as={TbCurrencyNaira} color={textColor} width='25px' />
+									<Text fontSize="lg" fontWeight="bold">{price}</Text>
+								</Flex>
 
 							</Box>
 						</SimpleGrid>

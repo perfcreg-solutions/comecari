@@ -25,6 +25,7 @@ import Card from 'components/card/Card';
 import AdminLayout from 'layouts/admin'
 import Logo from 'img/logo/logo.jpg'
 
+
 export default function Settings() {
     const toast = useToast();
     const [user, setUser] = useState();

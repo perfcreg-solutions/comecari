@@ -46,9 +46,6 @@ export default function Default(props: {
     const redBg = useColorModeValue('red.100', 'whiteAlpha.100')
 
     const { isOpen, onOpen, onClose } = useDisclosure()
-
-    const [bidVisible, setBidVisible] = useState(false);
-
     return (
 
         <Card p="20px">
@@ -243,11 +240,6 @@ export default function Default(props: {
                             </Box>
                         </SimpleGrid>
                     </ModalBody>
-                    <ModalFooter>
-                       {bidVisible && <Input type='number' w="150px" placeholder="Enter Bid Price" />}
-                        <Button onClick={()=> setBidVisible(!bidVisible)} colorScheme='blue' m="5px">{bidVisible ? `Place Bid` : `Set bid`}</Button>
-                        <Button onClick={onClose} colorScheme='green' m="5px">Accept</Button>
-                    </ModalFooter>
                 </ModalContent>
             </Modal>
         </Card>

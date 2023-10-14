@@ -10,6 +10,7 @@ import {
     useToast,
     Input,
     Select,
+    Image,
     FormControl,
     FormLabel,
     Modal,
@@ -25,14 +26,17 @@ import {
 import ShipmentHistoryComplexTable from 'views/admin/default/components/ShipmentHistoryComplexTable'
 import {
     ShipmentHistoryDataComplex,
-    TableData} from 'views/admin/default/variables/columnsData'
+    TableData
+} from 'views/admin/default/variables/columnsData'
 import tableShipmentData from 'views/admin/default/variables/tableShipmentData.json'
 import UserLayout from 'layouts/user'
 import Card from 'components/card/Card';
 
-import MarketplaceCard from 'components/card/MarketplaceCard'
+import ShipmentCard from 'components/card/ShipmentCard'
+import { useForm, Controller } from 'react-hook-form'
 
 import Truck2 from 'img/trucks/van02.png'
+import Check from 'img/dashboards/check.png'
 
 
 export default function UserShipment() {
@@ -46,6 +50,7 @@ export default function UserShipment() {
 
     const [isOpenModal1, setIsOpenModal1] = useState(false);
     const [isOpenModal2, setIsOpenModal2] = useState(false);
+    const [isOpenModal3, setIsOpenModal3] = useState(false);
     const [size, setSize] = useState('xl');
 
     const openModal1 = () => {
@@ -65,6 +70,16 @@ export default function UserShipment() {
         setIsOpenModal2(false);
     };
 
+    const openModal3 = () => {
+        setIsOpenModal1(false); // Close Modal 1
+        setIsOpenModal2(false); // Open Modal 2
+        setIsOpenModal3(true); // Open Modal 3
+    };
+
+    const closeModal3 = () => {
+        setIsOpenModal3(false);
+    };
+
     // Upload Document
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -75,6 +90,17 @@ export default function UserShipment() {
             // You can handle the selected file here
             console.log('Selected File:', selectedFile);
         }
+    };
+
+    const { handleSubmit, control } = useForm();
+    const onBookShipment = (data: any) => {
+        // Handle form submission for Form 1 here
+        console.log('Book Shipment Data:', data);
+    };
+
+    const { handleSubmit: handleSubmitForm2, control: controlForm2 } = useForm();
+    const onBookShipmentForm2 = (data: any) => {
+        console.log('Book Shipment Data 2:', data);
     };
 
     return (
@@ -92,7 +118,7 @@ export default function UserShipment() {
                     <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px' mb='20px'>
                         <Card>
                             <Text fontSize="xl" fontWeight="600">Current Shipment</Text>
-                            <MarketplaceCard
+                            <ShipmentCard
                                 // key={index}
                                 truck={Truck2.src}
                                 shipmentId="2343223782"
@@ -113,114 +139,334 @@ export default function UserShipment() {
                         />
                     </SimpleGrid>
 
+
                     <Modal closeOnOverlayClick={false} size={size} isOpen={isOpenModal1} onClose={closeModal1}>
                         <ModalOverlay />
                         <ModalContent>
                             <ModalHeader>Book Shipment</ModalHeader>
                             <ModalCloseButton />
+                            <form action="#" onSubmit={handleSubmit(onBookShipment)}>
+                                <ModalBody pb={6}>
+                                    <FormControl mb={4}>
+                                        <FormLabel>Select truck type</FormLabel>
+                                        <Controller
+                                            name="truckType"
+                                            control={control}
+                                            render={({ field }) => (
 
-                            <ModalBody pb={6}>
-                                <FormControl mb={4}>
-                                    <FormLabel>Select truck type</FormLabel>
-                                    <Select size="lg">
-                                        <option value='option1'>Flatbed</option>
-                                        <option value='option2'>Pickup truck</option>
-                                        <option value='option3'>16 Wheeler truck</option>
-                                    </Select>
-                                </FormControl>
+                                                <Select isRequired={true}
+                                                    variant='auth'
+                                                    fontSize='sm'
+                                                    ms={{ base: '0px', md: '0px' }}
+                                                    type="text"
+                                                    mb='18px'
+                                                    fontWeight='500'
+                                                    size='lg'
+                                                    {...field}>
 
-                                <FormControl mb={4}>
-                                    <FormLabel>Pickup location</FormLabel>
-                                    <Input type='text' size='lg' />
-                                </FormControl>
+                                                    <option value="1">Mini van</option>
+                                                    <option value="2">Sixteen wheeler</option>
+                                                    <option value="3">Volvo</option>
+                                                </Select>
+                                            )}
+                                        />
+                                    </FormControl>
 
-                                <FormControl mb={4}>
-                                    <FormLabel>Delivery location</FormLabel>
-                                    <Input type='text' size='lg' />
-                                </FormControl>
+                                    <FormControl mb={4}>
+                                        <FormLabel>Pickup location</FormLabel>
+                                        <Controller
+                                            name="pickupLocation"
+                                            control={control}
+                                            render={({ field }) => (
+                                                <Input
+                                                    isRequired={true}
+                                                    variant='auth'
+                                                    fontSize='sm'
+                                                    ms={{ base: '0px', md: '0px' }}
+                                                    type="text"
+                                                    // placeholder='Volvo'
+                                                    mb='18px'
+                                                    fontWeight='500'
+                                                    size='lg'
+                                                    {...field}
+                                                />
+                                            )}
+                                        />
+                                    </FormControl>
 
-                                <FormControl mb={4}>
-                                    <FormLabel>Weight (KG)</FormLabel>
-                                    <Input type='text' size='lg' placeholder='2,000' />
-                                </FormControl>
+                                    <FormControl mb={4}>
+                                        <FormLabel>Delivery location</FormLabel>
+                                        <Controller
+                                            name="deliveryLocation"
+                                            control={control}
+                                            render={({ field }) => (
+                                                <Input
+                                                    isRequired={true}
+                                                    variant='auth'
+                                                    fontSize='sm'
+                                                    ms={{ base: '0px', md: '0px' }}
+                                                    type="text"
+                                                    // placeholder='Volvo'
+                                                    mb='18px'
+                                                    fontWeight='500'
+                                                    size='lg'
+                                                    {...field}
+                                                />
+                                            )}
+                                        />
+                                    </FormControl>
 
-                                <FormControl>
-                                    <FormLabel>Other documents</FormLabel>
-                                    <Input
-                                        ref={fileInputRef}
-                                        type="file"
-                                        id="file-input"
-                                        style={{ display: 'none' }}
-                                        onChange={handleFileInputChange}
-                                    />
-                                    <label htmlFor="file-input">
-                                        <Button type="button" w="100%"
-                                            onClick={() => fileInputRef.current?.click()}
-                                            backgroundColor="blue.400"
-                                            color="#fff" mt={2}
-                                            _hover={{
-                                                bg: 'blue.600',
-                                                cursor: 'pointer',
-                                            }}>Browse</Button>
-                                    </label>
-                                </FormControl>
-                            </ModalBody>
-                            <ModalFooter>
-                                <Button backgroundColor="#0f2dd6" color="#fff"
-                                    p={4} px={7}
-                                    borderRadius="lg"
-                                    onClick={openModal2}
+                                    <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
+                                        <FormControl mb={4}>
+                                            <FormLabel>Weight (KG)</FormLabel>
+                                            <Controller
+                                                name="weight"
+                                                control={control}
+                                                render={({ field }) => (
+                                                    <Input
+                                                        isRequired={true}
+                                                        variant='auth'
+                                                        fontSize='sm'
+                                                        ms={{ base: '0px', md: '0px' }}
+                                                        type="number"
+                                                        mb='18px'
+                                                        fontWeight='500'
+                                                        size='lg'
+                                                        {...field}
+                                                    />
+                                                )}
+                                            />
+                                        </FormControl>
 
-                                    _hover={{
-                                        bg: 'blue.500', // Change the background color on hover
-                                        cursor: 'pointer', // Change the cursor to a pointer on hover
-                                        color: 'white'
-                                    }}>
-                                    Proceed
-                                </Button>
-                            </ModalFooter>
+                                        <FormControl mb={4}>
+                                            <FormLabel>Height (cm)</FormLabel>
+                                            <Controller
+                                                name="height"
+                                                control={control}
+                                                render={({ field }) => (
+                                                    <Input
+                                                        isRequired={true}
+                                                        variant='auth'
+                                                        fontSize='sm'
+                                                        ms={{ base: '0px', md: '0px' }}
+                                                        type="number"
+                                                        mb='18px'
+                                                        fontWeight='500'
+                                                        size='lg'
+                                                        {...field}
+                                                    />
+                                                )}
+                                            />
+                                        </FormControl>
+
+                                        <FormControl mb={4}>
+                                            <FormLabel>Length (cm)</FormLabel>
+                                            <Controller
+                                                name="length"
+                                                control={control}
+                                                render={({ field }) => (
+                                                    <Input
+                                                        isRequired={true}
+                                                        variant='auth'
+                                                        fontSize='sm'
+                                                        ms={{ base: '0px', md: '0px' }}
+                                                        type="number"
+                                                        mb='18px'
+                                                        fontWeight='500'
+                                                        size='lg'
+                                                        {...field}
+                                                    />
+                                                )}
+                                            />
+                                        </FormControl>
+
+                                        <FormControl mb={4}>
+                                            <FormLabel>Width (cm)</FormLabel>
+                                            <Controller
+                                                name="width"
+                                                control={control}
+                                                render={({ field }) => (
+                                                    <Input
+                                                        isRequired={true}
+                                                        variant='auth'
+                                                        fontSize='sm'
+                                                        ms={{ base: '0px', md: '0px' }}
+                                                        type="number"
+                                                        mb='18px'
+                                                        fontWeight='500'
+                                                        size='lg'
+                                                        {...field}
+                                                    />
+                                                )}
+                                            />
+                                        </FormControl>
+
+                                    </SimpleGrid>
+
+                                    <FormControl>
+                                        <FormLabel>Other documents</FormLabel>
+                                        {/* <Controller
+                                            name="vehicleMake"
+                                            control={control}
+                                            render={({ field }) => (
+                                                <Input
+                                                    isRequired={true}
+                                                    variant='auth'
+                                                    fontSize='sm'
+                                                    ms={{ base: '0px', md: '0px' }}
+                                                    mb='18px'
+                                                    fontWeight='500'
+                                                    size='lg'
+                                                    ref={fileInputRef}
+                                                    type="file"
+                                                    id="file-input"
+                                                    style={{ display: 'none' }}
+                                                    onChange={handleFileInputChange}
+                                                    {...field}
+                                                />
+                                            )}
+                                        /> */}
+                                        <Input
+                                            ref={fileInputRef}
+                                            type="file"
+                                            id="file-input"
+                                            style={{ display: 'none' }}
+                                            onChange={handleFileInputChange}
+                                        />
+                                        <label htmlFor="file-input">
+                                            <Button type="button" w="100%"
+                                                onClick={() => fileInputRef.current?.click()}
+                                                backgroundColor="blue.400"
+                                                color="#fff" mt={2}
+                                                _hover={{
+                                                    bg: 'blue.600',
+                                                    cursor: 'pointer',
+                                                }}>Browse</Button>
+                                        </label>
+                                    </FormControl>
+                                </ModalBody>
+                                <ModalFooter>
+                                    <Button backgroundColor="#0f2dd6" color="#fff"
+                                        p={4} px={7}
+                                        borderRadius="lg"
+                                        onClick={openModal2}
+                                        type="submit"
+
+                                        _hover={{
+                                            bg: 'blue.500', // Change the background color on hover
+                                            cursor: 'pointer', // Change the cursor to a pointer on hover
+                                            color: 'white'
+                                        }}>
+                                        Proceed
+                                    </Button>
+                                </ModalFooter>
+                            </form>
                         </ModalContent>
+
                     </Modal>
+
 
                     <Modal isOpen={isOpenModal2} size={size} onClose={closeModal2}>
                         <ModalOverlay />
                         <ModalContent>
                             <ModalHeader>Book Shipment</ModalHeader>
                             <ModalCloseButton />
-                            <ModalBody pb={6}>
-                                <form action="#">
+                            <form action="#" onSubmit={handleSubmitForm2(onBookShipmentForm2)}>
+                                <ModalBody pb={6}>
                                     <FormControl mb={4}>
                                         <FormLabel>Tag driver (optional)</FormLabel>
-                                        <Input type='text' size='lg' />
+                                        <Controller
+                                            name="driver"
+                                            control={controlForm2}
+                                            render={({ field }) => (
+                                                <Input
+                                                    isRequired={true}
+                                                    variant='auth'
+                                                    fontSize='sm'
+                                                    ms={{ base: '0px', md: '0px' }}
+                                                    type="text"
+                                                    mb='18px'
+                                                    fontWeight='500'
+                                                    size='lg'
+                                                    {...field}
+                                                />
+                                            )}
+                                        />
                                     </FormControl>
 
                                     <FormControl mb={4}>
                                         <FormLabel>Special Instruction</FormLabel>
-                                        <Textarea />
+                                        <Controller
+                                            name="instructions"
+                                            control={controlForm2}
+                                            render={({ field }) => (
+                                                <Textarea
+                                                    isRequired={true}
+                                                    variant='auth'
+                                                    fontSize='sm'
+                                                    ms={{ base: '0px', md: '0px' }}
+                                                    mb='18px'
+                                                    fontWeight='500'
+                                                    // size='lg'
+                                                    {...field}
+                                                />
+                                            )}
+                                        />
                                     </FormControl>
 
                                     <FormControl mb={4}>
                                         <FormLabel>Make a bid (&#x20A6;)</FormLabel>
-                                        <Input type='text' size='lg' />
+                                        <Controller
+                                            name="bid"
+                                            control={controlForm2}
+                                            render={({ field }) => (
+                                                <Input
+                                                    isRequired={true}
+                                                    variant='auth'
+                                                    fontSize='sm'
+                                                    ms={{ base: '0px', md: '0px' }}
+                                                    type="number"
+                                                    mb='18px'
+                                                    fontWeight='500'
+                                                    size='lg'
+                                                    {...field}
+                                                />
+                                            )}
+                                        />
                                     </FormControl>
-                                </form>
-                            </ModalBody>
-                            <ModalFooter>
-                                <Button backgroundColor="#0f2dd6" color="#fff"
-                                    p={4} px={7}
-                                    borderRadius="lg"
-                                    // onClick={openModal3}
+                                </ModalBody>
+                                <ModalFooter>
+                                    <Button backgroundColor="#0f2dd6" color="#fff"
+                                        p={4} px={7}
+                                        borderRadius="lg"
+                                        type="submit"
+                                        onClick={openModal3}
 
-                                    _hover={{
-                                        bg: 'blue.500', // Change the background color on hover
-                                        cursor: 'pointer', // Change the cursor to a pointer on hover
-                                        color: 'white'
-                                    }}>
-                                    Proceed
-                                </Button>
-                            </ModalFooter>
+                                        _hover={{
+                                            bg: 'blue.500', // Change the background color on hover
+                                            cursor: 'pointer', // Change the cursor to a pointer on hover
+                                            color: 'white'
+                                        }}>
+                                        Proceed
+                                    </Button>
+                                </ModalFooter>
+                            </form>
                         </ModalContent>
                     </Modal>
+
+                    <Modal closeOnOverlayClick={false} size={size} isOpen={isOpenModal3} onClose={closeModal3}>
+                        <ModalOverlay />
+                        <ModalContent>
+                            <ModalHeader></ModalHeader>
+                            <ModalCloseButton />
+                            <ModalBody pb={6}>
+                                <Image src={Check.src} boxSize='100px' alt="check icon" mr="auto" ml="auto" />
+                                <Text align="center" fontSize="2xl" fontWeight="bold" mt="15px">Shipment Booked</Text>
+                            </ModalBody>
+                        </ModalContent>
+
+                    </Modal>
+
 
                 </>
             </Box>
