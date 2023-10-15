@@ -10,13 +10,18 @@ import { Box, Button, Flex, Icon, Text, useColorModeValue,
 	ModalOverlay,
 	ModalCloseButton,
 	SimpleGrid,
+	Select,
+	FormControl,
+	FormLabel,
+	FormErrorMessage,
+	FormHelperText,
 	useDisclosure,
 } from '@chakra-ui/react';
 // Custom components
 import Card from 'components/card/Card';
+import { Image } from 'components/image/Image';
 // Assets
 import { FaDollarSign, FaEthereum } from 'react-icons/fa';
-import { Image } from 'components/image/Image';
 import { MdCheckCircle, MdCancel, MdOutlineError } from 'react-icons/md';
 import { FiArrowUpRight, FiArrowDownRight } from 'react-icons/fi'
 import { TbCurrencyNaira } from 'react-icons/tb';
@@ -26,6 +31,7 @@ import Slider1 from 'img/load/load1.jpg'
 import Slider2 from 'img/load/load2.jpg'
 import Slider3 from 'img/load/load3.jpg'
 import SimpleImageSlider from "react-simple-image-slider";
+import Avatar from 'img/avatars/avatar6.png'
 import MapComponent from 'views/admin/default/components/MapComponent';
 
 
@@ -71,6 +77,13 @@ export default function HistoryItem(props: {
 			url: Slider3.src,
 		}
 	];
+
+	const [showForm, setShowForm] = useState(false);
+
+	// Function to toggle the form visibility
+	const toggleForm = () => {
+		setShowForm(!showForm);
+	};
 
 	return (
 		<>
@@ -191,8 +204,7 @@ export default function HistoryItem(props: {
 					<ModalCloseButton />
 
 					<ModalBody>
-						<SimpleGrid columns={{ base: 1, md: 2}}
-							gap='20px'>
+						<SimpleGrid spacing={4} columns={{ base: 1, md: 2}}>
 							
 							<Box>
 								<Text
@@ -288,8 +300,37 @@ export default function HistoryItem(props: {
 							</Box>
 
 							<Box>
-								<MapComponent pickupPoint={pickupPoint} destination={destination} activeLocation={activeLocation} />
+								<MapComponent pickupPoint={pickupPoint} destination={destination} activeLocation={activeLocation} height="550px" />
 							</Box>
+						</SimpleGrid>
+						<hr />
+						<SimpleGrid spacing={4} columns={{ base: 1, md: 2 }}>
+							<Box>
+								<Text fontWeight="bold" fontSize="2xl" mt="15px">Assigned driver:</Text>
+
+								<Image boxSize="150px" borderRadius="full" mt="15px" mb="15px" src={Avatar.src} />
+								<Text>Mr John Doe</Text>
+								<Button colorScheme='green' mt="10px" onClick={toggleForm}>
+									{showForm ? 'Close Form' : 'Assign new driver'}
+								</Button>
+							</Box>
+							{showForm && (
+								<Box>
+									<Text fontSize="xl" fontWeight="bold" mt="15px">Assign New Driver</Text>
+									{/* Your form section here */}
+									<form action="#">
+										<FormControl>
+											<FormLabel>Drivers</FormLabel>
+											<Select >
+												<option>John Doe</option>
+												<option>Sam Doe</option>
+											</Select>
+										</FormControl>
+
+										<Button type='submit' colorScheme='green' mt="5px">Assign</Button>
+									</form>
+								</Box>
+							)}
 						</SimpleGrid>
 					</ModalBody>
 				</ModalContent>

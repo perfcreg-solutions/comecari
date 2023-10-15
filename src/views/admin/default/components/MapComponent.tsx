@@ -11,17 +11,17 @@ const MapComponent = (props) => {
         width: "100%",
         height: height || "600px",
     };
-    const icon = typeof window !== "undefined" && new window.google.maps.Size(40, 40)
+    // const icon = typeof window !== "undefined" && new window.google.maps.Size(40, 40)
     const carIconUrl = 'https://images.app.goo.gl/bGSLFLjYr9Wy3epA6'
 
 
     const onMapLoad = (map) => {
-        const icon = typeof window !== "undefined" && new window.google.maps.Size(40, 40)
+        // const icon = typeof window !== "undefined" && new window.google.maps.Size(40, 40)
         const carIconUrl = 'https://images.app.goo.gl/bGSLFLjYr9Wy3epA6'
 
         const carIcon = {
             url: carIconUrl,
-            scaledSize: icon, // Adjust the size as needed
+            // scaledSize: icon,
         };
 
         // ... Rest of your code

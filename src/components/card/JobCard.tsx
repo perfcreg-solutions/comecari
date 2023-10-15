@@ -24,6 +24,7 @@ import Card from 'components/card/Card';
 import IconBox from 'components/icons/IconBox'
 import { Image } from 'components/image/Image';
 import { useState } from 'react'
+import { FaPhoneAlt } from 'react-icons/fa'
 import { FiArrowUpRight, FiArrowDownRight } from 'react-icons/fi'
 import { BiCurrentLocation } from 'react-icons/bi'
 import { GrLocation } from 'react-icons/gr'
@@ -54,9 +55,6 @@ export default function Default(props: {
     const color = useColorModeValue('black.400', 'whiteAlpha.400');
 
     const { isOpen, onOpen, onClose } = useDisclosure()
-
-    const [bidVisible, setBidVisible] = useState(false);
-
     const pickupPoint = { lat: 6.6050, lng: 3.3498 };
     const destination = { lat: 9.0820, lng: 7.4951 };
     const activeLocation = { lat: 7.8435, lng: 5.4225 };
@@ -272,9 +270,9 @@ export default function Default(props: {
                         </SimpleGrid>
                     </ModalBody>
                     <ModalFooter>
-                        {bidVisible && <Input type='number' w="150px" placeholder="Enter Bid Price" />}
-                        <Button onClick={() => setBidVisible(!bidVisible)} colorScheme='blue' m="5px">{bidVisible ? `Place Bid` : `Set bid`}</Button>
-                        <Button onClick={onClose} colorScheme='green' m="5px">Accept</Button>
+                        <Button rightIcon={<FaPhoneAlt />} colorScheme='teal' variant='outline'>
+                            Call driver
+                        </Button>
                     </ModalFooter>
                 </ModalContent>
             </Modal>
