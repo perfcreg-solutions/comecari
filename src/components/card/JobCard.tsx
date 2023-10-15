@@ -28,6 +28,7 @@ import { FiArrowUpRight, FiArrowDownRight } from 'react-icons/fi'
 import { BiCurrentLocation } from 'react-icons/bi'
 import { GrLocation } from 'react-icons/gr'
 import Maps from '../../../public/maps.png'
+import MapComponent from 'views/admin/default/components/MapComponent';
 import { Badge } from '@chakra-ui/react'
 // Assets
 
@@ -54,7 +55,11 @@ export default function Default(props: {
 
     const { isOpen, onOpen, onClose } = useDisclosure()
 
-    const [bidVisible, setBidVisible] = useState(false)
+    const [bidVisible, setBidVisible] = useState(false);
+
+    const pickupPoint = { lat: 6.6050, lng: 3.3498 };
+    const destination = { lat: 9.0820, lng: 7.4951 };
+    const activeLocation = { lat: 7.8435, lng: 5.4225 };
 
     return (
 
@@ -177,7 +182,7 @@ export default function Default(props: {
                     <ModalBody>
 
                         <SimpleGrid
-                            columns={{ base: 1, md: 2, lg: 3, '2xl': 3 }}
+                            columns={{ base: 1, md: 2}}
                             gap='20px'>
 
                             <Box>
@@ -262,7 +267,7 @@ export default function Default(props: {
                             </Box>
 
                             <Box>
-                                <Image src={Maps.src} w="700px" h="600px" />
+                                <MapComponent pickupPoint={pickupPoint} destination={destination} activeLocation={activeLocation} />
                             </Box>
                         </SimpleGrid>
                     </ModalBody>

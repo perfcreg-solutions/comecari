@@ -26,6 +26,7 @@ import Slider1 from 'img/load/load1.jpg'
 import Slider2 from 'img/load/load2.jpg'
 import Slider3 from 'img/load/load3.jpg'
 import SimpleImageSlider from "react-simple-image-slider";
+import MapComponent from 'views/admin/default/components/MapComponent';
 
 
 export default function HistoryItem(props: {
@@ -51,7 +52,11 @@ export default function HistoryItem(props: {
 	const greenColor = useColorModeValue('green.500', 'white')
 	const greenBg = useColorModeValue('green.100', 'whiteAlpha.100')
 	const redColor = useColorModeValue('red.500', 'white');
-	const redBg = useColorModeValue('red.100', 'whiteAlpha.100')
+	const redBg = useColorModeValue('red.100', 'whiteAlpha.100');
+
+	const pickupPoint = { lat: 6.6050, lng: 3.3498 };
+	const destination = { lat: 9.0820, lng: 7.4951 };
+	const activeLocation = { lat: 7.8435, lng: 5.4225 };
 	
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [imageNum, setImageNum] = useState(1);
@@ -132,9 +137,9 @@ export default function HistoryItem(props: {
 								You Bid
 							</Text>
 							<Flex w='max-content' me={{ base: '4px', md: '32px', xl: '10px', '3xl': '32px' }} align='center' >
-								<Icon as={TbCurrencyNaira} color={textColor} width='20px' me='7px' />
+								{/* <Icon as={TbCurrencyNaira} color={textColor} width='20px' me='7px' /> */}
 								<Text w='max-content' fontWeight='700' fontSize='md' color={textColor}>
-									{price}
+									&#x20A6;{price}
 								</Text>
 							</Flex>
 							<Flex align='center'>
@@ -186,7 +191,7 @@ export default function HistoryItem(props: {
 					<ModalCloseButton />
 
 					<ModalBody>
-						<SimpleGrid columns={{ base: 1, md: 2, lg: 3, '2xl': 3 }}
+						<SimpleGrid columns={{ base: 1, md: 2}}
 							gap='20px'>
 							
 							<Box>
@@ -277,10 +282,13 @@ export default function HistoryItem(props: {
 
 								<Flex align="center" mb="10px" mt="10px">
 									<Text fontSize="lg" fontWeight="bold">You bid:</Text>
-									<Icon as={TbCurrencyNaira} color={textColor} width='25px' />
-									<Text fontSize="lg" fontWeight="bold">{price}</Text>
+									<Text fontSize="lg" fontWeight="bold">&nbsp; &#x20A6;{price}</Text>
 								</Flex>
 
+							</Box>
+
+							<Box>
+								<MapComponent pickupPoint={pickupPoint} destination={destination} activeLocation={activeLocation} />
 							</Box>
 						</SimpleGrid>
 					</ModalBody>

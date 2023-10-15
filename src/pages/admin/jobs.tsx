@@ -1,31 +1,19 @@
 import {
     Box,
-    Button,
-    Flex,
-    FormLabel,
     Icon,
-    Select,
     SimpleGrid,
     useColorModeValue,
     useDisclosure
 } from '@chakra-ui/react'
 // Assets
-import {
-    columnsJobData
-} from 'views/admin/job/variables/columnsData'
 // import tableDataComplex from 'views/admin/default/variables/tableDataComplex.json'
 import tableJobsData from 'views/admin/job/variables/tableJobsData.json'
 import AdminLayout from 'layouts/admin'
-import JobsTable from 'views/admin/job/components/JobsTable'
-import { TableData } from 'views/admin/job/variables/columnsData'
 import MiniStatistics from 'components/card/MiniStatistics'
 import IconBox from 'components/icons/IconBox'
-import { FcCancel } from 'react-icons/fc'
-import { MdBarChart, MdFireTruck, MdAddTask, MdFileCopy } from 'react-icons/md'
+import { MdFireTruck, MdAddTask } from 'react-icons/md'
 import { TbTruckDelivery } from 'react-icons/tb'
 import JobCard from 'components/card/JobCard'
-import { CgLoadbarSound } from 'react-icons/cg'
-import { shipmentData } from 'views/admin/marketplace/variables/tableMarketplace'
 
 import Truck from 'img/trucks/van01.png'
 import Truck2 from 'img/trucks/van02.png'
@@ -109,27 +97,14 @@ export default function Jobs() {
                             />
                         }
                         name='Revenue this month'
-                        value='$15400'
+                        value={'\u20A6 15400'}
                     />
+
 
                 </SimpleGrid>
 
                 <>
                     <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap='20px' mb='20px'>
-                        {/* <JobsTable
-                            columnsData={columnsJobData}
-                            tableData={(tableJobsData as unknown) as TableData[]}
-                            tableTitle="Active Jobs"
-                        /> */}
-{/* 
-                        <Button colorScheme='blue' mb="15px"
-                            onClick={onOpen}> Filter
-                            <Icon
-                                w='26px'
-                                h='26px'
-                                as={CgLoadbarSound}
-                            // color={greenColor}
-                            /></Button> */}
                         <SimpleGrid columns={{ base: 1, md: 3, xl: 3 }} gap='20px' mb='20px'>
                             {tableJobsData.length > 0 && tableJobsData.map((data, index) => (
                                 <JobCard

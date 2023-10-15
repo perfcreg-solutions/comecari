@@ -26,6 +26,7 @@ import { Image } from 'components/image/Image';
 import { useState } from 'react'
 import { FiArrowUpRight, FiArrowDownRight } from 'react-icons/fi'
 import Maps from '../../../public/maps.png'
+import MapComponent from 'views/admin/default/components/MapComponent';
 // Assets
 
 export default function Default(props: {
@@ -48,6 +49,10 @@ export default function Default(props: {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     const [bidVisible, setBidVisible] = useState(false);
+
+    const pickupPoint = { lat: 6.6050, lng: 3.3498 };
+    const destination = { lat: 9.0820, lng: 7.4951 };
+    const activeLocation = { lat: 7.8435, lng: 5.4225 };
 
     return (
 
@@ -160,7 +165,7 @@ export default function Default(props: {
                     <ModalBody>
 
                         <SimpleGrid
-                            columns={{ base: 1, md: 2, lg: 3, '2xl': 3 }}
+                            columns={{ base: 1, md: 2 }}
                             gap='20px'>
 
                             <Box>
@@ -234,19 +239,19 @@ export default function Default(props: {
                                         fontSize={{
                                             base: 'xl'
                                         }}
-                                        fontWeight='700'>Price: {price}</Text>
+                                        fontWeight='700'>Price: &#x20A6;{price}</Text>
                                 </Box>
                             </Box>
 
                             <Box>
-                                <Image src={Maps.src} w="700px" h="600px" />
+                                <MapComponent pickupPoint={pickupPoint} destination={destination} activeLocation={activeLocation} />
                             </Box>
                         </SimpleGrid>
                     </ModalBody>
                     <ModalFooter>
                        {bidVisible && <Input type='number' w="150px" placeholder="Enter Bid Price" />}
-                        <Button onClick={()=> setBidVisible(!bidVisible)} colorScheme='blue' m="5px">{bidVisible ? `Place Bid` : `Set bid`}</Button>
-                        <Button onClick={onClose} colorScheme='green' m="5px">Accept</Button>
+                        <Button onClick={()=> setBidVisible(!bidVisible)} colorScheme='blue' m="5px">{bidVisible ? `Place Bid` : `Set New Bid`}</Button>
+                        <Button onClick={onClose} colorScheme='green' m="5px">{bidVisible ? `Accept Main Bid` : `Accept`}</Button>
                     </ModalFooter>
                 </ModalContent>
             </Modal>

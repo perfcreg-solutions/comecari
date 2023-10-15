@@ -56,7 +56,7 @@ export default function Bids() {
                                 truck='refregirated'
                                 date='30s ago'
                                 image={Truck}
-                                price='2000'
+                                price='2,000,000'
                                 pickupLocation="Sokoto"
                                 deliveryLocation='Kaduna'
                                 pickup="24/04/23 (BEFORE 4:30PM)"
@@ -69,7 +69,7 @@ export default function Bids() {
                                 truck='Van'
                                 date='30s ago'
                                 image={Truck2}
-                                price='500'
+                                price='500,000'
                                 pickupLocation="Kano"
                                 deliveryLocation='Osun'
                                 pickup="12/04/23 (BEFORE 4:30PM)"
@@ -82,7 +82,7 @@ export default function Bids() {
                                 truck='Open roof'
                                 date='30s ago'
                                 image={Truck3}
-                                price='500'
+                                price='50,000'
                                 pickupLocation="Ibadan"
                                 deliveryLocation='Lagos'
                                 pickup="12/04/23 (BEFORE 4:30PM)"
@@ -94,7 +94,7 @@ export default function Bids() {
                                 truck='Long Truck'
                                 date='30s ago'
                                 image={Truck6}
-                                price='400'
+                                price='400,000'
                                 pickupLocation="Kano"
                                 deliveryLocation='Kogi'
                                 pickup="12/04/23 (BEFORE 4:30PM)"
@@ -106,7 +106,7 @@ export default function Bids() {
                                 truck='Tanker'
                                 date='30s ago'
                                 image={Truck5}
-                                price='750'
+                                price='750,000'
                                 pickupLocation="Anambra"
                                 deliveryLocation='Osun'
                                 pickup="12/04/23 (BEFORE 4:30PM)"
@@ -119,7 +119,7 @@ export default function Bids() {
                                 truck='Open roof'
                                 date='30s ago'
                                 image={Truck4}
-                                price='3500'
+                                price='3,500,000'
                                 pickupLocation="Benue"
                                 deliveryLocation='Porthacourt'
                                 pickup="12/04/23 (BEFORE 4:30PM)"

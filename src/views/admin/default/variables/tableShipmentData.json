@@ -9,7 +9,7 @@
     "progress": 75.5,
     "pickup": "Ikeja, Lagos",
     "destination": "Abuja",
-    "payment": "$240"
+    "payment": "\u20A6240"
   },
   {
     "name":"John Doe",
@@ -21,7 +21,7 @@
     "progress": 25.5  ,
     "pickup": "Ikeja, Lagos",
     "destination": "Abuja",
-    "payment": "$400"
+    "payment": "\u20A6240"
   },
   {
     "name":"JD",
@@ -33,7 +33,7 @@
     "progress": 90,
     "pickup": "Ikeja, Lagos",
     "destination": "Abuja",
-    "payment": "$240"
+    "payment": "\u20A6240"
   },
   {
     "name":"Peter Abe",
@@ -45,6 +45,6 @@
     "progress": 50.5,
     "pickup": "Ikeja, Lagos",
     "destination": "Abuja",
-    "payment": "$340"
+    "payment": "\u20A6340"
   }
 ]

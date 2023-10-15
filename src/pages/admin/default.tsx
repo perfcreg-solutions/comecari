@@ -39,6 +39,7 @@ import tableShipmentData from 'views/admin/default/variables/tableShipmentData.j
 import AdminLayout from 'layouts/admin'
 import { Image } from 'components/image/Image'
 import Usa from 'img/dashboards/usa.png'
+import Ngn from 'img/dashboards/ngn.png'
 import { ProtectedRoute } from 'services'
 
 
@@ -78,7 +79,7 @@ export default function Dashboard() {
                     <Flex me='-16px' mt='10px'>
                       <FormLabel htmlFor='balance'>
                         <Box boxSize={'12'}>
-                          <Image src={Usa} alt='' w={'100%'} h={'100%'} />
+                          <Image src={Ngn.src} alt='' w={'100%'} h={'100%'} />
                         </Box>
                       </FormLabel>
                       <Select
@@ -95,7 +96,7 @@ export default function Dashboard() {
                     </Flex>
                   }
                   name='Total Revenue'
-                  value='$1,000'
+                  value='&#x20A6; 1,000'
                 />
               </Skeleton>
 

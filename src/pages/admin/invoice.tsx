@@ -1,28 +1,8 @@
 import {
     Box,
-    Button,
-    Image,
     Icon,
-    Input,
-    Select,
     SimpleGrid,
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,
-    Table,
-    Flex,
-    Tbody,
     Text,
-    FormControl,
-    FormLabel,
-    useDisclosure,
-    Th,
-    Thead,
-    Tr,
     useColorModeValue,
 
 } from '@chakra-ui/react'
@@ -36,13 +16,8 @@ import IconBox from 'components/icons/IconBox'
 
 import {
     MdAddTask,
-    MdAttachMoney,
-    MdBarChart,
-    MdFileCopy,
-    MdFireTruck,
     MdSupervisedUserCircle
 } from 'react-icons/md'
-import { FcCancel } from 'react-icons/fc'
 import { TbFileInvoice } from 'react-icons/tb'
 
 export default function Invoice() {
@@ -112,10 +87,10 @@ export default function Invoice() {
                                 />
                             }
                             name='Invoiced'
-                            value='275K'
+                            value={'\u20A6275K'}
                         />
 
-                        <MiniStatistics growth='+23%' name='Sales' value='$574.34' />
+                        <MiniStatistics growth='+23%' name='Sales' value={'\u20A657,450.50'} />
 
                     </SimpleGrid>
 

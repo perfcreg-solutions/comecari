@@ -1,62 +1,26 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import {
     Box,
     Flex,
-    Spacer,
     FormLabel,
     FormControl,
     Input,
     Button,
-    Icon,
-    Select,
     SimpleGrid,
     useColorModeValue,
-    Skeleton,
-    Alert,
-    AlertIcon,
-    AlertTitle,
-    AlertDescription,
     Text,
     useToast,
 } from '@chakra-ui/react'
 // Assets
 // Custom components
-import MiniStatistics from 'components/card/MiniStatistics'
-import IconBox from 'components/icons/IconBox'
-import { FcCancel } from 'react-icons/fc'
-import {
-    MdAddTask,
-    MdBarChart,
-    MdFileCopy,
-    MdFireTruck
-} from 'react-icons/md'
-import { LiaTimesSolid } from 'react-icons/lia'
-import ShipmentOverviewComplexTable from 'views/admin/default/components/ShipmentOverviewComplexTable'
-import ShipmentHistoryComplexTable from 'views/admin/default/components/ShipmentHistoryComplexTable'
-import WeeklyRevenue from 'views/admin/default/components/WeeklyRevenue'
-import {
-    ShipmentOverviewDataComplex,
-    ShipmentHistoryDataComplex,
-    TableData,
-    shipmentData
-} from 'views/admin/default/variables/columnsData'
-import tableShipmentData from 'views/admin/default/variables/tableShipmentData.json'
 import UserLayout from 'layouts/user'
 import Card from 'components/card/Card';
-import { Image } from 'components/image/Image'
-import Usa from 'img/dashboards/usa.png'
-import { ProtectedRoute } from 'services'
 
 import ShipmentCard from 'components/card/ShipmentCard'
 
 import Truck from 'img/trucks/van01.png'
 import Truck2 from 'img/trucks/van02.png'
-import Truck3 from 'img/trucks/van03.png'
-import Truck4 from 'img/trucks/van04.png'
-import Truck5 from 'img/trucks/van05.png'
-import Truck6 from 'img/trucks/van06.png'
 
-import HistoryItem from 'views/admin/marketplace/components/HistoryItem'
 import ShipmentHistory from 'views/admin/marketplace/components/ShipmentHistory'
 // import ShipmentHistory
 
